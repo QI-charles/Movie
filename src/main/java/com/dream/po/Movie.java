@@ -19,6 +19,12 @@ public class Movie {
 
     private String picture;
 
+    private Double averating;
+
+    private Integer numrating;
+
+    private String description;
+
     public Integer getMovieid() {
         return movieid;
     }
@@ -82,4 +88,30 @@ public class Movie {
     public void setPicture(String picture) {
         this.picture = picture == null ? null : picture.trim();
     }
+
+
+    public void setAverating(double Averating) {
+        this.averating = Averating;
+    }
+
+    public Double getAverating() {
+        return averating;
+    }
+
+    public void setNumrating(Integer Numrating) {
+        this.numrating = Numrating;
+    }
+
+    public Integer getNumrating() {
+        return numrating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+
 }

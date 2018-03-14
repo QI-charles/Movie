@@ -32,7 +32,7 @@
 
 <!-- 导航栏-->
 <nav class="navbar navbar-default" role="navigation" style="background-color: #303f53;margin-bottom: 0%">
-    <a class="navbar-brand" href="#" style="color: white">电影推荐网站</a>
+    <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
     <div class="col-xs-4">
     <input id="inp-query" class="form-control" style="margin-bottom: 8px;margin-top: 8px;border-radius: 5px;border-color: #303f53" name="search_text"  maxlength="60" placeholder="搜索电影" value="">
     </div>
@@ -69,20 +69,15 @@
 
                                 <div class="tags">
                                     <div id="tags-list" class="tag-list">
-
+                                        <label  class="activate" style="font-size: 13pt" value="0">全部
+                                            <input type="radio" name="tag" value="0">
+                                        </label>
                                         <!-- 从数据库到seesion读入，默认第一个选中activate-->
 
                                         <c:forEach var="item"   items="${sessionScope.category}" varStatus="i">
-                                            <c:if test="${i.count==1}">
-                                                <label  class="activate" style="font-size: 13pt" value="${i.count}">${item.category}
-                                                    <input type="radio" name="tag" value="${i.count}">
-                                                </label>
-                                            </c:if>
-                                            <c:if test="${i.count!=1}">
                                                 <label  style="font-size: 13pt" value="${i.count}">${item.category}
                                                     <input type="radio" name="tag" value="${i.count}">
                                                 </label>
-                                            </c:if>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -97,30 +92,38 @@
                                         label.attr("class","activate");
                                         //清空电影数据
                                         $("#list").children().remove();
-                                        //请求数据对应的电影类型
-                                        $.post("/typesortmovie",{type:$(this).attr("value"),sort:$("input[name='sort']:checked").val()}, function (data) {
-                                            if (data.status == 200)
-                                            {
-                                                if(data.data.length!=0) {
-                                                    //返回movielist,用sc模板append
-                                                    $.each(data.data, function (i, item) {
-                                                        var headHtml = $("#subject-tmpl").html();
-                                                        headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
-                                                        headHtml = headHtml.replace(/{id}/g, item.movieid);
-                                                        headHtml = headHtml.replace(/{rate}/g, "4.0");
-                                                        headHtml = headHtml.replace(/{cover_x}/g, "1500");
-                                                        headHtml = headHtml.replace(/{cover_y}/g, "2200");
-                                                        headHtml = headHtml.replace(/{title}/g, item.moviename);
-                                                        $("#list").append(headHtml);
-                                                    })
+                                        //如果type为0请求全部刷新页面
+                                            //请求数据对应的电影类型
+                                            $.post("/typesortmovie", {
+                                                molimit:$("#list").children("a").length,
+                                                type: $(this).attr("value"),
+                                                sort: $("input[name='sort']:checked").val()
+                                            }, function (data) {
+                                                if (data.status == 200) {
+                                                    if (data.data.length != 0) {
+                                                        //返回movielist,用sc模板append
+                                                        $.each(data.data, function (i, item) {
+                                                            var headHtml = $("#subject-tmpl").html();
+                                                            if (item.picture == "http://image.tmdb.org/t/p/w185"||item.picture==null)
+                                                                headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
+                                                            else
+                                                                headHtml = headHtml.replace(/{cover}/g, item.picture);
+                                                            headHtml = headHtml.replace(/{id}/g, item.movieid);
+                                                            headHtml = headHtml.replace(/{rate}/g, changeTwoDecimal_f(item.averating));
+                                                            headHtml = headHtml.replace(/{cover_x}/g, "1500");
+                                                            headHtml = headHtml.replace(/{cover_y}/g, "2200");
+                                                            headHtml = headHtml.replace(/{title}/g, item.moviename);
+                                                            $("#list").append(headHtml);
+                                                        })
+                                                    }
+                                                    else {
+                                                        alert("没有该类型影片数据")
+                                                    }
                                                 }
-                                                else
-                                                {alert("没有该类型影片数据")}
-                                            }
-                                            else {
-                                                alert("请求电影信息错误");
-                                            }
-                                        })
+                                                else {
+                                                    alert("请求电影信息错误");
+                                                }
+                                            })
                                     })
                                 </script>
 
@@ -129,35 +132,49 @@
                                 <div class="tool" style="">
                                     <div class="sort">
                                         <label>
-                                            <input  type="radio" name="sort" value="hot" checked="checked"> 按热度排序
+                                            <input  type="radio" name="sort" value="numrating" checked="checked"> 按热度排序
                                         </label>
                                         <label>
-                                            <input type="radio" name="sort" value="time"> 按时间排序
+                                            <input type="radio" name="sort" value="showyear"> 按时间排序
                                         </label>
                                         <label>
-                                            <input type="radio" name="sort" value="rank"> 按评价排序
+                                            <input type="radio" name="sort" value="averating"> 按评价排序
                                         </label>
                                     </div>
 
-                                    <!-- 电影时序等选择radio事件（未完成）-->
-
+                                    <!-- 电影时序等选择radio事件-->
                                     <script>
                                         $("input[name='sort']").click(function () {
-                                             alert($(this).attr("value"));
-                                             alert($("input[name='tag']:checked ").val())
                                             $("#list").children().remove()
-                                            var headHtml = $("#subject-tmpl").html();
-                                            headHtml = headHtml.replace(/{url}/g,"https://movie.douban.com/subject/26882533/?tag=热门");
-                                            headHtml = headHtml.replace(/{tag}/g,"热门");
-                                            headHtml = headHtml.replace(/{cover}/g,"https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
-                                            headHtml = headHtml.replace(/{id}/g,"1");
-                                            headHtml = headHtml.replace(/{rate}/g,"4.0");
-                                            headHtml = headHtml.replace(/{cover}/g,"https://movie.douban.com/subject/26882533/?tag=热门");
-                                            headHtml = headHtml.replace(/{cover_x}/g,"1500");
-                                            headHtml = headHtml.replace(/{cover_y}/g,"2200");
-                                            headHtml = headHtml.replace(/{title}/g,"测试");
-                                            $("#list").append(headHtml);
-                                        })
+                                                //请求数据对应的电影类型
+                                                $.post("/typesortmovie", {
+                                                    molimit:$("#list").children("a").length,
+                                                    sort: $(this).attr("value"),
+                                                    type: $("label[class='activate']").attr("value")
+                                                }, function (data) {
+                                                    if (data.status == 200) {
+                                                        if (data.data.length != 0) {
+                                                            //返回movielist,用sc模板append
+                                                            $.each(data.data, function (i, item) {
+                                                                var headHtml = $("#subject-tmpl").html();
+                                                                if (item.picture == "http://image.tmdb.org/t/p/w185"||item.picture==null)
+                                                                    headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
+                                                                else
+                                                                    headHtml = headHtml.replace(/{cover}/g, item.picture);
+                                                                headHtml = headHtml.replace(/{id}/g, item.movieid);
+                                                                headHtml = headHtml.replace(/{rate}/g,changeTwoDecimal_f(item.averating));
+                                                                headHtml = headHtml.replace(/{cover_x}/g, "1500");
+                                                                headHtml = headHtml.replace(/{cover_y}/g, "2200");
+                                                                headHtml = headHtml.replace(/{title}/g, item.moviename);
+                                                                $("#list").append(headHtml);
+                                                            })
+                                                        }
+                                                        else {
+                                                            alert("排序失败");
+                                                        }
+                                                    }
+                                                })
+                                            })
                                     </script>
                                 </div>
                             </form>
@@ -180,15 +197,15 @@
                                     }
                                     })'>
                                         <div class="cover-wp">
-                                            <c:if test="${item.picture==null}">
-                                              <img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg" alt="${item.moviename}" data-x="1500" data-y="2200"/>
+                                            <c:if test="${item.picture=='http://image.tmdb.org/t/p/w185'}">
+                                              <img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg" alt="${item.moviename}" data-x="1500" data-y="2200" style="width: 100%"/>
                                             </c:if>
-                                            <c:if test="${item.picture!=null}">
-                                                <img src="https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg" alt="${item.moviename}" data-x="1500" data-y="2200"/>
+                                            <c:if test="${item.picture!='http://image.tmdb.org/t/p/w185'}">
+                                                <img src="${item.picture}" alt="${item.moviename}" data-x="1500" data-y="2200" style="width: 100%"/>
                                             </c:if>
                                         </div>
                                         <p>${item.moviename}
-                                            <strong>4.7</strong>
+                                            <strong>${item.averating}</strong>
                                         </p>
                                     </a>
                                 </c:forEach>
@@ -240,18 +257,18 @@
 
 <script>
     $(document).on("click",'#loadmore',function() {
-        $.post("/loadingmore",{molimit:$("#list").children("a").length,type:$("label[class='activate']").attr("value")}, function (data) {
+        $.post("/loadingmore",{molimit:$("#list").children("a").length,type:$("label[class='activate']").attr("value"),sort: $("input[name='sort']:checked").val()}, function (data) {
             if (data.status == 200) {
                 if(data.data.length!=0) {
                 $.each(data.data, function (i, item) {
 
                         var headHtml = $("#subject-tmpl").html();
-                        if (item.picture == null)
+                        if (item.picture == "http://image.tmdb.org/t/p/w185"||item.picture==null)
                             headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
                         else
-                            headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
+                            headHtml = headHtml.replace(/{cover}/g,item.picture);
                         headHtml = headHtml.replace(/{id}/g, item.movieid);
-                        headHtml = headHtml.replace(/{rate}/g, "4.0");
+                        headHtml = headHtml.replace(/{rate}/g,changeTwoDecimal_f(item.averating));
                         headHtml = headHtml.replace(/{cover_x}/g, "1500");
                         headHtml = headHtml.replace(/{cover_y}/g, "2200");
                         headHtml = headHtml.replace(/{title}/g, item.moviename);
@@ -281,13 +298,38 @@
             }
         })'>
 
-            <div class="cover-wp"  >
-                <img src={cover} alt={title} data-x={cover_x} data-y={cover_y}/>
+            <div class="cover-wp">
+                <img src="{cover}" alt={title} data-x={cover_x} data-y={cover_y} style="width:100%"/>
             </div>
             <p>{title}
                <strong>{rate}</strong>
             </p>
         </a>
     </script>
+
+<!-- 强制保留一位小数点-->
+<script>
+function changeTwoDecimal_f(x)
+{
+　　var f_x = parseFloat(x);
+　　if (isNaN(f_x))
+　　{
+　　　　return 0;
+　　}
+　　var f_x = Math.round(x*100)/100;
+　　var s_x = f_x.toString();
+　　var pos_decimal = s_x.indexOf('.');
+　　if (pos_decimal < 0)
+　　{
+　　　　pos_decimal = s_x.length;
+　　s_x += '.';
+　　}
+　　while (s_x.length <= pos_decimal + 1)
+　　{
+　　　　s_x += '0';
+　　}
+　　return s_x;
+}
+</script>
 </body>
 </html>

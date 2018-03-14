@@ -644,6 +644,196 @@ public class MovieExample {
             addCriterion("picture not between", value1, value2, "picture");
             return (Criteria) this;
         }
+
+        public Criteria andAveratingIsNull() {
+            addCriterion("averating is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingIsNotNull() {
+            addCriterion("averating is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingEqualTo(Double value) {
+            addCriterion("averating =", value, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingNotEqualTo(Double  value) {
+            addCriterion("averating <>", value, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingGreaterThan(Double  value) {
+            addCriterion("averating >", value, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingGreaterThanOrEqualTo(Double  value) {
+            addCriterion("averating >=", value, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingLessThan(Double  value) {
+            addCriterion("averating <", value, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingLessThanOrEqualTo(Double  value) {
+            addCriterion("averating <=", value, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingIn(List<Double > values) {
+            addCriterion("averating in", values, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingNotIn(List<Double > values) {
+            addCriterion("averating not in", values, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingBetween(Double  value1, Double  value2) {
+            addCriterion("averating between", value1, value2, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andAveratingNotBetween(Double  value1, Double  value2) {
+            addCriterion("averating not between", value1, value2, "averating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingIsNull() {
+            addCriterion("numrating is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingIsNotNull() {
+            addCriterion("numrating is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingEqualTo(Integer value) {
+            addCriterion("numrating =", value, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingNotEqualTo(Integer value) {
+            addCriterion("numrating <>", value, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingGreaterThan(Integer value) {
+            addCriterion("numrating >", value, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingGreaterThanOrEqualTo(Integer value) {
+            addCriterion("numrating >=", value, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingLessThan(Integer value) {
+            addCriterion("numrating <", value, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingLessThanOrEqualTo(Integer value) {
+            addCriterion("numrating <=", value, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingIn(List<Integer> values) {
+            addCriterion("numrating in", values, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingNotIn(List<Integer> values) {
+            addCriterion("numrating not in", values, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingBetween(Integer value1, Integer value2) {
+            addCriterion("numrating between", value1, value2, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andNumratingNotBetween(Integer value1, Integer value2) {
+            addCriterion("numrating not between", value1, value2, "numrating");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNull() {
+            addCriterion("description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("description =", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("description <>", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("description >", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("description >=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("description <", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("description <=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("description like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("description not like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("description in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("description not in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("description between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("description not between", value1, value2, "description");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

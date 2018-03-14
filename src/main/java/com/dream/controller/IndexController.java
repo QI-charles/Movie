@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.lang.String;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by ZXL on 2018/3/1.
@@ -33,9 +35,13 @@ public class IndexController {
         E3Result e3ResultAllCategory = categoryService.GetAllCategory();
         List<Category> list1 = (List<Category>)e3ResultAllCategory.getData();
         //获取所有电影数据(缺少筛选，默认一次加载20个)
-        E3Result e3ResultAllMoive = movieService.GetAllMoive() ;
+        Integer Categoryid=0;
+        Selectquery query=new Selectquery();
+        query.setCategoryid(Categoryid);
+        query.setmolimit(0);
+        query.setSort("numrating");
+        E3Result e3ResultAllMoive = movieService.SortMoiveBycategory(query);
         List<Movie> list2 = (List<Movie>)e3ResultAllMoive.getData();
-        list2 =list2.subList(0,20);
         //设置SEESION
         request.getSession().setAttribute("category",list1);
         request.getSession().setAttribute("movie",list2);
@@ -50,7 +56,10 @@ public class IndexController {
         int  movieid=Integer.parseInt(request.getParameter("id"));
         E3Result e3Result = movieService.SortMoiveByMovieid(movieid);
         Movie movie = (Movie) e3Result.getData();
-        System.out.print(movie.getMoviename());
+       /* Date date=movie.getShowyear();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String sDate=sdf.format(date);
+        movie.setShowyear(sDate);*/
         //设置session
         request.getSession().setAttribute("moviedescription",movie);
         return e3Result;
@@ -66,12 +75,13 @@ public class IndexController {
     @RequestMapping(value = "/loadingmore", method = RequestMethod.POST)
     @ResponseBody
     public E3Result showloadmore(HttpServletRequest request){
-        int categoryid= Integer.parseInt(request.getParameter("type"));
+        Integer categoryid= Integer.parseInt(request.getParameter("type"));
         int molimit=Integer.parseInt(request.getParameter("molimit"));
         System.out.print("测试"+categoryid);
         Selectquery query=new Selectquery();
         query.setCategoryid(categoryid);
         query.setmolimit(molimit);
+        query.setSort(request.getParameter("sort"));
         E3Result e3ResultAllMoive = movieService.SortMoiveBycategory(query);
         List<Movie> list = (List<Movie>)e3ResultAllMoive.getData();
         E3Result e3Result=E3Result.ok(list);
@@ -83,14 +93,28 @@ public class IndexController {
     @ResponseBody
     public E3Result showtypesortmovie(HttpServletRequest request){
         int type= Integer.parseInt(request.getParameter("type"));
+        int molimit=Integer.parseInt(request.getParameter("molimit"));
+        String sort=request.getParameter("sort");
         Selectquery query=new Selectquery();
         query.setCategoryid(type);
-        query.setmolimit(0);
-
+        query.setmolimit(molimit);
+        query.setSort(sort);
         E3Result e3ResultAllMoive = movieService.SortMoiveBycategory(query) ;
         List<Movie> list = (List<Movie>)e3ResultAllMoive.getData();
         E3Result e3Result=E3Result.ok(list);
         return e3Result;
+    }
+
+    //电影评星
+    @RequestMapping(value = "/getstar", method = RequestMethod.POST)
+    @ResponseBody
+    public String getstar(HttpServletRequest request){
+        int userid = Integer.parseInt(request.getParameter("userid"));
+        int movieid = Integer.parseInt(request.getParameter("movieid"));
+        Double star = Double.parseDouble(request.getParameter("star"));
+        System.out.print("测试"+"userid:"+userid+"movieid:"+movieid+"star"+star);
+        System.out.println("成功");
+        return "success";
     }
 }
 

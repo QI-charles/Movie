@@ -10,6 +10,9 @@
     <result column="leadactors" property="leadactors" jdbcType="VARCHAR" />
     <result column="screenwriter" property="screenwriter" jdbcType="VARCHAR" />
     <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="averating" property="averating" jdbcType="DOUBLE" />
+    <result column="numrating" property="numrating" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    movieid, moviename, showyear, nation, director, leadactors, screenwriter, picture
+    movieid, moviename, showyear, nation, director, leadactors, screenwriter, picture,averating,numrating,description
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dream.po.MovieExample" >
     select
@@ -78,7 +81,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from movie
+    from movie LIMIT 20
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -105,10 +108,10 @@
   <insert id="insert" parameterType="com.dream.po.Movie" >
     insert into movie (movieid, moviename, showyear, 
       nation, director, leadactors, 
-      screenwriter, picture)
+      screenwriter,picture,averating,numrating,description)
     values (#{movieid,jdbcType=INTEGER}, #{moviename,jdbcType=VARCHAR}, #{showyear,jdbcType=TIMESTAMP}, 
       #{nation,jdbcType=VARCHAR}, #{director,jdbcType=VARCHAR}, #{leadactors,jdbcType=VARCHAR}, 
-      #{screenwriter,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR})
+      #{screenwriter,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR},#{averating,jdbcType=DOUBLE},#{numrating,jdbcType=INTEGER},#{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dream.po.Movie" >
     insert into movie
@@ -137,6 +140,15 @@
       <if test="picture != null" >
         picture,
       </if>
+      <if test="averating != null" >
+        averating,
+      </if>
+      <if test="numrating != null" >
+        numrating,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="movieid != null" >
@@ -162,6 +174,15 @@
       </if>
       <if test="picture != null" >
         #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="averating != null" >
+        #{averating,jdbcType=DOUBLE},
+      </if>
+      <if test="numrating != null" >
+        #{numrating,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -198,6 +219,15 @@
       <if test="record.picture != null" >
         picture = #{record.picture,jdbcType=VARCHAR},
       </if>
+      <if test="record.averating != null" >
+        averating = #{record.averating,jdbcType=DOUBLE},
+      </if>
+      <if test="record.numrating != null" >
+        numrating = #{record.numrating,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +242,10 @@
       director = #{record.director,jdbcType=VARCHAR},
       leadactors = #{record.leadactors,jdbcType=VARCHAR},
       screenwriter = #{record.screenwriter,jdbcType=VARCHAR},
-      picture = #{record.picture,jdbcType=VARCHAR}
+      picture = #{record.picture,jdbcType=VARCHAR},
+      averating = #{record.averating,jdbcType=DOUBLE},
+      numrating = #{record.numrating,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +274,15 @@
       <if test="picture != null" >
         picture = #{picture,jdbcType=VARCHAR},
       </if>
+      <if test="averating != null" >
+        averating = #{averating,jdbcType=DOUBLE},
+      </if>
+      <if test="numrating != null" >
+        numrating = #{numrating,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
     </set>
     where movieid = #{movieid,jdbcType=INTEGER}
   </update>
@@ -252,15 +294,21 @@
       director = #{director,jdbcType=VARCHAR},
       leadactors = #{leadactors,jdbcType=VARCHAR},
       screenwriter = #{screenwriter,jdbcType=VARCHAR},
-      picture = #{picture,jdbcType=VARCHAR}
-    where movieid = #{movieid,jdbcType=INTEGER}
+      picture = #{picture,jdbcType=VARCHAR},
+      averating = #{averating,jdbcType=DOUBLE},
+      numrating = #{numrating,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      where movieid = #{movieid,jdbcType=INTEGER}
+
   </update>
   <select id="selectBycategory" parameterType="com.dream.po.Selectquery" resultMap="BaseResultMap">
-    <if test="category == 1">
-      select * from movie LIMIT #{molimit,jdbcType=INTEGER},20;
+    <if test="category == 0">
+      select * from movie order by ${sort} desc
+      LIMIT #{molimit,jdbcType=INTEGER},20;
     </if>
-    <if test="category != 1">
-    select * from movie m, moviecategory mc where m.movieid=mc.movieid and mc.categoryid = #{category,jdbcType=INTEGER} LIMIT #{molimit,jdbcType=INTEGER},20;
+    <if test="category != 0">
+    select * from movie m, moviecategory mc where m.movieid=mc.movieid and mc.categoryid = #{category,jdbcType=INTEGER} order by ${sort} desc
+      LIMIT #{molimit,jdbcType=INTEGER},20;
     </if>
   </select>
 
