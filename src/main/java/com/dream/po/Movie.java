@@ -111,7 +111,7 @@ public class Movie {
     }
 
     public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+        this.description = description.replace("\"","\'") == null ? null : description.replace("\"","\'").trim();
     }
 
 }

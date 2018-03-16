@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans" class="ua-mac ua-webkit">
 <head>
@@ -12,7 +13,7 @@
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <!-- 电影推荐模块CSS-->
-    <link href="https://img3.doubanio.com/f/shire/420c6a4b676c73bc6af48dfcdd18b662f5c223d7/css/douban.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/wholeframe.css" rel="stylesheet" type="text/css">
     <!-- 左右模块位置排序和推荐CSS-->
     <link href="https://img3.doubanio.com/f/movie/8864d3756094f5272d3c93e30ee2e324665855b0/css/movie/base/init.css" rel="stylesheet">
     <!-- 电影选择模块CSS（类型/排序/展示）-->
@@ -23,18 +24,76 @@
     <style type="text/css">
        a.dream:hover
        {
-            background-color: #303f53;
+            background-color: black;
         }
+       .clash-card {
+           background: white;
+           width: 400px;
+           display: inline-block;
+           margin-left: 0px;
+           margin-top: 0px ;
+           border-radius: 19px;
+           position: relative;
+           text-align: center;
+           box-shadow: -1px 15px 30px -12px black;
+           z-index: 9999;
+       }
+       .clash-card__unit-name {
+           font-size: 26px;
+           color: black;
+           font-weight: 900;
+           margin-bottom: 5px;
+       }
+       .clash-card__unit-description {
+           padding: 20px;
+           margin-bottom: 10px;
+       }
+       .clash-card__unit-stats--giant {
+           background: #428bca;
+       }
+       .clash-card__unit-stats--giant .one-third {
+           border-right: 1px solid #de7b09;
+       }
+       .clash-card__unit-stats {
+           color: white;
+           font-weight: 400;
+           border-bottom-left-radius: 14px;
+           border-bottom-right-radius: 14px;
+       }
+       .clash-card__unit-stats .one-third {
+           width: 33%;
+           float: left;
+           padding: 20px 15px;
+       }
+       .clash-card__unit-stats sup {
+           position: absolute;
+           bottom: 4px;
+           font-size: 45%;
+           margin-left: 2px;
+       }
+       .clash-card__unit-stats .stat {
+           position: relative;
+           font-size: 17px;
+           margin-bottom: 10px;
+       }
+       .clash-card__unit-stats .stat-value {
+           text-transform: uppercase;
+           font-weight: 400;
+           font-size: 17px;
+       }
+       .clash-card__unit-stats .no-border {
+           border-right: none;
+       }
     </style>
 </head>
 
 <body>
 
 <!-- 导航栏-->
-<nav class="navbar navbar-default" role="navigation" style="background-color: #303f53;margin-bottom: 0%">
+<nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
     <div class="col-xs-4">
-    <input id="inp-query" class="form-control" style="margin-bottom: 8px;margin-top: 8px;border-radius: 5px;border-color: #303f53" name="search_text"  maxlength="60" placeholder="搜索电影" value="">
+    <input id="inp-query" class="form-control" style="margin-bottom: 8px;margin-top: 8px;border-radius: 5px; name="search_text"  maxlength="60" placeholder="搜索电影" value="">
     </div>
     <!-- 判断用户是否登录-->
             <c:if test="${sessionScope.user == null}">
@@ -50,14 +109,14 @@
 <br>
 
 
-<div id="wrapper">
+<div id="wrapper" style="margin-left: 5%">
     <div id="content">
         <h1>选电影</h1>
         <div class="grid-16-8 clearfix">
 
             <!-- 左侧电影展示模块-->
 
-            <div class="article">
+            <div  class="article">
                 <div class="gaia">
                     <div class="detail-pop"></div>
                     <div class="fliter-wp">
@@ -222,35 +281,108 @@
 
             <!-- 右侧推荐模块（基本未修改/后期可修改）-->
 
-            <div class="aside">
-
-                <!-- douban ad begin -->
-                <div id="dale_movie_towhome_explore_right"></div>
-                <!-- douban ad end -->
-                <div id="doulist">
-                    <h2>电影推荐</h2>
+            <div  class="aside">
+                <h1 style="margin-top: -38px;margin-left: -20%;">电影推荐</h1>
+                <div id="doulist" style="margin-left: 20%;width: 400px">
                     <ul>
                         <li>
-                            <span>13个好评</span>
-                            <div class="title"><a target="_blank" href="https://www.douban.com/doulist/161820/" style="color: #1a1a1a">红海行动</a></div>
+                            <span>3381推荐</span>
+                            <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
                         </li>
                         <li>
-                            <span>13个好评</span>
-                            <div class="title"><a target="_blank" href="https://www.douban.com/doulist/1502467/" style="color: #1a1a1a">大话西游</a></div>
+                            <span>3381推荐</span>
+                            <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
                         </li>
                         <li>
-                            <span>13个好评</span>
-                            <div class="title"><a target="_blank" href="https://www.douban.com/doulist/166423/" style="color: #1a1a1a">旺角卡门</a></div>
+                            <span>3381推荐</span>
+                            <div class="title"><a   target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
                         </li>
-                        <li>
-                            <span>13个好评</span>
-                            <div class="title"><a target="_blank" href="https://www.douban.com/doulist/83485/" style="color: #1a1a1a">月光宝盒</a></div>
-                        </li>
+
                     </ul>
                 </div>
+                <!-- 推荐模块默认五个-->
+                <div  style="margin-left: 20%;margin-top: -7px">
+                    <div id="myCarousel" class="carousel slide"  data-ride="carousel" style=" margin-left: 0px;margin-top: 35px ;width: 400px">
+                        <!-- 轮播（Carousel）指标 -->
+                        <ol class="carousel-indicators" style="margin-bottom: -20px">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                            <li data-target="#myCarousel" data-slide-to="4"></li>
+                        </ol>
+                        <!-- 轮播（Carousel）项目 -->
+                        <div class="carousel-inner">
+                            <c:if test="${sessionScope.movie != null}">
+                                <c:forEach var="item"   items="${sessionScope.movie}" varStatus="i">
+                                    <c:if test="${i.count==1&&i.count<6}">
+                                        <div class="item active">
+                                            <img src="${item.picture}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
+                                            if (data.status == 200) {
+                                                location.href = "/MovieDescription"
+                                            } else {
+                                            }
+                                        })' style="width: 100%;height: 385px">
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${i.count!=1&&i.count<6}">
+                                        <div class="item">
+                                            <img src="${item.picture}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
+                                            if (data.status == 200) {
+                                                location.href = "/MovieDescription"
+                                            } else {
+                                            }
+                                        })' style="width: 100%;height: 385px">
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
+                           <%-- <div class="item active">
+                                <img src="http://image.tmdb.org/t/p/w185/9cJETuLMc6R0bTWRA5i7ctY9bxk.jpg" alt="First slide" style="width: 100%;height: 385px">
+                            </div>
+                            <div class="item">
+                                <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Second slide" style="width: 100%;height: 385px">
+                            </div>
+                            <div class="item">
+                                <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Third slide" style="width: 100%;height: 385px">
+                            </div>
+                            <div class="item">
+                                <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Forth slide" style="width: 100%;height: 385px">
+                            </div>
+                            <div class="item">
+                                <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Fifth slide" style="width: 100%;height: 385px">
+                            </div>--%>
+                        </div>
+
+                    </div>
+
+                    <div class="clash-card giant">
+                        <div class="clash-card__unit-name">${sessionScope.movie[0].moviename}</div>
+                                        <div class="clash-card__unit-description">${sessionScope.movie[0].description}</div>
+                                        <div class="clash-card__unit-stats clash-card__unit-stats--giant clearfix">
+                                            <div class="one-third">
+                                               <%--<div class="stat">2<sup>M</sup></div>--%>
+                                                    <div class="stat">上映日期</div>
+                                                    <div class="stat-value"><fmt:formatDate value="${sessionScope.movie[0].showyear}" pattern="yyyy-MM-dd"/></div>
+                                            </div>
+
+                                            <div class="one-third">
+                                                <div class="stat">多少人看</div>
+                                                <div class="stat-value">${sessionScope.movie[0].numrating}</div>
+                                            </div>
+
+                                            <div class="one-third no-border">
+                                                <div class="stat">电影总评</div>
+                                                <div class="stat-value">${sessionScope.movie[0].averating}</div>
+                                            </div>
+
+                                        </div>
+                    </div> <!-- end clash-card giant-->
+                </div>
             </div>
-</div>
-</div>
+
+            </div> <!-- end container -->
+    </div>
 </div>
 
 <!-- 点击加载更多事件，通过SC模板加载电影信息-->
@@ -307,7 +439,29 @@
         </a>
     </script>
 
+<!-- 推荐影片卡片模板-->
+
+<script type="text/tmpl" id="recommodmocard">
+             <div class="clash-card__unit-name">{moviename}</div>
+             <div class="clash-card__unit-description">{moviedescription}</div>
+             <div class="clash-card__unit-stats clash-card__unit-stats--giant clearfix">
+                    <div class="one-third">
+                          <div class="stat">上映日期</div>
+                          <div class="stat-value">{showyear}</div>
+                    </div>
+                    <div class="one-third">
+                          <div class="stat">多少人看</div>
+                          <div class="stat-value">{numrating}</div>
+                    </div>
+                    <div class="one-third no-border">
+                          <div class="stat">电影总评</div>
+                          <div class="stat-value">{averating}</div>
+                    </div>
+             </div>
+</script>
+
 <!-- 强制保留一位小数点-->
+
 <script>
 function changeTwoDecimal_f(x)
 {
@@ -330,6 +484,92 @@ function changeTwoDecimal_f(x)
 　　}
 　　return s_x;
 }
+</script>
+
+<!-- string cst时间转date-->
+
+<script>
+     function dateFormat(date, format) {
+        date = new Date(date);
+        var o = {
+            'M+' : date.getMonth() + 1, //month
+            'd+' : date.getDate(), //day
+    };
+    if (/(y+)/.test(format))
+        format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+
+    for (var k in o)
+        if (new RegExp('(' + k + ')').test(format))
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
+    return format;
+    }
+</script>
+
+<!-- 推荐轮播图片时影片信息改变-->
+
+<script>
+    $('#myCarousel').on('slide.bs.carousel', function (event) {
+        $("div[class='clash-card giant']").children().remove();
+        var $hoder = $('#myCarousel').find('.item'),
+            $items = $(event.relatedTarget);
+        //getIndex就是轮播到当前位置的索引
+        var getIndex= $hoder.index($items);
+        if(getIndex==0)
+        {
+            var formatDate = "${sessionScope.movie[0].showyear}";
+            var headHtml = $("#recommodmocard").html();
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[0].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[0].description}");
+            headHtml = headHtml.replace(/{showyear}/g,dateFormat(formatDate,'yyyy-MM-dd'));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[0].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[0].averating}"));
+            $("div[class='clash-card giant']").append(headHtml);
+        }
+        if(getIndex==1)
+        {
+            var formatDate = "${sessionScope.movie[1].showyear}";
+            var headHtml = $("#recommodmocard").html();
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[1].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[1].description}");
+            headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[1].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[1].averating}"));
+            $("div[class='clash-card giant']").append(headHtml);
+        }
+        if(getIndex==2)
+        {
+            var formatDate = "${sessionScope.movie[2].showyear}";
+            var headHtml = $("#recommodmocard").html();
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[2].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[2].description}");
+            headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[2].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[2].averating}"));
+            $("div[class='clash-card giant']").append(headHtml);
+        }
+        if(getIndex==3)
+        {
+            var formatDate = "${sessionScope.movie[3].showyear}";
+            var headHtml = $("#recommodmocard").html();
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[3].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[3].description}");
+            headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[3].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[3].averating}"));
+            $("div[class='clash-card giant']").append(headHtml);
+        }
+        if(getIndex==4)
+        {
+            var formatDate = "${sessionScope.movie[4].showyear}";
+            var headHtml = $("#recommodmocard").html();
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[4].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[4].description}");
+            headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[4].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[4].averating}"));
+            $("div[class='clash-card giant']").append(headHtml);
+        }
+    });
 </script>
 </body>
 </html>

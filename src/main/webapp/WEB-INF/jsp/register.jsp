@@ -109,7 +109,6 @@
             curIndex += 1;
         }
         //设置body的背景图片
-
         document.body.style.backgroundImage = "URL("+arr[curIndex]+")";  //显示对应的图片
     }
 </script>

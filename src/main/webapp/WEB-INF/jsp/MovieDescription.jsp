@@ -6,24 +6,22 @@
 <html lang="zh-cmn-Hans" class="ua-mac ua-webkit">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>
-        梦的6次方
-    </title>
+    <title>梦的6次方</title>
     <!-- JS-->
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
-    <!-- 星星评分-->
-    <link href="/assets/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
     <script src="/assets/js/star-rating.min.js" type="text/javascript"></script>
+    <!-- 星星评分CSS-->
+    <link href="/assets/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
     <!-- 整体DIV CSS-->
-    <link href="https://img3.doubanio.com/f/shire/420c6a4b676c73bc6af48dfcdd18b662f5c223d7/css/douban.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/wholeframe.css" rel="stylesheet" type="text/css">
     <!-- 鼠标悬浮在<A>时背景和导航栏同步-->
     <style type="text/css">
         a.dream:hover
         {
-            background-color: #303f53;
+            background-color: black;
         }
         #liked:focus
         {
@@ -72,12 +70,12 @@
     </script>
 </head>
 
-<body>
+<body >
 <!-- 导航栏-->
-<nav class="navbar navbar-default" role="navigation" style="background-color: #303f53;margin-bottom: 0%">
+<nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
     <div class="col-xs-4">
-        <input id="inp-query" class="form-control" style="margin-bottom: 8px;margin-top: 8px;border-radius: 5px;border-color: #303f53" name="search_text"  maxlength="60" placeholder="搜索电影" value="">
+        <input id="inp-query" class="form-control" style="margin-bottom: 8px;margin-top: 8px;border-radius: 5px;border-color: white" name="search_text"  maxlength="60" placeholder="搜索电影" value="">
     </div>
     <c:if test="${sessionScope.user == null}">
         <a  class="dream" href="javascript:window.location.href='/page/register'" id="register" style="float: right;color: white;font-size: 13pt;margin-top: 10px;margin-right: 10px"><span style="color: white" class="glyphicon glyphicon-user"></span> 注册</a>
@@ -92,131 +90,333 @@
 </nav>
 <br>
 <br>
-
-<%--<div id="wrapper">--%>
-    <%--<div id="content" >
-        <h1>${sessionScope.moviedescription.moviename}</h1>
-
-            <div >
-                <div id="mainpic" class="">
-                    <a class="nbgnbg"  title="点击看更多海报">
-                        <img src="${sessionScope.moviedescription.picture}"  title="点击看更多海报" alt="Accident Man" rel="v:image">
-                    </a>
-                </div>
-                <div >
-                    <span style="font-size: 10pt">导演: ${sessionScope.moviedescription.director}</span><br>
-                    <span style="font-size: 10pt">编剧: ${sessionScope.moviedescription.screenwriter}</span><br>
-                    <span style="font-size: 10pt">主演: ${sessionScope.moviedescription.leadactors}</span><br>
-                    <span style="font-size: 10pt">制片国家/地区: ${sessionScope.moviedescription.nation}</span><br>
-                    <span style="font-size: 10pt">故事简介: ${sessionScope.moviedescription.description}</span><br>
-                    <span style="font-size: 10pt">上映日期: ${sessionScope.moviedescription.showyear}</span><br>
-                </div>
-            <c:if test="${sessionScope.user != null}">
-                <div id="evalutiondiv">
-                    <br>
-                    <br>
-                    <input id="Evaluation" type="number" class="rating" min=0 max=5 step=0.5 data-size="sm" >
-                    <button
-                            id="submitevalutionstar" type="submit" class="btn btn-vmaig-auth" style="background-color: lightgray;color: indianred" onclick='$.post("/getstar",{userid:${sessionScope.user.userid},movieid:${sessionScope.moviedescription.movieid},star:$("#Evaluation").val()},function (data) {
-                            alert(data);$("#Evaluation").attr("disabled","disabled");$("#submitevalutionstar").attr("disabled","disabled");})'>提交评价</button>
-                </div>
-            </c:if>
-            </div>
-    </div>--%>
-        <div class="component-poster-detail">
+<!--电影信息栏 -->
+<div class="component-poster-detail">
             <div class="container">
                 <div class="row">
+                    <!--电影名称导演 -->
                     <div class="col-md-9 col-sm-8">
                         <h1>${sessionScope.moviedescription.moviename}</h1>
                         <h2>Directed by ${sessionScope.moviedescription.director}</h2>
                     </div>
                 </div> <!-- /row -->
-
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="row">
-                            <div class="col-md-7 col-sm-12">
-                                <div class="movie-poster">
-                                    <a><img src="${sessionScope.moviedescription.picture}" alt="" style="width: 100%"></a>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <div id="evalutiondiv">
-                                            <input id="Evaluation" >
+                    <!--电影海报和其他信息/喜欢播放提交按钮 -->
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-md-7 col-sm-12">
+                                    <div class="movie-poster">
+                                        <a><img src="${sessionScope.moviedescription.picture}" alt="" style="width: 100%"></a>
+                                        <c:if test="${sessionScope.user != null}">
+                                            <div id="evalutiondiv">
+                                                <input id="Evaluation" >
 
-                                        </div>
+                                            </div>
+                                        </c:if>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 col-sm-12 film-stats" style="">
+                                    <div><b style="font-size: 11pt">编剧:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.screenwriter}</span></div>
+                                    <div><b style="font-size: 11pt">制片国家/地区:</b><span style="font-size: 9pt"> ${sessionScope.moviedescription.nation}</span></div>
+                                    <div><b style="font-size: 11pt">类别:</b><span style="font-size: 9pt"> Drama</span></div>
+                                    <div><b style="font-size: 11pt">上映日期:</b><span style="font-size: 9pt">
+                                        <fmt:formatDate value="${sessionScope.moviedescription.showyear}" pattern="yyyy-MM-dd"/>
+                                    </span></div>
+                                    <div><b style="font-size: 11pt">多少人看过:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.numrating}</span></div>
+                                    <div><b style="font-size: 11pt">总评分:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.averating}分</span></div>
+                                    <div> <input id="allstar" value="${sessionScope.moviedescription.averating}" ></div>
+                                    <br>
+
+                                    <button class="btn btn-default btn-md"  id="liked" title=""><span class="glyphicon glyphicon-heart"></span><span class="fm-opt-label"> 喜欢</span></button><br><br>
+
+                                    <a  class="btn btn-default btn-md"  href="http://so.iqiyi.com/so/q_${sessionScope.moviedescription.moviename}" id="play" title=""><span class="glyphicon glyphicon-play-circle"></span><span class="fm-opt-label"> 播放</span></a><br>
+                                    <br>
+                                    <c:if test="${sessionScope.user != null}">
+                                    <button id="submitevalutionstar"  class="btn btn-default btn-md"  onclick='$.post("/getstar",{userid:${sessionScope.user.userid},movieid:${sessionScope.moviedescription.movieid},star:$("#Evaluation").val()},function (data) {
+                                            alert(data);$("#Evaluation").attr("disabled","disabled");$("#submitevalutionstar").attr("disabled","disabled");})'><span class="glyphicon glyphicon-ok-circle"></span><span class="fm-opt-label"> 提交</span></button>
+
                                     </c:if>
                                 </div>
                             </div>
-                            <div class="col-md-5 col-sm-12 film-stats" style="">
-                                <div><b style="font-size: 11pt">编剧:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.screenwriter}</span></div>
-                                <div><b style="font-size: 11pt">制片国家/地区:</b><span style="font-size: 9pt"> ${sessionScope.moviedescription.nation}</span></div>
-                                <div><b style="font-size: 11pt">类别:</b><span style="font-size: 9pt"> Drama</span></div>
-                                <div><b style="font-size: 11pt">上映日期:</b><span style="font-size: 9pt">
-                                    <fmt:formatDate value="${sessionScope.moviedescription.showyear}" pattern="yyyy-MM-dd"/>
-                                </span></div>
-                                <div><b style="font-size: 11pt">多少人看过:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.numrating}</span></div>
-                                <div><b style="font-size: 11pt">总评分:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.averating}分</span></div>
-                                <div> <input id="allstar" value="${sessionScope.moviedescription.averating}" ></div>
-                                <br>
+                        </div>
+                        <div class="col-sm-8">
+                            <!-- 分享链接栏 -->
+                            <div id="atstbx2"style="float: right;margin-top: -7%" class="at-share-tbx-element addthis-smartlayers addthis-animated at4-show">
+                                <div class="at-share-btn-elements" style="float: right;margin-top: -10%">
+                                    <a href="" class="at-icon-wrapper at-share-btn at-svc-email" style=" border-radius: 0%;">
+                                        <img style="line-height: 32px; height: 32px; width: 32px;" src="https://www.vmovier.com/Public/Home/images/baidu-weibo-v2.png?20160109"/>
+                                    </a>
+                                    <a  class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
+                                        <img style="line-height: 32px; height: 32px; width: 32px;" src="https://www.vmovier.com/Public/Home/images/baidu-wechat-v2.png?20160109"/>
+                                    </a>
+                                    <a  class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
+                                        <img style="line-height: 32px; height: 32px; width: 32px;" src="https://www.vmovier.com/Public/Home/images/baidu-qzone-v2.png?20160109"/>
+                                    </a>
+                                    <a  class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
+                                        <img style="line-height: 32px; height: 32px; width: 32px;" src="https://www.vmovier.com/Public/Home/images/baibu-tengxun-v2.png?20160109"/>
+                                    </a>
+                                    <a  class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
+                                        <img style="line-height: 32px; height: 32px; width: 32px;" src="https://www.vmovier.com/Public/Home/images/baibu-qq-v2.png?20160109"/>
+                                    </a>
+                                </div>
+                            </div>
+                                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                                <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=kinointernational"></script>
+                            <!-- Nav tabs 信息切换栏-->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active" style="text-align: center"><a href="#film-info" aria-controls="film info"  data-toggle="tab"  aria-expanded="true">简介</a></li>
+                                <li role="presentation" class="" style="text-align: center"><a href="#reviews" aria-controls="reviews"  data-toggle="tab"  aria-expanded="false">相似电影</a></li>
+                                <li role="presentation" class="" style="text-align: center"><a href="#resource" aria-controls="resource"  data-toggle="tab"  aria-expanded="false">电影资源</a></li>
+                            </ul>
+                            <!-- 设置每一个<a>宽度占总div的百分比和电影资源DIV -->
+                            <style>
+                                .component-poster-detail .nav-tabs > li {
+                                    width: 33.33% !important;
+                                }
+                                .qBox legend {
+                                    margin: 0 4px;
+                                    padding: 4px;
+                                    font-weight: bold;
+                                    white-space: nowrap;
+                                    border: none;
+                                    background: none;
+                                    border-radius: 25px;
+                                    line-height: 1;
+                                    vertical-align: text-top;
+                                    font-size: 12px;
+                                }
+                                .qBox legend .keyword {
+                                    display: inline-block;
+                                    max-width: 30em;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    vertical-align: top;
+                                }
+                                .qBox a {
+                                    color: #333;
+                                    display: block;
+                                    float: left;
+                                    min-width: 100px;
+                                    line-height: 30px;
+                                    text-align: center;
+                                    padding: 4px 8px;
+                                    margin: 4px;
+                                    font-size: 12px;
+                                    border: 1px solid;
+                                    /* background: rgba(0,0,0,0.04); */
+                                    opacity: 1;
+                                    transition-duration: 0.3s;
+                                }
+                                .qBox a:hover {
+                                    font-size: 16px;
+                                    color:  #4b8ccb;
+                                    background-color:whitesmoke;
+                                }
+                            </style>
 
-                                <button class="btn btn-default btn-md"  id="liked" title=""><span class="glyphicon glyphicon-heart"></span><span class="fm-opt-label"> 喜欢</span></button><br><br>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <!--电影信息 -->
+                                <div role="tabpanel" class="tab-pane fade active in" id="film-info">
+                                    <br>
+                                    <h2>${sessionScope.moviedescription.moviename}</h2>
+                                    Directed by  ${sessionScope.moviedescription.director}<br><br>
+                                    <div><strong>演员表</strong></div>
+                                    <strong></strong>
+                                    ${sessionScope.moviedescription.leadactors}<br>
+                                    <%--<strong></strong>
+                                    Zar Amir Ebrahimi                <br>
+                                    <strong></strong>
+                                    <a href="/browse/by-cast/id/5277" sl-processed="1">Arash Marandi</a>
+                                    <br>
+                                    <strong></strong>
+                                    Bilal Yasar                <br>
+                                    <strong></strong>
+                                    Negar Mona Alizadeh                <br>
+                                    <strong></strong>
+                                    Payam Madjilessi                <br>--%>
+                                    <br>
+                                    <div><strong>故事简介</strong></div>
+                            <p><span style="font-weight: 400;"> ${sessionScope.moviedescription.description}</span></p></div>
+                                <!--推荐电影table -->
+                                <div role="tabpanel" class="tab-pane fade" id="reviews">
+                                   <%-- <div id="myCarousel" class="carousel slide pad_010 b_k" data-ride="carousel" style="margin-left: 3%;margin-top: 3%">
+                                        <!-- 轮播（Carousel）指标 -->
+                                        <ol class="carousel-indicators" style="margin-bottom: -5%">
+                                            <li data-target="#myCarousel" data-slide-to="0" class="active" style="background-color: #00b4ef"></li>
+                                            <li data-target="#myCarousel" data-slide-to="1" ></li>
+                                            <li data-target="#myCarousel" data-slide-to="2" ></li>
+                                        </ol>
+                                        <!-- 轮播（Carousel）项目 -->
+                                        <div class="carousel-inner bor_btm">
+                                            <div class="item active" >
+                                                <div class="pic" >
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="pic">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="pic">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                    <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
+                                                </div>
+                                            </div>
 
-                                <a  class="btn btn-default btn-md"  id="play" title=""><span class="glyphicon glyphicon-play-circle"></span><span class="fm-opt-label"> 播放</span></a><br>
-                                <br>
-                                <c:if test="${sessionScope.user != null}">
-                                <button id="submitevalutionstar"  class="btn btn-default btn-md"  onclick='$.post("/getstar",{userid:${sessionScope.user.userid},movieid:${sessionScope.moviedescription.movieid},star:$("#Evaluation").val()},function (data) {
-                                        alert(data);$("#Evaluation").attr("disabled","disabled");$("#submitevalutionstar").attr("disabled","disabled");})'><span class="glyphicon glyphicon-ok-circle"></span><span class="fm-opt-label"> 提交</span></button>
+                                        </div>
+                                    </div>
+                                    <br>--%>
+                                    <br>
 
-                                </c:if>
+                                       <div >
+                                               <table  class="table table-condensed">
+                                                   <thead>
+                                                   <tr>
+                                                       <th style="font-size: 13pt">电影名</th>
+                                                       <th style="font-size: 13pt">类型</th>
+                                                       <th style="font-size: 13pt">导演</th>
+                                                       <th style="font-size: 13pt">评分</th>
+                                                   </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                   <tr >
+                                                       <td><a href="/movie/paul-blart-mall-cop/">百货战警</a></td>
+                                                       <td>2009 喜剧 / 动作 / 犯罪</td>
+                                                       <td>Steve Carr</td>
+                                                       <td>
+                                <span class="fm-rating">6.2</span>
+                                                       </td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td><a href="/movie/the-sitter/">保姆奇遇记</a></td>
+                                                       <td>2011 喜剧</td>
+                                                       <td>大卫·戈登·格林</td>
+                                                       <td>
+                                <span class="fm-rating">豆瓣 6.0</span>
+
+                                                       </td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td><a href="/movie/identity-thief/">身份窃贼</a></td>
+                                                       <td>2013 喜剧 / 犯罪</td>
+                                                       <td>赛斯·戈登</td>
+                                                       <td>
+                                <span class="fm-rating">
+
+        6.1</span>
+
+                                                       </td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td><a href="/movie/30-minutes-or-less/">惊魂半小时</a></td>
+                                                       <td>2011 喜剧 / 动作 / 犯罪</td>
+                                                       <td>鲁本·弗雷斯彻</td>
+                                                       <td>
+                                <span class="fm-rating">6.3
+
+</span>
+
+                                                       </td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td><a href="/movie/year-one/">元年</a></td>
+                                                       <td>2009 喜剧 / 冒险</td>
+                                                       <td>哈罗德·雷米斯</td>
+                                                       <td>
+                                <span class="fm-rating">6.5
+</span>
+
+                                                       </td>
+                                                   </tr>
+                                                   </tbody>
+                                               </table>
+                                       </div>
+
+                                </div>
+                                <!--电影资源-->
+                                <div role="tabpanel" class="tab-pane fade" id="resource">
+                                    <br>
+                                    <div class="全网搜索 clear none" id="qlink" style="display: block;">
+                                        <fieldset class="qBox qwatch"><legend>《<span class="keyword">${sessionScope.moviedescription.moviename}</span>》在线观看</legend>
+                                            <a href="http://so.iqiyi.com/so/q_${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">奇艺搜索</a>
+                                            <a href="http://v.sogou.com/v?query=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">搜狗影视</a>
+                                            <a href="http://www.quankan.tv/index.php?s=vod-search-wd-${sessionScope.moviedescription.moviename}.html" target="_blank" rel="nofllow">全看网</a>
+                                            <a href="http://www.soku.com/search_video/q_${sessionScope.moviedescription.moviename}?f=1&kb=020200000000000__${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">优酷</a>
+                                            <a href="http://www.acfun.cn/search/?#query=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">AcFun</a>
+                                            <a href="http://search.bilibili.com/all?keyword=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">Bilibili</a></fieldset>
+                                        <fieldset class="qBox qdown"><legend>《<span class="keyword">${sessionScope.moviedescription.moviename}</span>》资源下载&nbsp;</legend>
+                                            <a href="http://www.atugu.com/infos/${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">搜磁力</a>
+                                            <a href="http://www.btbtt.me/search-index-keyword-${sessionScope.moviedescription.moviename}.htm" target="_blank" rel="nofllow">搜种子</a>
+                                            <a href="http://www.xilinjie.com/s?t=pan&amp;q=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">搜网盘</a>
+                                            <a href="https://www.ziyuanmao.com/#/result/${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">资源猫</a>
+                                            <a href="http://www.zimuku.cn/search?q=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">字幕库</a>
+                                            <a href="http://www.zimuzu.tv/search?keyword=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">字幕组</a></fieldset>
+                                        <fieldset class="qBox qdata"><legend>《<span class="keyword">${sessionScope.moviedescription.moviename}</span>》资料介绍&nbsp;</legend>
+                                            <a href="http://baike.baidu.com/search/word?word=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">百度百科</a>
+                                            <a href="http://www.baike.com/wiki/${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">互动百科</a>
+                                            <a href="https://zh.wikipedia.org/wiki/${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">维基百科</a>
+                                            <a href="https://en.wikipedia.org/wiki/${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">Wiki</a></fieldset>
+                                        <fieldset class="qBox qreview"><legend>《<span class="keyword">${sessionScope.moviedescription.moviename}</span>》评分影评</legend>
+                                            <a href="https://m.douban.com/search/?query=${sessionScope.moviedescription.moviename}&amp;type=movie" target="_blank" rel="nofllow">豆瓣电影</a>
+                                            <a href="http://search.mtime.com/search/?q=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">时光网</a>
+                                            <a href="http://www.imdb.com/find?q=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">IMDB</a>
+                                            <a href="https://www.rottentomatoes.com/search/?search=${sessionScope.moviedescription.moviename}" target="_blank" rel="nofllow">烂番茄</a></fieldset>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-7">
-
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active" style="text-align: center"><a href="#film-info" aria-controls="film info"  data-toggle="tab"  aria-expanded="true">简介</a></li>
-                            <li role="presentation" class="" style="text-align: center"><a href="#reviews" aria-controls="reviews"  data-toggle="tab"  aria-expanded="false">相似电影</a></li>
-                        </ul>
-                        <!-- 设置每一个<a>宽度占总div的百分比 -->
-                        <style>
-                            .component-poster-detail .nav-tabs > li {
-                                width: 50.00% !important;
-                            }
-                        </style>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade active in" id="film-info">
-                                <h2>${sessionScope.moviedescription.moviename}</h2>
-                                Directed by  ${sessionScope.moviedescription.director}<br><br>
-                                <div><strong>演员表</strong></div>
-                                <strong></strong>
-                                ${sessionScope.moviedescription.leadactors}<br>
-                                <%--<strong></strong>
-                                Zar Amir Ebrahimi                <br>
-                                <strong></strong>
-                                <a href="/browse/by-cast/id/5277" sl-processed="1">Arash Marandi</a>
-                                <br>
-                                <strong></strong>
-                                Bilal Yasar                <br>
-                                <strong></strong>
-                                Negar Mona Alizadeh                <br>
-                                <strong></strong>
-                                Payam Madjilessi                <br>--%>
-                                <br>
-                                <div><strong>故事简介</strong></div>
-						<p><span style="font-weight: 400;"> ${sessionScope.moviedescription.description}</span></p></div>
-                            <div role="tabpanel" class="tab-pane fade" id="reviews">
-
-                            </div>
-                </div>
-                    </div>
-                </div>
                 <!-- /row -->
             </div> <!-- /container -->
         </div>
-<%--</div>--%>
+<br>
+<br>
+<br>
+<!--底部 -->
+<div class="footer">
+    <a href="/" target="_blank">客户端</a>
+    <a href="/" target="_blank">关于我们</a>
+    <a href="/" target="_blank">加入我们</a>
+    <div class="tip">Copyright © 2011-2018 &nbsp;&nbsp; <p>声明：本站不提供视频观看，将跳转到第三方网站进行观看</p></a>
+        &nbsp;
+    </div>
+</div>
 
+<style>
+    .footer {
+        background-color: black;
+        color: #CCC;
+        font-size: 12px;
+        text-align: center;
+        padding: 35px 0;
+        margin-top: 10%;
 
+    }
+</style>
+<br>
     </body>
 </html>
