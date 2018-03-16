@@ -11,7 +11,7 @@ public class Review {
 
     private String content;
 
-    private Integer star;
+    private Double star;
 
     private Date reviewtime;
 
@@ -47,11 +47,11 @@ public class Review {
         this.content = content == null ? null : content.trim();
     }
 
-    public Integer getStar() {
+    public Double getStar() {
         return star;
     }
 
-    public void setStar(Integer star) {
+    public void setStar(Double star) {
         this.star = star;
     }
 

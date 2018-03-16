@@ -250,7 +250,7 @@
                             <c:if test="${sessionScope.movie != null}">
                                 <c:forEach var="item"   items="${sessionScope.movie}">
                                     <a class="item"   target="_blank" name="imgitem" id="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("id")}, function (data) {
-                                    if (data.status == 200) {
+                                    if (data == "success") {
                                         location.href = "/MovieDescription"
                                     } else {
                                     }
@@ -328,7 +328,7 @@
                                     <c:if test="${i.count!=1&&i.count<6}">
                                         <div class="item">
                                             <img src="${item.picture}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
-                                            if (data.status == 200) {
+                                            if (data=="success") {
                                                 location.href = "/MovieDescription"
                                             } else {
                                             }
@@ -424,7 +424,7 @@
 <script type="text/tmpl" id="subject-tmpl">
 
         <a class="item"  name="imgitem" target="_blank" id="{id}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("id")}, function (data) {
-            if (data.status == 200) {
+            if (data=="success") {
                 location.href = "/MovieDescription"
             } else {
             }

@@ -6,7 +6,7 @@
     <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="movieid" property="movieid" jdbcType="INTEGER" />
     <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="star" property="star" jdbcType="INTEGER" />
+    <result column="star" property="star" jdbcType="DOUBLE" />
     <result column="reviewtime" property="reviewtime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -105,7 +105,7 @@
       content, star, reviewtime
       )
     values (#{reviewid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{movieid,jdbcType=INTEGER}, 
-      #{content,jdbcType=VARCHAR}, #{star,jdbcType=INTEGER}, #{reviewtime,jdbcType=TIMESTAMP}
+      #{content,jdbcType=VARCHAR}, #{star,jdbcType=DOUBLE}, #{reviewtime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dream.po.Review" >
@@ -144,7 +144,7 @@
         #{content,jdbcType=VARCHAR},
       </if>
       <if test="star != null" >
-        #{star,jdbcType=INTEGER},
+        #{star,jdbcType=DOUBLE},
       </if>
       <if test="reviewtime != null" >
         #{reviewtime,jdbcType=TIMESTAMP},
@@ -173,7 +173,7 @@
         content = #{record.content,jdbcType=VARCHAR},
       </if>
       <if test="record.star != null" >
-        star = #{record.star,jdbcType=INTEGER},
+        star = #{record.star,jdbcType=DOUBLE},
       </if>
       <if test="record.reviewtime != null" >
         reviewtime = #{record.reviewtime,jdbcType=TIMESTAMP},
@@ -189,7 +189,7 @@
       userid = #{record.userid,jdbcType=INTEGER},
       movieid = #{record.movieid,jdbcType=INTEGER},
       content = #{record.content,jdbcType=VARCHAR},
-      star = #{record.star,jdbcType=INTEGER},
+      star = #{record.star,jdbcType=DOUBLE},
       reviewtime = #{record.reviewtime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -208,7 +208,7 @@
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="star != null" >
-        star = #{star,jdbcType=INTEGER},
+        star = #{star,jdbcType=DOUBLE},
       </if>
       <if test="reviewtime != null" >
         reviewtime = #{reviewtime,jdbcType=TIMESTAMP},
@@ -221,8 +221,12 @@
     set userid = #{userid,jdbcType=INTEGER},
       movieid = #{movieid,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},
-      star = #{star,jdbcType=INTEGER},
+      star = #{star,jdbcType=DOUBLE},
       reviewtime = #{reviewtime,jdbcType=TIMESTAMP}
     where reviewid = #{reviewid,jdbcType=INTEGER}
   </update>
+  <select id="selectByUseridandMovieid" parameterType="com.dream.po.Review" resultMap="BaseResultMap">
+      select * from review where userid=#{0} and movieid=#{1}
+  </select>
+
 </mapper>

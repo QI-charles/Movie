@@ -2,9 +2,12 @@ package com.dream.controller;
 
 import com.dream.common.E3Result;
 import com.dream.po.Category;
+import com.dream.po.User;
 import com.dream.po.Selectquery;
 import com.dream.service.CategoryService;
+import com.dream.service.StarService;
 import com.dream.po.Movie;
+import com.dream.po.Review;
 import com.dream.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.List;
 import java.lang.String;
 import java.util.Date;
@@ -28,6 +32,8 @@ public class IndexController {
     private CategoryService categoryService;
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private StarService starService;
     //主页
     @RequestMapping("/")
     public String showIndex( HttpServletRequest request){
@@ -51,18 +57,26 @@ public class IndexController {
     //电影详情传值
     @RequestMapping("/Customer/Description")
     @ResponseBody
-    public E3Result GoMoiveDescription(HttpServletRequest request) {
+    public String GoMoiveDescription(HttpServletRequest request) {
         //获取用户点击的movieid
         int  movieid=Integer.parseInt(request.getParameter("id"));
-        E3Result e3Result = movieService.SortMoiveByMovieid(movieid);
-        Movie movie = (Movie) e3Result.getData();
-       /* Date date=movie.getShowyear();
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-        String sDate=sdf.format(date);
-        movie.setShowyear(sDate);*/
+        E3Result e3Result1 = movieService.SortMoiveByMovieid(movieid);
+        Movie movie = (Movie) e3Result1.getData();
+        User user=(User) request.getSession().getAttribute("user");
+        if(user!=null)
+        {
+            E3Result e3Result2 = starService.SortReviewByUseridandMovieid(user.getUserid(), movieid);
+            Review review = (Review) e3Result2.getData();
+            request.getSession().setAttribute("userstar", review);
+        }
+        else
+        {
+            Review review = null;
+            request.getSession().setAttribute("userstar", review);
+        }
         //设置session
         request.getSession().setAttribute("moviedescription",movie);
-        return e3Result;
+        return "success";
     }
 
     //电影详情
@@ -108,12 +122,24 @@ public class IndexController {
     //电影评星
     @RequestMapping(value = "/getstar", method = RequestMethod.POST)
     @ResponseBody
-    public String getstar(HttpServletRequest request){
+    public String getstar(HttpServletRequest request) throws ParseException {
         int userid = Integer.parseInt(request.getParameter("userid"));
         int movieid = Integer.parseInt(request.getParameter("movieid"));
         Double star = Double.parseDouble(request.getParameter("star"));
-        System.out.print("测试"+"userid:"+userid+"movieid:"+movieid+"star"+star);
-        System.out.println("成功");
+        String str = request.getParameter("time");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date time = format.parse(str);
+        System.out.print("测试"+"userid:"+userid+"movieid:"+movieid+"star"+star+"time:"+time);
+        Review review = new Review();
+        review.setUserid(userid);
+        review.setMovieid(movieid);
+        review.setStar(star);
+        review.setReviewtime(time);
+        starService.setStar(review);
+        review=null;
+        E3Result e3Result = starService.SortReviewByUseridandMovieid(userid, movieid);
+         review = (Review) e3Result.getData();
+        request.getSession().setAttribute("userstar", review);
         return "success";
     }
 }

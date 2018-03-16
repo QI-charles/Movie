@@ -10,7 +10,6 @@
     <!-- JS-->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
     <script src="/assets/js/star-rating.min.js" type="text/javascript"></script>
     <!-- 星星评分CSS-->
     <link href="/assets/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
@@ -58,8 +57,6 @@
                 }
             );
             $("#Evaluation").rating({
-
-                showCaption:false,
                 min:0,
                 max:5,
                 step:0.5,
@@ -71,7 +68,7 @@
 </head>
 
 <body >
-<!-- 导航栏-->
+<!-- 导航栏BT模板-->
 <nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
     <div class="col-xs-4">
@@ -90,8 +87,9 @@
 </nav>
 <br>
 <br>
-<!--电影信息栏 -->
+<!--电影信息栏 自定义-->
 <div class="component-poster-detail">
+            <!--bt-->
             <div class="container">
                 <div class="row">
                     <!--电影名称导演 -->
@@ -107,10 +105,9 @@
                                 <div class="col-md-7 col-sm-12">
                                     <div class="movie-poster">
                                         <a><img src="${sessionScope.moviedescription.picture}" alt="" style="width: 100%"></a>
-                                        <c:if test="${sessionScope.user != null}">
+                                        <c:if test="${sessionScope.user != null&&sessionScope.userstar==null}">
                                             <div id="evalutiondiv">
-                                                <input id="Evaluation" >
-
+                                                <input id="Evaluation">
                                             </div>
                                         </c:if>
                                     </div>
@@ -125,15 +122,19 @@
                                     <div><b style="font-size: 11pt">多少人看过:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.numrating}</span></div>
                                     <div><b style="font-size: 11pt">总评分:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.averating}分</span></div>
                                     <div> <input id="allstar" value="${sessionScope.moviedescription.averating}" ></div>
+                                    <c:if test="${sessionScope.user != null&&sessionScope.userstar!=null}">
+                                        <div><b style="font-size: 11pt">你的评分:</b> <span style="font-size: 9pt">${sessionScope.userstar.star}分</span></div>
+                                        <div><b style="font-size: 11pt">日期:</b><span style="font-size: 9pt">
+                                        <fmt:formatDate value="${sessionScope.userstar.reviewtime}" pattern="yyyy-MM-dd"/>
+                                    </span></div>
+                                    </c:if>
                                     <br>
-
                                     <button class="btn btn-default btn-md"  id="liked" title=""><span class="glyphicon glyphicon-heart"></span><span class="fm-opt-label"> 喜欢</span></button><br><br>
-
                                     <a  class="btn btn-default btn-md"  href="http://so.iqiyi.com/so/q_${sessionScope.moviedescription.moviename}" id="play" title=""><span class="glyphicon glyphicon-play-circle"></span><span class="fm-opt-label"> 播放</span></a><br>
                                     <br>
-                                    <c:if test="${sessionScope.user != null}">
-                                    <button id="submitevalutionstar"  class="btn btn-default btn-md"  onclick='$.post("/getstar",{userid:${sessionScope.user.userid},movieid:${sessionScope.moviedescription.movieid},star:$("#Evaluation").val()},function (data) {
-                                            alert(data);$("#Evaluation").attr("disabled","disabled");$("#submitevalutionstar").attr("disabled","disabled");})'><span class="glyphicon glyphicon-ok-circle"></span><span class="fm-opt-label"> 提交</span></button>
+                                    <c:if test="${sessionScope.user != null&&sessionScope.userstar==null}">
+                                    <button id="submitevalutionstar"  class="btn btn-default btn-md"  onclick='$.post("/getstar",{userid:${sessionScope.user.userid},movieid:${sessionScope.moviedescription.movieid},time:getNowFormatDate(),star:$("#Evaluation").val()},function (data) {
+                                            alert(data);window.location.href=window.location.href})'><span class="glyphicon glyphicon-ok-circle"></span><span class="fm-opt-label"> 提交</span></button>
 
                                     </c:if>
                                 </div>
@@ -417,6 +418,27 @@
 
     }
 </style>
+
+<script>
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+        return currentdate;
+    }
+
+</script>
 <br>
     </body>
 </html>

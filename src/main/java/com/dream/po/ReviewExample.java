@@ -365,52 +365,52 @@ public class ReviewExample {
             return (Criteria) this;
         }
 
-        public Criteria andStarEqualTo(Integer value) {
+        public Criteria andStarEqualTo(Double value) {
             addCriterion("star =", value, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarNotEqualTo(Integer value) {
+        public Criteria andStarNotEqualTo(Double value) {
             addCriterion("star <>", value, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarGreaterThan(Integer value) {
+        public Criteria andStarGreaterThan(Double value) {
             addCriterion("star >", value, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStarGreaterThanOrEqualTo(Double value) {
             addCriterion("star >=", value, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarLessThan(Integer value) {
+        public Criteria andStarLessThan(Double value) {
             addCriterion("star <", value, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarLessThanOrEqualTo(Integer value) {
+        public Criteria andStarLessThanOrEqualTo(Double value) {
             addCriterion("star <=", value, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarIn(List<Integer> values) {
+        public Criteria andStarIn(List<Double> values) {
             addCriterion("star in", values, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarNotIn(List<Integer> values) {
+        public Criteria andStarNotIn(List<Double> values) {
             addCriterion("star not in", values, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarBetween(Integer value1, Integer value2) {
+        public Criteria andStarBetween(Double value1, Double value2) {
             addCriterion("star between", value1, value2, "star");
             return (Criteria) this;
         }
 
-        public Criteria andStarNotBetween(Integer value1, Integer value2) {
+        public Criteria andStarNotBetween(Double value1, Double value2) {
             addCriterion("star not between", value1, value2, "star");
             return (Criteria) this;
         }
