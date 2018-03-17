@@ -1080,171 +1080,191 @@
       <DataType>varchar(1000)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="263" parent="233" name="PRIMARY">
+    <column id="263" parent="233" name="typelist">
+      <Position>12</Position>
+      <DataType>varchar(255)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="264" parent="233" name="backpost">
+      <Position>13</Position>
+      <DataType>varchar(15000)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="265" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>movieid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="264" parent="234" name="movcatid">
+    <column id="266" parent="234" name="movcatid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="265" parent="234" name="movieid">
+    <column id="267" parent="234" name="movieid">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="266" parent="234" name="categoryid">
+    <column id="268" parent="234" name="categoryid">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="267" parent="234" name="PRIMARY">
+    <key id="269" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>movcatid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="268" parent="235" name="movcatid">
+    <column id="270" parent="235" name="movcatid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="269" parent="235" name="movieid">
+    <column id="271" parent="235" name="movieid">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="270" parent="235" name="categoryid">
+    <column id="272" parent="235" name="categoryid">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="271" parent="235" name="PRIMARY">
+    <key id="273" parent="235" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>movcatid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="272" parent="236" name="reviewid">
+    <column id="274" parent="236" name="reviewid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="273" parent="236" name="userid">
+    <column id="275" parent="236" name="userid">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="274" parent="236" name="movieid">
+    <column id="276" parent="236" name="movieid">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="275" parent="236" name="content">
+    <column id="277" parent="236" name="content">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="276" parent="236" name="star">
+    <column id="278" parent="236" name="star">
       <Position>5</Position>
       <DataType>double(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="277" parent="236" name="reviewtime">
+    <column id="279" parent="236" name="reviewtime">
       <Position>6</Position>
       <DataType>datetime|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="278" parent="236" name="PRIMARY">
+    <key id="280" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>reviewid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="279" parent="237" name="movieid">
+    <column id="281" parent="237" name="movieid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="280" parent="237" name="moviename">
+    <column id="282" parent="237" name="moviename">
       <Position>2</Position>
       <DataType>varchar(1000)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="281" parent="237" name="director">
+    <column id="283" parent="237" name="director">
       <Position>3</Position>
       <DataType>varchar(1000)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="282" parent="237" name="leadactors">
+    <column id="284" parent="237" name="leadactors">
       <Position>4</Position>
       <DataType>varchar(1000)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="283" parent="237" name="picture">
+    <column id="285" parent="237" name="picture">
       <Position>5</Position>
       <DataType>varchar(1000)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="284" parent="237" name="plotSummary">
+    <column id="286" parent="237" name="description">
       <Position>6</Position>
       <DataType>varchar(1000)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="285" parent="237" name="averageratings">
+    <column id="287" parent="237" name="averating">
       <Position>7</Position>
       <DataType>double(5,1)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="286" parent="237" name="numRatings">
+    <column id="288" parent="237" name="numrating">
       <Position>8</Position>
       <DataType>int(11)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="287" parent="237" name="showyear">
+    <column id="289" parent="237" name="showyear">
       <Position>9</Position>
       <DataType>date|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="288" parent="237" name="PRIMARY">
+    <column id="290" parent="237" name="type">
+      <Position>10</Position>
+      <DataType>varchar(255)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="291" parent="237" name="backpost">
+      <Position>11</Position>
+      <DataType>varchar(15000)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="292" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>movieid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="289" parent="238" name="userid">
+    <column id="293" parent="238" name="userid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="290" parent="238" name="username">
+    <column id="294" parent="238" name="username">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="291" parent="238" name="password">
+    <column id="295" parent="238" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="238" name="registertime">
+    <column id="296" parent="238" name="registertime">
       <Position>4</Position>
       <DataType>datetime|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="293" parent="238" name="lastlogintime">
+    <column id="297" parent="238" name="lastlogintime">
       <Position>5</Position>
       <DataType>datetime|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="294" parent="238" name="PRIMARY">
+    <key id="298" parent="238" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userid</ColNames>
       <Primary>1</Primary>

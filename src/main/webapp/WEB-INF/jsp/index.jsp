@@ -1,7 +1,10 @@
+<%@ page import="com.dream.po.Movie" %>
+<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans" class="ua-mac ua-webkit">
 <head>
@@ -28,7 +31,7 @@
         }
        .clash-card {
            background: white;
-           width: 400px;
+           width: 500px;
            display: inline-block;
            margin-left: 0px;
            margin-top: 0px ;
@@ -283,7 +286,7 @@
 
             <div  class="aside">
                 <h1 style="margin-top: -38px;margin-left: -20%;">电影推荐</h1>
-                <div id="doulist" style="margin-left: 20%;width: 400px">
+                <div id="doulist" style="margin-left: 20%;width: 500px">
                     <ul>
                         <li>
                             <span>3381推荐</span>
@@ -302,7 +305,7 @@
                 </div>
                 <!-- 推荐模块默认五个-->
                 <div  style="margin-left: 20%;margin-top: -7px">
-                    <div id="myCarousel" class="carousel slide"  data-ride="carousel" style=" margin-left: 0px;margin-top: 35px ;width: 400px">
+                    <div id="myCarousel" class="carousel slide"  data-ride="carousel" style=" margin-left: 0px;margin-top: 35px ;width: 500px">
                         <!-- 轮播（Carousel）指标 -->
                         <ol class="carousel-indicators" style="margin-bottom: -20px">
                             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -317,22 +320,22 @@
                                 <c:forEach var="item"   items="${sessionScope.movie}" varStatus="i">
                                     <c:if test="${i.count==1&&i.count<6}">
                                         <div class="item active">
-                                            <img src="${item.picture}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
+                                            <img src="${item.backpost}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
                                             if (data.status == 200) {
                                                 location.href = "/MovieDescription"
                                             } else {
                                             }
-                                        })' style="width: 100%;height: 385px">
+                                        })' style="width:500px;height: 100%">
                                         </div>
                                     </c:if>
                                     <c:if test="${i.count!=1&&i.count<6}">
                                         <div class="item">
-                                            <img src="${item.picture}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
+                                            <img src="${item.backpost}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
                                             if (data=="success") {
                                                 location.href = "/MovieDescription"
                                             } else {
                                             }
-                                        })' style="width: 100%;height: 385px">
+                                        })' style="width: 500px;height: 100%">
                                         </div>
                                     </c:if>
                                 </c:forEach>

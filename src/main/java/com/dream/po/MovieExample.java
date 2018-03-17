@@ -834,6 +834,146 @@ public class MovieExample {
             addCriterion("description not between", value1, value2, "description");
             return (Criteria) this;
         }
+
+        public Criteria andTypelistIsNull() {
+            addCriterion("typelist is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistIsNotNull() {
+            addCriterion("typelist is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistEqualTo(String value) {
+            addCriterion("typelist =", value, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistNotEqualTo(String value) {
+            addCriterion("typelist <>", value, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistGreaterThan(String value) {
+            addCriterion("typelist >", value, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistGreaterThanOrEqualTo(String value) {
+            addCriterion("typelist >=", value, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistLessThan(String value) {
+            addCriterion("typelist <", value, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistLessThanOrEqualTo(String value) {
+            addCriterion("typelist <=", value, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistLike(String value) {
+            addCriterion("typelist like", value, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistNotLike(String value) {
+            addCriterion("typelist not like", value, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistIn(List<String> values) {
+            addCriterion("typelist in", values, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistNotIn(List<String> values) {
+            addCriterion("typelist not in", values, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistBetween(String value1, String value2) {
+            addCriterion("typelist between", value1, value2, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypelistNotBetween(String value1, String value2) {
+            addCriterion("typelist not between", value1, value2, "typelist");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostIsNull() {
+            addCriterion("backpost is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostIsNotNull() {
+            addCriterion("backpost is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostEqualTo(String value) {
+            addCriterion("backpost =", value, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostNotEqualTo(String value) {
+            addCriterion("backpost <>", value, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostGreaterThan(String value) {
+            addCriterion("backpost >", value, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostGreaterThanOrEqualTo(String value) {
+            addCriterion("backpost >=", value, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostLessThan(String value) {
+            addCriterion("backpost <", value, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostLessThanOrEqualTo(String value) {
+            addCriterion("backpost <=", value, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostLike(String value) {
+            addCriterion("backpost like", value, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostNotLike(String value) {
+            addCriterion("backpost not like", value, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostIn(List<String> values) {
+            addCriterion("backpost in", values, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostNotIn(List<String> values) {
+            addCriterion("backpost not in", values, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostBetween(String value1, String value2) {
+            addCriterion("backpost between", value1, value2, "backpost");
+            return (Criteria) this;
+        }
+
+        public Criteria andBackpostNotBetween(String value1, String value2) {
+            addCriterion("backpost not between", value1, value2, "backpost");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

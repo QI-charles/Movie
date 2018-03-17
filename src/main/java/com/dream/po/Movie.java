@@ -25,6 +25,10 @@ public class Movie {
 
     private String description;
 
+    private String typelist;
+
+    private String backpost;
+
     public Integer getMovieid() {
         return movieid;
     }
@@ -112,6 +116,22 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description.replace("\"","\'") == null ? null : description.replace("\"","\'").trim();
+    }
+
+    public String getTypelist() {
+        return typelist;
+    }
+
+    public void setTypelist(String typelist) {
+        this.typelist = typelist == null ? null : typelist.trim();
+    }
+
+    public String getBackpost() {
+        return backpost;
+    }
+
+    public void setBackpost(String backpost) {
+        this.backpost = backpost == null ? null : backpost.trim();
     }
 
 }

@@ -115,7 +115,7 @@
                                 <div class="col-md-5 col-sm-12 film-stats" style="">
                                     <div><b style="font-size: 11pt">编剧:</b> <span style="font-size: 9pt">${sessionScope.moviedescription.screenwriter}</span></div>
                                     <div><b style="font-size: 11pt">制片国家/地区:</b><span style="font-size: 9pt"> ${sessionScope.moviedescription.nation}</span></div>
-                                    <div><b style="font-size: 11pt">类别:</b><span style="font-size: 9pt"> Drama</span></div>
+                                    <div><b style="font-size: 11pt">类别:</b><span style="font-size: 9pt"> ${sessionScope.moviedescription.typelist}</span></div>
                                     <div><b style="font-size: 11pt">上映日期:</b><span style="font-size: 9pt">
                                         <fmt:formatDate value="${sessionScope.moviedescription.showyear}" pattern="yyyy-MM-dd"/>
                                     </span></div>
@@ -130,7 +130,7 @@
                                     </c:if>
                                     <br>
                                     <button class="btn btn-default btn-md"  id="liked" title=""><span class="glyphicon glyphicon-heart"></span><span class="fm-opt-label"> 喜欢</span></button><br><br>
-                                    <a  class="btn btn-default btn-md"  href="http://so.iqiyi.com/so/q_${sessionScope.moviedescription.moviename}" id="play" title=""><span class="glyphicon glyphicon-play-circle"></span><span class="fm-opt-label"> 播放</span></a><br>
+                                    <a  class="btn btn-default btn-md"  href="http://so.iqiyi.com/so/q_${sessionScope.moviedescription.moviename}" id="play" target="_Blank"><span class="glyphicon glyphicon-play-circle"></span><span class="fm-opt-label"> 播放</span></a><br>
                                     <br>
                                     <c:if test="${sessionScope.user != null&&sessionScope.userstar==null}">
                                     <button id="submitevalutionstar"  class="btn btn-default btn-md"  onclick='$.post("/getstar",{userid:${sessionScope.user.userid},movieid:${sessionScope.moviedescription.movieid},time:getNowFormatDate(),star:$("#Evaluation").val()},function (data) {

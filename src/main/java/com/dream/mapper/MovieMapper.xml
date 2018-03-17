@@ -13,6 +13,8 @@
     <result column="averating" property="averating" jdbcType="DOUBLE" />
     <result column="numrating" property="numrating" jdbcType="INTEGER" />
     <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="typelist" property="typelist" jdbcType="VARCHAR" />
+    <result column="backpost" property="backpost" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -73,7 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    movieid, moviename, showyear, nation, director, leadactors, screenwriter, picture,averating,numrating,description
+    movieid, moviename, showyear, nation, director, leadactors, screenwriter, picture,averating,numrating,description,typelist,backpost
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dream.po.MovieExample" >
     select
@@ -111,7 +113,7 @@
       screenwriter,picture,averating,numrating,description)
     values (#{movieid,jdbcType=INTEGER}, #{moviename,jdbcType=VARCHAR}, #{showyear,jdbcType=TIMESTAMP}, 
       #{nation,jdbcType=VARCHAR}, #{director,jdbcType=VARCHAR}, #{leadactors,jdbcType=VARCHAR}, 
-      #{screenwriter,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR},#{averating,jdbcType=DOUBLE},#{numrating,jdbcType=INTEGER},#{description,jdbcType=VARCHAR})
+      #{screenwriter,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR},#{averating,jdbcType=DOUBLE},#{numrating,jdbcType=INTEGER},#{description,jdbcType=VARCHAR},#{typelist,jdbcType=VARCHAR},#{backpost,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dream.po.Movie" >
     insert into movie
@@ -149,6 +151,12 @@
       <if test="description != null" >
         description,
       </if>
+      <if test="typelist != null" >
+        typelist,
+      </if>
+      <if test="backpost != null" >
+        backpost,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="movieid != null" >
@@ -183,6 +191,12 @@
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="typelist != null" >
+        #{typelist,jdbcType=VARCHAR},
+      </if>
+      <if test="backpost != null" >
+        #{backcpost,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -228,6 +242,12 @@
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
       </if>
+      <if test="record.typelist != null" >
+        typelist = #{record.typelist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backpost != null" >
+        backpost = #{record.backpost,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -245,7 +265,9 @@
       picture = #{record.picture,jdbcType=VARCHAR},
       averating = #{record.averating,jdbcType=DOUBLE},
       numrating = #{record.numrating,jdbcType=INTEGER},
-      description = #{record.description,jdbcType=VARCHAR}
+      description = #{record.description,jdbcType=VARCHAR},
+      typelist = #{record.typelist,jdbcType=VARCHAR},
+      backpost = #{record.backpost,jdbcType=VARCHAR},
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -283,6 +305,12 @@
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="typelist != null" >
+        typelist = #{typelist,jdbcType=VARCHAR},
+      </if>
+      <if test="backpost != null" >
+        backpost = #{backpost,jdbcType=VARCHAR},
+      </if>
     </set>
     where movieid = #{movieid,jdbcType=INTEGER}
   </update>
@@ -298,8 +326,9 @@
       averating = #{averating,jdbcType=DOUBLE},
       numrating = #{numrating,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
+      typelist = #{record.typelist,jdbcType=VARCHAR},
+      backpost = #{record.backpost,jdbcType=VARCHAR},
       where movieid = #{movieid,jdbcType=INTEGER}
-
   </update>
   <select id="selectBycategory" parameterType="com.dream.po.Selectquery" resultMap="BaseResultMap">
     <if test="category == 0">
