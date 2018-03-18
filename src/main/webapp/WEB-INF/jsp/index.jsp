@@ -95,9 +95,11 @@
 <!-- 导航栏-->
 <nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
+
     <div class="col-xs-4">
-    <input id="inp-query" class="form-control" style="margin-bottom: 8px;margin-top: 8px;border-radius: 5px; name="search_text"  maxlength="60" placeholder="搜索电影" value="">
+    <input id="inp-query" class="form-control" style="margin-bottom: 8px;margin-top: 8px;border-radius: 5px;" name="search_text"  maxlength="60" placeholder="搜索电影" value="">
     </div>
+    <a class="navbar-brand" href="/index" style="color: white">选电影</a>
     <!-- 判断用户是否登录-->
             <c:if test="${sessionScope.user == null}">
             <a  class="dream" href="javascript:window.location.href='/page/register'" id="register" style="float: right;color: white;font-size: 13pt;margin-top: 10px;margin-right: 10px"><span style="color: white" class="glyphicon glyphicon-user"></span> 注册</a>
@@ -321,7 +323,7 @@
                                     <c:if test="${i.count==1&&i.count<6}">
                                         <div class="item active">
                                             <img src="${item.backpost}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
-                                            if (data.status == 200) {
+                                            if (data=="success") {
                                                 location.href = "/MovieDescription"
                                             } else {
                                             }

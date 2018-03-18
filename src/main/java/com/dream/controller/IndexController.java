@@ -34,8 +34,15 @@ public class IndexController {
     private MovieService movieService;
     @Autowired
     private StarService starService;
-    //主页
     @RequestMapping("/")
+    public String showHomepage( HttpServletRequest request){
+
+        return "Home";
+    }
+
+
+    //主页
+    @RequestMapping("/index")
     public String showIndex( HttpServletRequest request){
         //获取所有分类标签
         E3Result e3ResultAllCategory = categoryService.GetAllCategory();
@@ -142,5 +149,6 @@ public class IndexController {
         request.getSession().setAttribute("userstar", review);
         return "success";
     }
+
 }
 

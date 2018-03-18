@@ -71,9 +71,11 @@
 <!-- 导航栏BT模板-->
 <nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
+
     <div class="col-xs-4">
         <input id="inp-query" class="form-control" style="margin-bottom: 8px;margin-top: 8px;border-radius: 5px;border-color: white" name="search_text"  maxlength="60" placeholder="搜索电影" value="">
     </div>
+    <a class="navbar-brand" href="/index" style="color: white">选电影</a>
     <c:if test="${sessionScope.user == null}">
         <a  class="dream" href="javascript:window.location.href='/page/register'" id="register" style="float: right;color: white;font-size: 13pt;margin-top: 10px;margin-right: 10px"><span style="color: white" class="glyphicon glyphicon-user"></span> 注册</a>
         <a  class="dream" href="javascript:window.location.href='/page/login'" style="float: right;color: white;font-size: 13pt;margin-top: 10px;margin-right: 10px"><span style="color: white" class="glyphicon glyphicon-log-in"></span> 登录</a>

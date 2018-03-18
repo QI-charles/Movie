@@ -74,7 +74,7 @@ public class CustomerController {
     @RequestMapping("/page/logout")
     public String pagelogout( HttpServletRequest request){
         request.getSession().removeAttribute("user");
-        return "index";
+        return "Home";
     }
 
 }
