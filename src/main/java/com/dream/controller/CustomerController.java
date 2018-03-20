@@ -1,8 +1,7 @@
 package com.dream.controller;
-
-import com.dream.common.E3Result;
-import com.dream.po.Category;
 import com.dream.po.User;
+import com.dream.po.Browse;
+import com.dream.common.E3Result;
 import com.dream.service.LoginService;
 import com.dream.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Created by ZXL on 2018/3/1.
@@ -51,9 +49,46 @@ public class CustomerController {
 
     @RequestMapping(value = "/customer/register", method = RequestMethod.POST)
     @ResponseBody
-    public E3Result register(User user) {
+    public E3Result register(User user,HttpServletRequest request) {
+        //修改3.18 返回用户id
+        Integer userId = 0;
         E3Result e3Result = registerService.register(user);
+        if (e3Result.getStatus() == 200) {
+            userId = (Integer) e3Result.getData();
+        }
+        request.getSession().setAttribute("userId", userId);
         return e3Result;
+    }
+
+    //新用户选择喜欢的电影
+    @RequestMapping(value = "/customer/register/movieSubmit",method = RequestMethod.POST)
+    @ResponseBody
+    public String  selectedMovie(String ids ,HttpServletRequest request){
+        System.out.print(request.getParameter("ids"));
+
+        if(ids== "" || ids==null){
+            System.out.print("为空");
+        }
+        else {
+            System.out.print(ids);
+        }
+
+        //获取的用户id
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+       /* //获取点击的时间戳
+        String str = request.getParameter("time");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date time = format.parse(str);
+*/
+
+        Browse browse = new Browse();
+        //存用户名
+        browse.setUserid(userId);
+        browse.setmovieids(ids);
+
+        registerService.selectFavorite(browse);
+
+        return "ok";
     }
 
     @RequestMapping(value = "/customer/login", method = RequestMethod.POST)

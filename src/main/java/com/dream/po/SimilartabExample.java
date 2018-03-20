@@ -1,17 +1,16 @@
 package com.dream.po;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class BrowseExample {
+public class SimilartabExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public BrowseExample() {
+    public SimilartabExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -105,243 +104,183 @@ public class BrowseExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andBrowseidIsNull() {
-            addCriterion("browseid is null");
+        public Criteria andItemid1IsNull() {
+            addCriterion("itemid1 is null");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidIsNotNull() {
-            addCriterion("browseid is not null");
+        public Criteria andItemid1IsNotNull() {
+            addCriterion("itemid1 is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidEqualTo(Integer value) {
-            addCriterion("browseid =", value, "browseid");
+        public Criteria andItemid1EqualTo(Integer value) {
+            addCriterion("itemid1 =", value, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidNotEqualTo(Integer value) {
-            addCriterion("browseid <>", value, "browseid");
+        public Criteria andItemid1NotEqualTo(Integer value) {
+            addCriterion("itemid1 <>", value, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidGreaterThan(Integer value) {
-            addCriterion("browseid >", value, "browseid");
+        public Criteria andItemid1GreaterThan(Integer value) {
+            addCriterion("itemid1 >", value, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("browseid >=", value, "browseid");
+        public Criteria andItemid1GreaterThanOrEqualTo(Integer value) {
+            addCriterion("itemid1 >=", value, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidLessThan(Integer value) {
-            addCriterion("browseid <", value, "browseid");
+        public Criteria andItemid1LessThan(Integer value) {
+            addCriterion("itemid1 <", value, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidLessThanOrEqualTo(Integer value) {
-            addCriterion("browseid <=", value, "browseid");
+        public Criteria andItemid1LessThanOrEqualTo(Integer value) {
+            addCriterion("itemid1 <=", value, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidIn(List<Integer> values) {
-            addCriterion("browseid in", values, "browseid");
+        public Criteria andItemid1In(List<Integer> values) {
+            addCriterion("itemid1 in", values, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidNotIn(List<Integer> values) {
-            addCriterion("browseid not in", values, "browseid");
+        public Criteria andItemid1NotIn(List<Integer> values) {
+            addCriterion("itemid1 not in", values, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidBetween(Integer value1, Integer value2) {
-            addCriterion("browseid between", value1, value2, "browseid");
+        public Criteria andItemid1Between(Integer value1, Integer value2) {
+            addCriterion("itemid1 between", value1, value2, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andBrowseidNotBetween(Integer value1, Integer value2) {
-            addCriterion("browseid not between", value1, value2, "browseid");
+        public Criteria andItemid1NotBetween(Integer value1, Integer value2) {
+            addCriterion("itemid1 not between", value1, value2, "itemid1");
             return (Criteria) this;
         }
 
-        public Criteria andUseridIsNull() {
-            addCriterion("userid is null");
+        public Criteria andItemid2IsNull() {
+            addCriterion("itemid2 is null");
             return (Criteria) this;
         }
 
-        public Criteria andUseridIsNotNull() {
-            addCriterion("userid is not null");
+        public Criteria andItemid2IsNotNull() {
+            addCriterion("itemid2 is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUseridEqualTo(Integer value) {
-            addCriterion("userid =", value, "userid");
+        public Criteria andItemid2EqualTo(Integer value) {
+            addCriterion("itemid2 =", value, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotEqualTo(Integer value) {
-            addCriterion("userid <>", value, "userid");
+        public Criteria andItemid2NotEqualTo(Integer value) {
+            addCriterion("itemid2 <>", value, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThan(Integer value) {
-            addCriterion("userid >", value, "userid");
+        public Criteria andItemid2GreaterThan(Integer value) {
+            addCriterion("itemid2 >", value, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridGreaterThanOrEqualTo(Integer value) {
-            addCriterion("userid >=", value, "userid");
+        public Criteria andItemid2GreaterThanOrEqualTo(Integer value) {
+            addCriterion("itemid2 >=", value, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThan(Integer value) {
-            addCriterion("userid <", value, "userid");
+        public Criteria andItemid2LessThan(Integer value) {
+            addCriterion("itemid2 <", value, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridLessThanOrEqualTo(Integer value) {
-            addCriterion("userid <=", value, "userid");
+        public Criteria andItemid2LessThanOrEqualTo(Integer value) {
+            addCriterion("itemid2 <=", value, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridIn(List<Integer> values) {
-            addCriterion("userid in", values, "userid");
+        public Criteria andItemid2In(List<Integer> values) {
+            addCriterion("itemid2 in", values, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotIn(List<Integer> values) {
-            addCriterion("userid not in", values, "userid");
+        public Criteria andItemid2NotIn(List<Integer> values) {
+            addCriterion("itemid2 not in", values, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridBetween(Integer value1, Integer value2) {
-            addCriterion("userid between", value1, value2, "userid");
+        public Criteria andItemid2Between(Integer value1, Integer value2) {
+            addCriterion("itemid2 between", value1, value2, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andUseridNotBetween(Integer value1, Integer value2) {
-            addCriterion("userid not between", value1, value2, "userid");
+        public Criteria andItemid2NotBetween(Integer value1, Integer value2) {
+            addCriterion("itemid2 not between", value1, value2, "itemid2");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsIsNull() {
-            addCriterion("movieids is null");
+        public Criteria andSimilarIsNull() {
+            addCriterion("similar is null");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsIsNotNull() {
-            addCriterion("movieids is not null");
+        public Criteria andSimilarIsNotNull() {
+            addCriterion("similar is not null");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsEqualTo(Integer value) {
-            addCriterion("movieids =", value, "movieids");
+        public Criteria andSimilarEqualTo(Double value) {
+            addCriterion("similar =", value, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsNotEqualTo(Integer value) {
-            addCriterion("movieids <>", value, "movieids");
+        public Criteria andSimilarNotEqualTo(Double value) {
+            addCriterion("similar <>", value, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsGreaterThan(Integer value) {
-            addCriterion("movieids >", value, "movieids");
+        public Criteria andSimilarGreaterThan(Double value) {
+            addCriterion("similar >", value, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsGreaterThanOrEqualTo(Integer value) {
-            addCriterion("movieids >=", value, "movieids");
+        public Criteria andSimilarGreaterThanOrEqualTo(Double value) {
+            addCriterion("similar >=", value, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsLessThan(Integer value) {
-            addCriterion("movieids <", value, "movieids");
+        public Criteria andSimilarLessThan(Double value) {
+            addCriterion("similar <", value, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsLessThanOrEqualTo(Integer value) {
-            addCriterion("movieids <=", value, "movieids");
+        public Criteria andSimilarLessThanOrEqualTo(Double value) {
+            addCriterion("similar <=", value, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsIn(List<Integer> values) {
-            addCriterion("movieids in", values, "movieids");
+        public Criteria andSimilarIn(List<Double> values) {
+            addCriterion("similar in", values, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsNotIn(List<Integer> values) {
-            addCriterion("movieids not in", values, "movieids");
+        public Criteria andSimilarNotIn(List<Double> values) {
+            addCriterion("similar not in", values, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsBetween(Integer value1, Integer value2) {
-            addCriterion("movieids between", value1, value2, "movieids");
+        public Criteria andSimilarBetween(Double value1, Double value2) {
+            addCriterion("similar between", value1, value2, "similar");
             return (Criteria) this;
         }
 
-        public Criteria andmovieidsNotBetween(Integer value1, Integer value2) {
-            addCriterion("movieids not between", value1, value2, "movieids");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeIsNull() {
-            addCriterion("browsetime is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeIsNotNull() {
-            addCriterion("browsetime is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeEqualTo(Date value) {
-            addCriterion("browsetime =", value, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeNotEqualTo(Date value) {
-            addCriterion("browsetime <>", value, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeGreaterThan(Date value) {
-            addCriterion("browsetime >", value, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("browsetime >=", value, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeLessThan(Date value) {
-            addCriterion("browsetime <", value, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeLessThanOrEqualTo(Date value) {
-            addCriterion("browsetime <=", value, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeIn(List<Date> values) {
-            addCriterion("browsetime in", values, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeNotIn(List<Date> values) {
-            addCriterion("browsetime not in", values, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeBetween(Date value1, Date value2) {
-            addCriterion("browsetime between", value1, value2, "browsetime");
-            return (Criteria) this;
-        }
-
-        public Criteria andBrowsetimeNotBetween(Date value1, Date value2) {
-            addCriterion("browsetime not between", value1, value2, "browsetime");
+        public Criteria andSimilarNotBetween(Double value1, Double value2) {
+            addCriterion("similar not between", value1, value2, "similar");
             return (Criteria) this;
         }
     }

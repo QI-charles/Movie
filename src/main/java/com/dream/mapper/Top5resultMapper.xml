@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dream.mapper.BrowseMapper" >
-  <resultMap id="BaseResultMap" type="com.dream.po.Browse" >
-    <id column="browseid" property="browseid" jdbcType="INTEGER" />
-    <result column="userid" property="userid" jdbcType="INTEGER" />
-    <result column="movieids" property="movieids" jdbcType="INTEGER" />
-    <result column="browsetime" property="browsetime" jdbcType="TIMESTAMP" />
+<mapper namespace="com.dream.mapper.Top5resultMapper" >
+  <resultMap id="BaseResultMap" type="com.dream.po.Top5result" >
+    <result column="movieId" property="movieid" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -66,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    browseid, userid, movieids, browsetime
+    movieId, title
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dream.po.BrowseExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dream.po.Top5resultExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from browse
+    from top5result
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,79 +80,49 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from browse
-    where browseid = #{browseid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from browse
-    where browseid = #{browseid,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.dream.po.BrowseExample" >
-    delete from browse
+  <delete id="deleteByExample" parameterType="com.dream.po.Top5resultExample" >
+    delete from top5result
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.dream.po.Browse" >
-    insert into browse (browseid, userid, movieids, 
-      browsetime)
-    values (#{browseid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{movieids,jdbcType=INTEGER}, 
-      #{browsetime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.dream.po.Top5result" >
+    insert into top5result (movieId, title)
+    values (#{movieid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.dream.po.Browse" >
-    insert into browse
+  <insert id="insertSelective" parameterType="com.dream.po.Top5result" >
+    insert into top5result
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="browseid != null" >
-        browseid,
+      <if test="movieid != null" >
+        movieId,
       </if>
-      <if test="userid != null" >
-        userid,
-      </if>
-      <if test="movieids != null" >
-        movieids,
-      </if>
-      <if test="browsetime != null" >
-        browsetime,
+      <if test="title != null" >
+        title,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="browseid != null" >
-        #{browseid,jdbcType=INTEGER},
+      <if test="movieid != null" >
+        #{movieid,jdbcType=INTEGER},
       </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="movieids != null" >
-        #{movieids,jdbcType=INTEGER},
-      </if>
-      <if test="browsetime != null" >
-        #{browsetime,jdbcType=TIMESTAMP},
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.dream.po.BrowseExample" resultType="java.lang.Integer" >
-    select count(*) from browse
+  <select id="countByExample" parameterType="com.dream.po.Top5resultExample" resultType="java.lang.Integer" >
+    select count(*) from top5result
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update browse
+    update top5result
     <set >
-      <if test="record.browseid != null" >
-        browseid = #{record.browseid,jdbcType=INTEGER},
+      <if test="record.movieid != null" >
+        movieId = #{record.movieid,jdbcType=INTEGER},
       </if>
-      <if test="record.userid != null" >
-        userid = #{record.userid,jdbcType=INTEGER},
-      </if>
-      <if test="record.movieids != null" >
-        movieids = #{record.movieids,jdbcType=INTEGER},
-      </if>
-      <if test="record.browsetime != null" >
-        browsetime = #{record.browsetime,jdbcType=TIMESTAMP},
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -162,35 +130,11 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update browse
-    set browseid = #{record.browseid,jdbcType=INTEGER},
-      userid = #{record.userid,jdbcType=INTEGER},
-      movieids = #{record.movieids,jdbcType=INTEGER},
-      browsetime = #{record.browsetime,jdbcType=TIMESTAMP}
+    update top5result
+    set movieId = #{record.movieid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dream.po.Browse" >
-    update browse
-    <set >
-      <if test="userid != null" >
-        userid = #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="movieids != null" >
-        movieids = #{movieids,jdbcType=INTEGER},
-      </if>
-      <if test="browsetime != null" >
-        browsetime = #{browsetime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where browseid = #{browseid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.dream.po.Browse" >
-    update browse
-    set userid = #{userid,jdbcType=INTEGER},
-      movieids = #{movieids,jdbcType=INTEGER},
-      browsetime = #{browsetime,jdbcType=TIMESTAMP}
-    where browseid = #{browseid,jdbcType=INTEGER}
   </update>
 </mapper>

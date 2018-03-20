@@ -7,7 +7,7 @@ public class Browse {
 
     private Integer userid;
 
-    private Integer movieid;
+    private String movieids;
 
     private Date browsetime;
 
@@ -27,12 +27,12 @@ public class Browse {
         this.userid = userid;
     }
 
-    public Integer getMovieid() {
-        return movieid;
+    public String getmovieids() {
+        return movieids;
     }
 
-    public void setMovieid(Integer movieid) {
-        this.movieid = movieid;
+    public void setmovieids(String movieids) {
+        this.movieids = movieids;
     }
 
     public Date getBrowsetime() {

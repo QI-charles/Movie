@@ -16,14 +16,13 @@
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="/assets/css/Homediscovery.css" rel="stylesheet">
 </head>
 <body>
 
 
 <body>
-<nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
+<nav class="navbar navbar-default" role="navigation" style="background-color: #222;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
 
     <div class="col-xs-4">
@@ -46,12 +45,12 @@
     <div class="x-kankan">
         <div id="x-kankan-detail" class="x-kankan-detail">
             <p class="x-kankan-title">
-                <a href="/movie/the-other-guys/" class="q" data-toggle="tooltip" title="" data-placement="top" data-original-title="点击查看《二流警探》的详细资料">
+                <a href="" class="q" data-toggle="tooltip" title="" data-placement="top" data-original-title="点击查看《Toy Story》的详细资料">
                     Toy Story
                 </a>
                 <span class="revision-score">
             <span class="fm-rating">
-        <a class="fm-green" target="_blank" rel="nofollow" href="http://movie.douban.com/subject/3569915/">
+        <a class="fm-green"  rel="nofollow" href="">
             评分 6.0 </a>
 </span>
             </span>
@@ -68,17 +67,17 @@
     <div class="x-usermovie-controls x-kankan-buttons">
         <div class="btn-group fm-discovery-actions">
 
-            <a href="/movie/the-other-guys/undo_tag/watched" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="watched" data-class="btn-success" data-original-title="已经评过">
+            <a href="" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="watched" data-class="btn-success" data-original-title="已经评过">
                 <span class="glyphicon glyphicon-check"></span>
             </a>
 
 
-            <a href="/movie/the-other-guys/undo_tag/liked" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="liked" data-class="btn-danger" data-original-title="喜欢">
+            <a href="" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="liked" data-class="btn-danger" data-original-title="喜欢">
                 <span class="glyphicon glyphicon-heart"></span>
             </a>
 
 
-            <a href="/movie/the-other-guys/undo_tag/disliked" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="disliked" data-class="btn-gray" data-original-title="不喜欢">
+            <a href="" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="disliked" data-class="btn-gray" data-original-title="不喜欢">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
 
@@ -106,7 +105,7 @@
 
 
 
-
+<!--页面按钮hover提示 -->
 <script>
     $(function(){
         if(!('ontouchstart' in window)) {
@@ -121,7 +120,6 @@
             $(e).attr('src', $(e).attr('data-src'));
         });
     });
-
 </script>
 
 
@@ -130,6 +128,7 @@
 <script>window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2366108406"},"bdText":"电影《二流警探》高清资源，@电影FM网","bdMini":"2","bdMiniList":false,"bdPic":"http://7xksqe.com1.z0.glb.clouddn.com/media/backdrops/aw/awMESdeGymmNYTMhWvjJE5AP61a.jpg-discovery720","bdStyle":"0","bdSize":"24"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"101"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 <script>
+    //播放按钮
     window.setTimeout(function(){
         $('.xx-play-button a').fadeIn(500, function(){
             window.setTimeout(function(){
@@ -143,19 +142,7 @@
         if(UI.getCookie('hide_qrcode') == ''){
             $('#fm_qrcode').show();
         }
-        /*
-        if(UI.getCookie('hide_lzwk') == ''){
-            $('#yl_Modal').modal('show');
-            UI.setCookie('hide_lzwk', '1', 7200);
-        }
-        */
     }, 500);
-
-    $('#fm_qrcode .btn-hide').click(function(){
-        $('#fm_qrcode').hide();
-        UI.setCookie('hide_qrcode', '1', 86400*30);
-    });
-
     $('.xx-play-button').mouseenter(function(){
         $(this).children('a').show();
         $(this).children('a').attr('data-hover', 'true');
@@ -164,20 +151,12 @@
     });
 
 
-    $(document).keyup(function(e){
-        if(e.keyCode == 39)
-            window.location.href = $('.x-next-movie').attr('href');
-    });
-
-    $('#show_full_desc').click(function(){
-        $(".x-kankan-detail").css("height","auto");
-        $('.x-kankan-desc').html( $('.x-kankan-full-desc').html() );
-    });
 
 
+<!--回退上一部电影按钮 -->
     $('a#btn_gethis').click(function(){
 
-        window.location.href = 'http://dianying.fm/movie/the-other-guys/';
+        window.location.href = '';
 
     });
 
@@ -188,7 +167,7 @@
     });
 </script>
 
-<script>
+<%--<script>
     var _hmt = _hmt || [];
     (function() {
         var hm = document.createElement("script");
@@ -196,11 +175,11 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     })();
-</script>
+</script>--%>
 
 
 
-
+<!-- 分享栏-->
 <div class="bdshare-slide-button-box bdshare-slide-style-r6" style="top: 101px; width: 0px; z-index: 99999; right: 0px;" data-bd-bind="1521336898773">
     <a href="#" onclick="return false;" class="bdshare-slide-button" style="left: -24px;"></a>
     <div class="bdshare-slide-list-box" style="width: 0px; display: none;">

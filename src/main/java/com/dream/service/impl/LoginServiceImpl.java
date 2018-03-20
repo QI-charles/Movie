@@ -1,16 +1,14 @@
 package com.dream.service.impl;
-
-import com.dream.common.E3Result;
-import com.dream.mapper.UserMapper;
 import com.dream.po.User;
 import com.dream.po.UserExample;
+import com.dream.common.E3Result;
 import com.dream.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
-
+import com.dream.mapper.UserMapper;
 import java.util.List;
-
+import com.dream.po.User;
 /**
  * Created by ZXL on 2018/3/2.
  */

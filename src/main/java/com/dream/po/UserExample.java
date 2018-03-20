@@ -120,6 +120,12 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andEmailEqualTo(String value) {
+            addCriterion("email =", value, "email");
+            return (Criteria) this;
+        }
+
+
         public Criteria andUseridNotEqualTo(Integer value) {
             addCriterion("userid <>", value, "userid");
             return (Criteria) this;

@@ -5,4 +5,5 @@ public interface MovieService {
     E3Result GetAllMoive();
     E3Result SortMoiveBycategory(Selectquery query);
     E3Result SortMoiveByMovieid(int id);
+    E3Result Select5SimilarMoviesById(int id);
 }

@@ -394,7 +394,8 @@
 
 <script>
     $(document).on("click",'#loadmore',function() {
-        $.post("/loadingmore",{molimit:$("#list").children("a").length,type:$("label[class='activate']").attr("value"),sort: $("input[name='sort']:checked").val()}, function (data) {
+        $.post("/loadingmore",{molimit:$("#list").children("a").length,type:$("label[class='activate']").attr("value"),sort: $("input[name='sort']:checked").val()},
+            function (data) {
             if (data.status == 200) {
                 if(data.data.length!=0) {
                 $.each(data.data, function (i, item) {

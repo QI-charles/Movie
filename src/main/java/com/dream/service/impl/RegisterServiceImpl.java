@@ -1,7 +1,9 @@
 package com.dream.service.impl;
 
 import com.dream.common.E3Result;
+import com.dream.mapper.BrowseMapper;
 import com.dream.mapper.UserMapper;
+import com.dream.po.Browse;
 import com.dream.po.User;
 import com.dream.po.UserExample;
 import com.dream.service.RegisterService;
@@ -22,6 +24,8 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private BrowseMapper browseMapper;
 
     @Override
     public E3Result checkData(String param, int type) {
@@ -31,7 +35,11 @@ public class RegisterServiceImpl implements RegisterService {
         // 1：用户名 2：手机号 3：邮箱
         if (type == 1) {
             criteria.andUsernameEqualTo(param);
-        } else{
+        }
+        else if (type == 3){
+            criteria.andEmailEqualTo(param);
+        }
+        else{
             return E3Result.build(400, "数据类型错误");
         }
         // 执行查询
@@ -48,7 +56,7 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public E3Result register(User user) {
         // 数据有效性校验
-        if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
+        if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())|| StringUtils.isBlank(user.getEmail())) {
             return E3Result.build(400, "用户数据不完整，注册失败");
         }
         // 补全pojo的属性
@@ -58,8 +66,16 @@ public class RegisterServiceImpl implements RegisterService {
         String md5Pass = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
         user.setPassword(md5Pass);
         // 把用户数据插入到数据库中
-        userMapper.insert(user);
+        userMapper.insert(user);//新增3.18
+        Integer userId = user.getUserid();
         // 返回添加成功
-        return E3Result.ok();
+        return E3Result.ok(userId);
     }
+
+    @Override
+    public void selectFavorite(Browse browse){
+        browseMapper.insert(browse);
+    }
+
+
 }

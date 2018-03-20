@@ -1,14 +1,13 @@
 package com.dream.controller;
-
+import com.dream.po.User;
 import com.dream.common.E3Result;
 import com.dream.po.Category;
-import com.dream.po.User;
 import com.dream.po.Selectquery;
 import com.dream.service.CategoryService;
 import com.dream.service.StarService;
+import com.dream.service.MovieService;
 import com.dream.po.Movie;
 import com.dream.po.Review;
-import com.dream.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -148,6 +147,18 @@ public class IndexController {
          review = (Review) e3Result.getData();
         request.getSession().setAttribute("userstar", review);
         return "success";
+    }
+
+    //相似电影
+    @RequestMapping(value = "/getSimiMovies", method = RequestMethod.POST)
+    @ResponseBody
+    public E3Result getSimiMovies(HttpServletRequest request) throws ParseException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println("####################" + id);
+        E3Result e3Result = movieService.Select5SimilarMoviesById(id);
+        List<Movie> simiMovies = (List<Movie>)e3Result.getData();
+        e3Result=E3Result.ok(simiMovies);
+        return e3Result;
     }
 
 }
