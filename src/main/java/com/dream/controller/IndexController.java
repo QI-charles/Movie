@@ -1,4 +1,6 @@
 package com.dream.controller;
+import com.dream.common.JsonUtils;
+import com.dream.mapper.BrowseMapper;
 import com.dream.po.User;
 import com.dream.common.E3Result;
 import com.dream.po.Category;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.lang.String;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by ZXL on 2018/3/1.
@@ -33,9 +36,26 @@ public class IndexController {
     private MovieService movieService;
     @Autowired
     private StarService starService;
+    @Autowired
+    private BrowseMapper browseMapper;
     @RequestMapping("/")
     public String showHomepage( HttpServletRequest request){
+        User user=(User) request.getSession().getAttribute("user");
+        if(user!=null)
+        {
 
+        }
+        else
+        {
+            E3Result TopDefaultMovie = movieService.SelectTopDefaultMovie();
+            List<Movie> list = (List<Movie>)TopDefaultMovie.getData();
+            request.getSession().setAttribute("TopDefaultMovie",list);
+            Map moviemap = new HashMap();
+            for(int i = 0 ; i < list.size() ; i++) {
+                moviemap.put(list.get(i).getMovieid().toString(), i);
+            }
+            request.getSession().setAttribute("TopDefaultMovieMap",JsonUtils.objectToJson(moviemap));
+        }
         return "Home";
     }
 
@@ -64,6 +84,7 @@ public class IndexController {
     @RequestMapping("/Customer/Description")
     @ResponseBody
     public String GoMoiveDescription(HttpServletRequest request) {
+        request.getSession().removeAttribute("booluserunlikedmovie");
         //获取用户点击的movieid
         int  movieid=Integer.parseInt(request.getParameter("id"));
         E3Result e3Result1 = movieService.SortMoiveByMovieid(movieid);
@@ -74,6 +95,9 @@ public class IndexController {
             E3Result e3Result2 = starService.SortReviewByUseridandMovieid(user.getUserid(), movieid);
             Review review = (Review) e3Result2.getData();
             request.getSession().setAttribute("userstar", review);
+            //判断登录用户是否喜欢该电影
+            int booluserlikedmovie=movieService.booluserunlikedmovie(user.getUserid(),request.getParameter("id"));
+            request.getSession().setAttribute("booluserunlikedmovie", booluserlikedmovie);
         }
         else
         {
@@ -82,6 +106,7 @@ public class IndexController {
         }
         //设置session
         request.getSession().setAttribute("moviedescription",movie);
+
         return "success";
     }
 
@@ -159,6 +184,22 @@ public class IndexController {
         List<Movie> simiMovies = (List<Movie>)e3Result.getData();
         e3Result=E3Result.ok(simiMovies);
         return e3Result;
+    }
+
+
+    //喜欢电影
+    @RequestMapping(value = "/likedmovie", method = RequestMethod.POST)
+    @ResponseBody
+    public String likedmovie(HttpServletRequest request) throws ParseException {
+        String movieids=","+request.getParameter("movieid")+".";
+        int userid = Integer.parseInt(request.getParameter("userid"));
+        int boollike = Integer.parseInt(request.getParameter("boollike"));
+        Selectquery query=new Selectquery();
+        query.setCategoryid(userid);
+        query.setmolimit(boollike);
+        query.setSort(movieids);
+        movieService.InsertUserFavouriteMoive(query);
+        return "success";
     }
 
 }

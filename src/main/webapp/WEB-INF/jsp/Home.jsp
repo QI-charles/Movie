@@ -15,11 +15,16 @@
     </title>
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/Homediscovery.css" rel="stylesheet">
 </head>
 <body>
+<script>
+    window.onload = function () {
+        var movieindex=0;
+    }
 
+</script>
 
 <body>
 <nav class="navbar navbar-default" role="navigation" style="background-color: #222;margin-bottom: 0%">
@@ -40,66 +45,59 @@
         <a class="dream" href="javascript:" style=" text-decoration:none;float: right;color: white;font-size: 13pt;margin-top: 12px;margin-right: 10px"><span style="color: white" class="glyphicon glyphicon-user"></span> ${sessionScope.user.username}</a>
     </c:if>
 </nav>
-
-<div class="fm-discovery" style="background-image: url(https://image.tmdb.org/t/p/w780/dji4Fm0gCDVb9DQQMRvAI8YNnTz.jpg)">
+<div class="fm-discovery" id="wholediv" style="background-image: url('${sessionScope.TopDefaultMovie[0].backpost}')">
     <div class="x-kankan">
         <div id="x-kankan-detail" class="x-kankan-detail">
             <p class="x-kankan-title">
-                <a href="" class="q" data-toggle="tooltip" title="" data-placement="top" data-original-title="点击查看《Toy Story》的详细资料">
-                    Toy Story
+                <a name="movienametag" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
+            if (data=="success") {
+                location.href = "/MovieDescription"
+            } else {
+            }
+        })' class="q" data-toggle="tooltip" value="${sessionScope.TopDefaultMovie[0].movieid}" data-placement="top" data-original-title="点击查看${sessionScope.TopDefaultMovie[0].moviename}的详细资料">
+                    ${sessionScope.TopDefaultMovie[0].moviename}
                 </a>
                 <span class="revision-score">
-            <span class="fm-rating">
-        <a class="fm-green"  rel="nofollow" href="">
-            评分 6.0 </a>
-</span>
-            </span>
-
+                <span class="fm-rating">
+        <a class="fm-green" value="${sessionScope.TopDefaultMovie[0].movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
+            if (data=="success") {
+                location.href = "/MovieDescription"
+            } else {
+            }
+        })' name="movieaverating"  rel="nofollow">Score: ${sessionScope.TopDefaultMovie[0].averating} </a></span></span>
             </p>
-            <p class="x-kankan-desc">
-                Led by Woody, Andy's toys live happily in his room until Andy's birthday brings Buzz Lightyear onto the scene. Afraid of losing his place in Andy's heart, Woody plots against Buzz. But when circumstances separate Buzz and Woody from their owner, the duo eventually learns to put aside their differences.
-
-            <p></p>
-            <p class="muted x-kankan-starring" style="margin-top:5px;">Directed by John Lasseter</p>
-            <p class="muted">Animation,Comedy,Family</p>
+            <p  name="moviedescription" class="x-kankan-desc">${sessionScope.TopDefaultMovie[0].description}
+            </p>
+            <p name="moviedirector" class="muted x-kankan-starring" style="margin-top:5px;">Directed by ${sessionScope.TopDefaultMovie[0].director}</p>
+            <p name="movietype" class="muted">Type:${sessionScope.TopDefaultMovie[0].typelist}</p>
         </div>
     </div>
     <div class="x-usermovie-controls x-kankan-buttons">
         <div class="btn-group fm-discovery-actions">
-
             <a href="" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="watched" data-class="btn-success" data-original-title="已经评过">
                 <span class="glyphicon glyphicon-check"></span>
             </a>
-
-
-            <a href="" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="liked" data-class="btn-danger" data-original-title="喜欢">
+            <a id="liked" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="liked" data-class="btn-danger" data-original-title="喜欢">
                 <span class="glyphicon glyphicon-heart"></span>
             </a>
-
-
-            <a href="" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="disliked" data-class="btn-gray" data-original-title="不喜欢">
+            <a id="unliked" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="disliked" data-class="btn-gray" data-original-title="不喜欢">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
-
         </div>
         <div class="btn-group x-kankan-navigator">
-            <a class="revision-btn-history" id="btn_gethis">
+            <a class="revision-btn-history" id="pre">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            <a href="" class="btn-default revision-btn-next">
+            <a  class="btn-default revision-btn-next" id="next">
                 <span>换一个看看&nbsp;</span><span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         </div>
     </div>
-
-
-
     <div class="xx-play-button">
         <a href="http://so.iqiyi.com/so/q_Toy%20Story" target="_blank" class="q" data-title="全网资源搜索" style="display: none;">
             <img src="/assets/img/Homeimg/kankan_play.7b61b6e9285d.png" alt="播放按钮">
         </a>
     </div>
-
 </div>
 
 
@@ -139,9 +137,6 @@
         });
         $('#fm_cache').html('<img src="http://7xksqe.com1.z0.glb.clouddn.com/media/backdrops/nC/nCK3Api5TteYOhbc7JTrbcD9OlO.jpg-discovery720" style="display:none;">');
 
-        if(UI.getCookie('hide_qrcode') == ''){
-            $('#fm_qrcode').show();
-        }
     }, 500);
     $('.xx-play-button').mouseenter(function(){
         $(this).children('a').show();
@@ -149,24 +144,190 @@
     }).mouseleave(function(){
         $(this).children('a').hide();
     });
-
-
-
-
 <!--回退上一部电影按钮 -->
-    $('a#btn_gethis').click(function(){
+    $('#pre').click(function(){
 
-        window.location.href = '';
+        var m=JSON.parse('${sessionScope.TopDefaultMovieMap}');
+        var movieid=$("a[name='movienametag']").attr("value");
+        if(m[movieid]==0)
+        {
+            var url="${sessionScope.TopDefaultMovie[4].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[4].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[4].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[4].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[4].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[4].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[4].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[4].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[4].typelist}");
+
+        }
+        if(m[movieid]==1)
+        {
+            var url="${sessionScope.TopDefaultMovie[0].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[0].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[0].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[0].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[0].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[0].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[0].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[0].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[0].typelist}");
+        }
+        if(m[movieid]==2)
+        {
+            var url="${sessionScope.TopDefaultMovie[1].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[1].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[1].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[1].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[1].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[1].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[1].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[1].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[1].typelist}");
+        }
+        if(m[movieid]==3)
+        {
+            var url="${sessionScope.TopDefaultMovie[2].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[2].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[2].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[2].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[2].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[2].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[2].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[2].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[2].typelist}");
+        }
+        if(m[movieid]==4)
+        {
+            var url="${sessionScope.TopDefaultMovie[3].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[3].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[3].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[3].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[3].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[3].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[3].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[3].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[3].typelist}");
+        }
 
     });
+    <!--下一部电影按钮 -->
+    $('#next').click(function(){
+        var m=JSON.parse('${sessionScope.TopDefaultMovieMap}');
+        var movieid=$("a[name='movienametag']").attr("value");
+        if(m[movieid]==0)
+        {
+            var url="${sessionScope.TopDefaultMovie[1].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[1].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[1].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[1].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[1].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[1].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[1].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[1].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[1].typelist}");
 
-    $('#ctrl_mark_more_options').click(function(){
-        var more_options = $('#mark_more_options');
-        $(this).hide();
-        more_options.show();
+        }
+        if(m[movieid]==1)
+        {
+            var url="${sessionScope.TopDefaultMovie[2].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[2].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[2].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[2].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[2].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[2].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[2].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[2].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[2].typelist}");
+        }
+        if(m[movieid]==2)
+        {
+            var url="${sessionScope.TopDefaultMovie[3].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[3].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[3].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[3].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[3].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[3].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[3].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[3].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[3].typelist}");
+        }
+        if(m[movieid]==3)
+        {
+            var url="${sessionScope.TopDefaultMovie[4].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[4].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[4].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[4].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[4].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[4].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[4].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[4].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[4].typelist}");
+        }
+        if(m[movieid]==4)
+        {
+            var url="${sessionScope.TopDefaultMovie[0].backpost}";
+            $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[0].movieid}");
+            $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[0].moviename}的详细资料");
+            $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[0].moviename}");
+            $("a[name='movieaverating']").attr("value","${sessionScope.TopDefaultMovie[0].movieid}");
+            $("a[name='movieaverating']").text("Score:${sessionScope.TopDefaultMovie[0].averating}");
+            $("p[name='moviedescription']").text("${sessionScope.TopDefaultMovie[0].description}");
+            $("p[name='moviedirector']").text("Directed by ${sessionScope.TopDefaultMovie[0].director}");
+            $("p[name='movietype']").text("Type:${sessionScope.TopDefaultMovie[0].typelist}");
+        }
+
     });
 </script>
+<script>
+    $("#liked").click(function () {
+        var userid="${sessionScope.user.userid}";
+        if(userid!=""){
+            $.post("/likedmovie", {"movieid": $("a[name='movienametag']").attr("value"),"boollike":1,"userid":"${sessionScope.user.userid}"},function (data) {
+                if(data=="success") {
+                        alert("收藏成功");
 
+                }
+                else
+                    alert("按钮事件失效")
+            })
+        }
+        else
+        {
+            alert("登录之后才能收藏");
+            window.location.href="/page/login";
+        }
+    })
+    $("#unliked").click(function () {
+        var userid="${sessionScope.user.userid}";
+        if(userid!=""){
+            $.post("/likedmovie", {"movieid": $("a[name='movienametag']").attr("value"),"boollike":0,"userid":"${sessionScope.user.userid}"},function (data) {
+                if(data=="success") {
+                        alert("收藏成功");
+
+                }
+                else
+                    alert("按钮事件失效")
+            })
+        }
+        else
+        {
+            alert("登录之后才能取消收藏");
+            window.location.href="/page/login";
+        }
+    })
+</script>
 <%--<script>
     var _hmt = _hmt || [];
     (function() {

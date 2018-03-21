@@ -184,29 +184,22 @@
     })
 
    function movieSubmit() {
-
-//      var imgs=$("img.imgSelected[name='movieid']");
        var imgs=$(".imgSelected");
-
        console.log(imgs);
-       var ids = [];
+       var ids = "";
        for(var i =0;i< imgs.size();i++){
-       //    alert(i);
-//           alert(imgs[i].getAttribute('movieId'));
-           ids.push($(imgs[i]).attr("movieId"));
-//           ids.append($(imgs[i]).attr("movieId"));
-//           alert($(imgs[i]).attr("movieId").toString());
-
+           var temp=","+$(imgs[i]).attr("movieId")+".";
+           ids+=temp;
        }
-
-       var id=ids.toString();
-//       alert($("#regName").val())
-
-       $.post("/customer/register/movieSubmit",{'ids':id},function (data) {
-           alert("提交成功");
-           $('#myModal').modal('hide');
-           location.href = "/page/login";
+       if(ids!="") {
+           $.post("/customer/register/movieSubmit", {'ids': ids}, function (data) {
+               alert("提交成功");
+               $('#myModal').modal('hide');
+               location.href = "/page/login";
            })
+       }
+       else
+           alert("请至少选择一部电影");
 
     }
 

@@ -29,4 +29,6 @@ public interface MovieMapper {
     int updateByPrimaryKeySelective(Movie record);
 
     int updateByPrimaryKey(Movie record);
+
+    List<Movie> SelectTopDefaultMovie();
 }

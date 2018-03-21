@@ -340,6 +340,8 @@
       LIMIT #{molimit,jdbcType=INTEGER},20;
     </if>
   </select>
-
+<select id="SelectTopDefaultMovie" resultMap="BaseResultMap">
+  SELECT  * FROM topdefaultmovies t,movie m WHERE t.movieid=m.movieid limit 5;
+</select>
 
 </mapper>

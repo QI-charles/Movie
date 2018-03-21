@@ -21,18 +21,22 @@
         a.dream:hover {
             background-color: black;
         }
-
-        #liked:focus {
-            background-color: pink;
-            color: white;
-            outline: 0 none !important;
-        }
-
         #liked:hover {
-            color: white;
+            border-color: #CCC;
+        }
+        a:hover.likedactive
+        {
             background-color: pink;
+            color: white;
             outline: 0 none !important;
         }
+        a.likedactive
+        {
+            background-color: pink;
+            color: white;
+            outline: 0 none !important;
+        }
+
 
         #play:hover {
             background-color: white;
@@ -61,12 +65,35 @@
                 step: 0.5,
                 size: 'sm',
             })
+            if("${sessionScope.booluserunlikedmovie}"==1)
+                $("#liked").toggleClass('likedactive');
         }
-
     </script>
 </head>
 
 <body>
+<script>
+    function  likedclick() {
+        var color=$("#liked").css("background-color");
+        var boollike;
+        if(color=="rgb(230, 230, 230)")
+            boollike=1;
+        else
+            boollike=0;
+        $.post("/likedmovie", {"movieid": "${sessionScope.moviedescription.movieid}","boollike":boollike,"userid":"${sessionScope.user.userid}"},function (data) {
+         if(data=="success") {
+             if (boollike == 1)
+                 alert("收藏成功");
+             else
+                 alert("取消收藏");
+         }
+         else
+             alert("按钮事件失效")
+        })
+
+        $("#liked").toggleClass('likedactive');
+    }
+</script>
 <!-- 导航栏BT模板-->
 <nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
@@ -148,8 +175,10 @@
                                     </span></div>
                         </c:if>
                         <br>
-                        <button class="btn btn-default btn-md" id="liked" title=""><span
-                                class="glyphicon glyphicon-heart"></span><span class="fm-opt-label"> 喜欢</span></button>
+                        <c:if test="${sessionScope.user != null}">
+                        <a  class="btn btn-default btn-md" id="liked" onclick="likedclick()" ><span
+                                class="glyphicon glyphicon-heart"></span><span class="fm-opt-label"> 喜欢</span></a>
+                        </c:if>
                         <br><br>
                         <a class="btn btn-default btn-md"
                            href="http://so.iqiyi.com/so/q_${sessionScope.moviedescription.moviename}" id="play"
@@ -441,7 +470,7 @@
                             $("#movietable").append(headHtml);
                         })
                     }else
-                    {alert("没有更多影片了")}
+                    {alert("没有相似影片")}
                 }
                 else {
                     alert("加载更多图片资源错误");

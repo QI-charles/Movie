@@ -952,8 +952,8 @@
       <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="240" parent="3" name="top5result">
-      <Engine>MyISAM</Engine>
+    <table id="240" parent="3" name="topdefaultmovies">
+      <Engine>InnoDB</Engine>
       <Collation>utf8_general_ci</Collation>
     </table>
     <table id="241" parent="3" name="user">
@@ -1277,51 +1277,63 @@
       <ColNames>movieid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="301" parent="240" name="movieId">
+    <column id="301" parent="240" name="id">
       <Position>1</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>int(12)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="302" parent="240" name="movieid">
+      <Position>2</Position>
+      <DataType>int(12)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="240" name="title">
-      <Position>2</Position>
+    <column id="303" parent="240" name="moviename">
+      <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="241" name="userid">
+    <key id="304" parent="240" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="305" parent="241" name="userid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="304" parent="241" name="username">
+    <column id="306" parent="241" name="username">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="305" parent="241" name="password">
+    <column id="307" parent="241" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="306" parent="241" name="registertime">
+    <column id="308" parent="241" name="registertime">
       <Position>4</Position>
       <DataType>datetime|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="307" parent="241" name="lastlogintime">
+    <column id="309" parent="241" name="lastlogintime">
       <Position>5</Position>
       <DataType>datetime|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="308" parent="241" name="email">
+    <column id="310" parent="241" name="email">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="309" parent="241" name="PRIMARY">
+    <key id="311" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userid</ColNames>
       <Primary>1</Primary>

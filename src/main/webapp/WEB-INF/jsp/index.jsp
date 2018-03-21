@@ -114,7 +114,7 @@
 <br>
 
 
-<div id="wrapper" style="margin-left: 5%">
+<div id="wrapper" class="col-md-12" style="margin-left: 5%">
     <div id="content">
         <h1>选电影</h1>
         <div class="grid-16-8 clearfix">
@@ -287,103 +287,103 @@
             <!-- 右侧推荐模块（基本未修改/后期可修改）-->
 
             <div  class="aside">
-                <h1 style="margin-top: -38px;margin-left: -20%;">电影推荐</h1>
-                <div id="doulist" style="margin-left: 20%;width: 500px">
-                    <ul>
-                        <li>
-                            <span>3381推荐</span>
-                            <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
-                        </li>
-                        <li>
-                            <span>3381推荐</span>
-                            <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
-                        </li>
-                        <li>
-                            <span>3381推荐</span>
-                            <div class="title"><a   target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
-                        </li>
+                    <h1 style="margin-top: -38px;margin-left: -20%;">电影推荐</h1>
+                    <div id="doulist" style="margin-left: 20%;width: 500px">
+                        <ul>
+                            <li>
+                                <span>3381推荐</span>
+                                <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
+                            </li>
+                            <li>
+                                <span>3381推荐</span>
+                                <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
+                            </li>
+                            <li>
+                                <span>3381推荐</span>
+                                <div class="title"><a   target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
+                            </li>
 
-                    </ul>
-                </div>
-                <!-- 推荐模块默认五个-->
-                <div  style="margin-left: 20%;margin-top: -7px">
-                    <div id="myCarousel" class="carousel slide"  data-ride="carousel" style=" margin-left: 0px;margin-top: 35px ;width: 500px">
-                        <!-- 轮播（Carousel）指标 -->
-                        <ol class="carousel-indicators" style="margin-bottom: -20px">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                            <li data-target="#myCarousel" data-slide-to="3"></li>
-                            <li data-target="#myCarousel" data-slide-to="4"></li>
-                        </ol>
-                        <!-- 轮播（Carousel）项目 -->
-                        <div class="carousel-inner">
-                            <c:if test="${sessionScope.movie != null}">
-                                <c:forEach var="item"   items="${sessionScope.movie}" varStatus="i">
-                                    <c:if test="${i.count==1&&i.count<6}">
-                                        <div class="item active">
-                                            <img src="${item.backpost}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
-                                            if (data=="success") {
-                                                location.href = "/MovieDescription"
-                                            } else {
-                                            }
-                                        })' style="width:500px;height: 100%">
-                                        </div>
-                                    </c:if>
-                                    <c:if test="${i.count!=1&&i.count<6}">
-                                        <div class="item">
-                                            <img src="${item.backpost}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
-                                            if (data=="success") {
-                                                location.href = "/MovieDescription"
-                                            } else {
-                                            }
-                                        })' style="width: 500px;height: 100%">
-                                        </div>
-                                    </c:if>
-                                </c:forEach>
-                            </c:if>
-                           <%-- <div class="item active">
-                                <img src="http://image.tmdb.org/t/p/w185/9cJETuLMc6R0bTWRA5i7ctY9bxk.jpg" alt="First slide" style="width: 100%;height: 385px">
+                        </ul>
+                    </div>
+                    <!-- 推荐模块默认五个-->
+                    <div  style="margin-left: 20%;margin-top: -7px">
+                        <div id="myCarousel" class="carousel slide"  data-ride="carousel" style=" margin-left: 0px;margin-top: 35px ;width: 500px">
+                            <!-- 轮播（Carousel）指标 -->
+                            <ol class="carousel-indicators" style="margin-bottom: -20px">
+                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#myCarousel" data-slide-to="1"></li>
+                                <li data-target="#myCarousel" data-slide-to="2"></li>
+                                <li data-target="#myCarousel" data-slide-to="3"></li>
+                                <li data-target="#myCarousel" data-slide-to="4"></li>
+                            </ol>
+                            <!-- 轮播（Carousel）项目 -->
+                            <div class="carousel-inner">
+                                <c:if test="${sessionScope.movie != null}">
+                                    <c:forEach var="item"   items="${sessionScope.movie}" varStatus="i">
+                                        <c:if test="${i.count==1&&i.count<6}">
+                                            <div class="item active">
+                                                <img src="${item.backpost}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
+                                                if (data=="success") {
+                                                    location.href = "/MovieDescription"
+                                                } else {
+                                                }
+                                            })' style="width:500px;height: 100%">
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${i.count!=1&&i.count<6}">
+                                            <div class="item">
+                                                <img src="${item.backpost}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
+                                                if (data=="success") {
+                                                    location.href = "/MovieDescription"
+                                                } else {
+                                                }
+                                            })' style="width: 500px;height: 100%">
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                </c:if>
+                               <%-- <div class="item active">
+                                    <img src="http://image.tmdb.org/t/p/w185/9cJETuLMc6R0bTWRA5i7ctY9bxk.jpg" alt="First slide" style="width: 100%;height: 385px">
+                                </div>
+                                <div class="item">
+                                    <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Second slide" style="width: 100%;height: 385px">
+                                </div>
+                                <div class="item">
+                                    <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Third slide" style="width: 100%;height: 385px">
+                                </div>
+                                <div class="item">
+                                    <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Forth slide" style="width: 100%;height: 385px">
+                                </div>
+                                <div class="item">
+                                    <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Fifth slide" style="width: 100%;height: 385px">
+                                </div>--%>
                             </div>
-                            <div class="item">
-                                <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Second slide" style="width: 100%;height: 385px">
-                            </div>
-                            <div class="item">
-                                <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Third slide" style="width: 100%;height: 385px">
-                            </div>
-                            <div class="item">
-                                <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Forth slide" style="width: 100%;height: 385px">
-                            </div>
-                            <div class="item">
-                                <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Fifth slide" style="width: 100%;height: 385px">
-                            </div>--%>
+
                         </div>
 
+                        <div class="clash-card giant">
+                            <div class="clash-card__unit-name">${sessionScope.movie[0].moviename}</div>
+                                            <div class="clash-card__unit-description">${sessionScope.movie[0].description}</div>
+                                            <div class="clash-card__unit-stats clash-card__unit-stats--giant clearfix">
+                                                <div class="one-third">
+                                                   <%--<div class="stat">2<sup>M</sup></div>--%>
+                                                        <div class="stat">上映日期</div>
+                                                        <div class="stat-value"><fmt:formatDate value="${sessionScope.movie[0].showyear}" pattern="yyyy-MM-dd"/></div>
+                                                </div>
+
+                                                <div class="one-third">
+                                                    <div class="stat">多少人看</div>
+                                                    <div class="stat-value">${sessionScope.movie[0].numrating}</div>
+                                                </div>
+
+                                                <div class="one-third no-border">
+                                                    <div class="stat">电影总评</div>
+                                                    <div class="stat-value">${sessionScope.movie[0].averating}</div>
+                                                </div>
+
+                                            </div>
+                        </div> <!-- end clash-card giant-->
                     </div>
-
-                    <div class="clash-card giant">
-                        <div class="clash-card__unit-name">${sessionScope.movie[0].moviename}</div>
-                                        <div class="clash-card__unit-description">${sessionScope.movie[0].description}</div>
-                                        <div class="clash-card__unit-stats clash-card__unit-stats--giant clearfix">
-                                            <div class="one-third">
-                                               <%--<div class="stat">2<sup>M</sup></div>--%>
-                                                    <div class="stat">上映日期</div>
-                                                    <div class="stat-value"><fmt:formatDate value="${sessionScope.movie[0].showyear}" pattern="yyyy-MM-dd"/></div>
-                                            </div>
-
-                                            <div class="one-third">
-                                                <div class="stat">多少人看</div>
-                                                <div class="stat-value">${sessionScope.movie[0].numrating}</div>
-                                            </div>
-
-                                            <div class="one-third no-border">
-                                                <div class="stat">电影总评</div>
-                                                <div class="stat-value">${sessionScope.movie[0].averating}</div>
-                                            </div>
-
-                                        </div>
-                    </div> <!-- end clash-card giant-->
-                </div>
             </div>
 
             </div> <!-- end container -->

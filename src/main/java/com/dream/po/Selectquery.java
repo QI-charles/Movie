@@ -1,9 +1,9 @@
 package com.dream.po;
 
 public class Selectquery {
-    private int category;
-    private int molimit;
-    private String sort;
+    private int category;//替换喜欢查询则为userid
+    private int molimit;//替换喜欢查询则为boollike
+    private String sort;//替换喜欢查询则为,movieid
     public Integer getCategory() {
         return category;
     }

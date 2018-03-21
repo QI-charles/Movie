@@ -1,6 +1,7 @@
 package com.dream.service.impl;
 
 import com.dream.common.E3Result;
+import com.dream.mapper.BrowseMapper;
 import com.dream.mapper.MovieMapper;
 import com.dream.mapper.SimilartabMapper;
 import com.dream.po.*;
@@ -17,13 +18,12 @@ public class MovieServicelmpl implements MovieService {
     private MovieMapper moivemapper;
     @Autowired
     private SimilartabMapper similartabMapper;
+    @Autowired
+    private BrowseMapper browseMapper;
 
     @Override
-    public E3Result GetAllMoive() {
-        MovieExample example = new MovieExample();
-        MovieExample.Criteria criteria = example.createCriteria();
-        // 执行查询
-        List<Movie> list = moivemapper.selectByExample(example);
+    public E3Result SelectTopDefaultMovie() {
+        List<Movie> list = moivemapper.SelectTopDefaultMovie();;
         if (list == null || list.size() == 0) {
             return E3Result.build(400, "获取电影信息错误");
         }
@@ -66,4 +66,15 @@ public class MovieServicelmpl implements MovieService {
     }
 
 
+    @Override
+    public int booluserunlikedmovie(int userid,String movieid)
+    {
+       return  browseMapper.booluserunlikedmovie(userid,movieid);
+    }
+
+    @Override
+    public void InsertUserFavouriteMoive(Selectquery selectquery)
+    {
+        browseMapper.insertuserfavourtemovie(selectquery);
+    }
 }

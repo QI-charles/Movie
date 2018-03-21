@@ -186,11 +186,20 @@
     </set>
     where browseid = #{browseid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.dream.po.Browse" >
-    update browse
-    set userid = #{userid,jdbcType=INTEGER},
-      movieids = #{movieids,jdbcType=INTEGER},
-      browsetime = #{browsetime,jdbcType=TIMESTAMP}
-    where browseid = #{browseid,jdbcType=INTEGER}
-  </update>
+
+  <insert id="insertuserfavourtemovie" parameterType="com.dream.po.Selectquery">
+    <if test="molimit==1">
+      update browse set movieids=concat(movieids,#{sort}) where userid =#{category};
+      INSERT INTO browse(userid, movieids,browsetime)
+      SELECT #{category},#{sort},NULL
+      FROM DUAL
+      WHERE NOT EXISTS (select movieids from browse where userid =#{category});
+    </if>
+    <if test="molimit==0">
+      update  browse  set  movieids=replace(movieids,#{sort},'') where userid =#{category};
+    </if>
+  </insert>
+  <select id="booluserunlikedmovie"  resultType="java.lang.Integer">
+       select count(*) from browse where exists (select movieids from browse where userid =#{0} AND  movieids like "%,"#{1}"%.");
+  </select>
 </mapper>
