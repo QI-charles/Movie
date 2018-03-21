@@ -117,7 +117,12 @@
         <a class="dream" id="logout" href="javascript:window.location.href='/page/logout'"
            style="float: right;color: white;font-size: 13pt;margin-top: 10px;margin-right: 10px"><span
                 style="color: white" class="glyphicon glyphicon-log-in"></span> 退出</a>
-        <a class="dream" href="javascript:"
+        <a class="dream" onclick='javascript:$.post("/page/profile",{"id":"${sessionScope.user.userid}"}, function (data) {
+                if (data=="success") {
+                location.href = "/profile"
+                } else {
+                }
+                })'
            style="float: right;color: white;font-size: 13pt;margin-top: 10px;margin-right: 10px"><span
                 style="color: white" class="glyphicon glyphicon-user"></span> ${sessionScope.user.username}</a>
     </c:if>

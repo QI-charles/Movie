@@ -9,7 +9,8 @@ import com.dream.service.CategoryService;
 import com.dream.service.StarService;
 import com.dream.service.MovieService;
 import com.dream.po.Movie;
-import com.dream.po.Review;
+import com.dream.po.*;
+import com.dream.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,10 @@ public class IndexController {
     private StarService starService;
     @Autowired
     private BrowseMapper browseMapper;
+    @Autowired
+    private ReviewService reviewService;
+    @Autowired
+    private BrowseService browseService;
     @RequestMapping("/")
     public String showHomepage( HttpServletRequest request){
         User user=(User) request.getSession().getAttribute("user");
@@ -202,5 +207,46 @@ public class IndexController {
         return "success";
     }
 
+
+    // 个人中心
+    @RequestMapping(value = "/page/profile")
+    @ResponseBody
+    public String goProfile(HttpServletRequest request) {
+        // 拿到userid
+        User user=(User) request.getSession().getAttribute("user");
+        Integer userid = user.getUserid();
+
+        List<Review> reviews = reviewService.getReviewListByUserId(userid);
+        // 创建喜欢电影list
+        List<Movie> movies = new ArrayList<Movie>();
+        Browse browse = browseService.getBrowseByUserId(userid);
+        if (null != browse.getmovieids()) {
+            String movieids = browse.getmovieids().replace(".","").substring(1);
+            String[] strmovieids = movieids.split(",");
+            for (String strmovieid: strmovieids) {
+                 Integer movieid = Integer.parseInt(strmovieid);
+                Movie movie = movieService.getMovieByMovieid(movieid);
+                movies.add(movie);
+            }
+        }
+
+        // 为review list中添加电影url
+        for (Review review: reviews) {
+            Integer movieid = review.getMovieid();
+            Movie movie = movieService.getMovieByMovieid(movieid);
+            review.setPicture(movie.getPicture());
+        }
+        request.getSession().setAttribute("movies", movies);
+        request.getSession().setAttribute("reviews", reviews);
+
+        // TODO：根据推荐表取值
+        request.getSession().setAttribute("rectabs", movies);
+        return "success";
+    }
+
+    @RequestMapping("/profile")
+    public String showProfie() {
+        return "profile";
+    }
 }
 

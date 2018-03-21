@@ -77,4 +77,10 @@ public class MovieServicelmpl implements MovieService {
     {
         browseMapper.insertuserfavourtemovie(selectquery);
     }
+    @Override
+    public Movie getMovieByMovieid(Integer id) {
+        Movie movie = moivemapper.selectByPrimaryKey(id);
+        return movie;
+    }
+
 }

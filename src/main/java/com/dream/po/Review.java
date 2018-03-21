@@ -15,6 +15,16 @@ public class Review {
 
     private Date reviewtime;
 
+    private String picture;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     public Integer getReviewid() {
         return reviewid;
     }
