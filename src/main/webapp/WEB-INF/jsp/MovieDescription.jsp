@@ -238,26 +238,27 @@
             </div>
             <div class="col-sm-8">
                 <!-- 分享链接栏 -->
+                <!-- 分享链接栏 -->
                 <div id="atstbx2" style="float: right;margin-top: -7%"
                      class="at-share-tbx-element addthis-smartlayers addthis-animated at4-show">
                     <div class="at-share-btn-elements" style="float: right;margin-top: -10%">
-                        <a href="" class="at-icon-wrapper at-share-btn at-svc-email" style=" border-radius: 0%;">
+                        <a id="wbshareBtn" href="javascript:void(0)" target="_blank" class="at-icon-wrapper at-share-btn at-svc-email" style=" border-radius: 0%;">
                             <img style="line-height: 32px; height: 32px; width: 32px;"
                                  src="https://www.vmovier.com/Public/Home/images/baidu-weibo-v2.png?20160109"/>
                         </a>
-                        <a class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
-                            <img style="line-height: 32px; height: 32px; width: 32px;"
-                                 src="https://www.vmovier.com/Public/Home/images/baidu-wechat-v2.png?20160109"/>
-                        </a>
-                        <a class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
+                        <%--  <a id="wxshareBtn" class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
+                              <img style="line-height: 32px; height: 32px; width: 32px;"
+                                   src="https://www.vmovier.com/Public/Home/images/baidu-wechat-v2.png?20160109"/>
+                          </a>--%>
+                        <a id="qzoneshareBtn" href="javascript:void(0)" target="_blank" class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
                             <img style="line-height: 32px; height: 32px; width: 32px;"
                                  src="https://www.vmovier.com/Public/Home/images/baidu-qzone-v2.png?20160109"/>
                         </a>
-                        <a class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
-                            <img style="line-height: 32px; height: 32px; width: 32px;"
-                                 src="https://www.vmovier.com/Public/Home/images/baibu-tengxun-v2.png?20160109"/>
-                        </a>
-                        <a class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
+                        <%-- <a id="twbshareBtn" class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
+                             <img style="line-height: 32px; height: 32px; width: 32px;"
+                                  src="https://www.vmovier.com/Public/Home/images/baibu-tengxun-v2.png?20160109"/>
+                         </a>--%>
+                        <a id="qqshareBtn" target="_blank" class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
                             <img style="line-height: 32px; height: 32px; width: 32px;"
                                  src="https://www.vmovier.com/Public/Home/images/baibu-qq-v2.png?20160109"/>
                         </a>
@@ -343,72 +344,14 @@
                         <div><strong>演员表</strong></div>
                         <strong></strong>
                         ${sessionScope.moviedescription.leadactors}<br>
-                        <%--<strong></strong>
-                        Zar Amir Ebrahimi                <br>
-                        <strong></strong>
-                        <a href="/browse/by-cast/id/5277" sl-processed="1">Arash Marandi</a>
-                        <br>
-                        <strong></strong>
-                        Bilal Yasar                <br>
-                        <strong></strong>
-                        Negar Mona Alizadeh                <br>
-                        <strong></strong>
-                        Payam Madjilessi                <br>--%>
+
                         <br>
                         <div><strong>故事简介</strong></div>
                         <p><span style="font-weight: 400;"> ${sessionScope.moviedescription.description}</span></p>
                     </div>
                     <!--推荐电影table -->
                     <div role="tabpanel" class="tab-pane fade" id="reviews">
-                        <%-- <div id="myCarousel" class="carousel slide pad_010 b_k" data-ride="carousel" style="margin-left: 3%;margin-top: 3%">
-                             <!-- 轮播（Carousel）指标 -->
-                             <ol class="carousel-indicators" style="margin-bottom: -5%">
-                                 <li data-target="#myCarousel" data-slide-to="0" class="active" style="background-color: #00b4ef"></li>
-                                 <li data-target="#myCarousel" data-slide-to="1" ></li>
-                                 <li data-target="#myCarousel" data-slide-to="2" ></li>
-                             </ol>
-                             <!-- 轮播（Carousel）项目 -->
-                             <div class="carousel-inner bor_btm">
-                                 <div class="item active" >
-                                     <div class="pic" >
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                     </div>
-                                 </div>
-                                 <div class="item">
-                                     <div class="pic">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                     </div>
-                                 </div>
-                                 <div class="item">
-                                     <div class="pic">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%" >
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                         <img src="http://image.tmdb.org/t/p/w185/rhIRbceoE9lR4veEXuwCC2wARtG.jpg"  style="height: 200px;margin-right: 3%;margin-bottom: 3%">
-                                     </div>
-                                 </div>
 
-                             </div>
-                         </div>
-                         <br>--%>
                         <br>
 
                         <div>
@@ -700,5 +643,41 @@
                 format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
         return format;
     }
+</script>
+<script>
+
+
+    function qzoneShare(){
+        var qzone_shareBtn = document.getElementById("qzoneshareBtn")
+        qzone_url = document.URL, //获取当前页面地址，也可自定义例：wb_url = "http://liuyanzhao.com"
+            qzone_title = "电影名称：${sessionScope.moviedescription.moviename}（来自梦的6次方）",
+            qzone_pic = "",
+            qzone_language = "zh_cn";
+        qzone_shareBtn.setAttribute("href","http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url="+qzone_url+"&title="+qzone_title+"&pic="+qzone_pic+"&language="+qzone_language+"");
+    }
+    qzoneShare();
+
+    function qqShare(){
+        var qq_shareBtn = document.getElementById("qqshareBtn")
+        qq_url = document.URL, //获取当前页面地址，也可自定义例：wb_url = "http://liuyanzhao.com"
+//            qq_appkey = "3118689721",//你的app key
+            qq_title = "电影名称：${sessionScope.moviedescription.moviename}（来自梦的6次方）",
+//            wb_ralateUid = "5936412667",//微博id，获得你的用户名
+            qq_pic = "",
+            qq_language = "zh_cn";
+        qq_shareBtn.setAttribute("href","http://connect.qq.com/widget/shareqq/index.html?url="+qq_url+"&title="+qq_title+"&pic="+qq_pic+"&language="+qq_language+"");
+    }
+    qqShare();
+
+    function weiboShare(){
+        var wb_shareBtn = document.getElementById("wbshareBtn")
+        wb_url = document.URL, //获取当前页面地址，也可自定义例：wb_url = "http://liuyanzhao.com"
+            wb_appkey = "3118689721",//你的app key
+            wb_title = "电影：${sessionScope.moviedescription.moviename}（来自梦的6次方）",
+            wb_pic = "",
+            wb_language = "zh_cn";
+        wb_shareBtn.setAttribute("href","http://service.weibo.com/share/share.php?url="+wb_url+"&appkey="+wb_appkey+"&title="+wb_title+"&pic="+wb_pic+"&language="+wb_language+"");
+    }
+    weiboShare();
 </script>
 </html>
