@@ -17,15 +17,42 @@
     <script src="/assets/js/bootstrap.min.js"></script>
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/Homediscovery.css" rel="stylesheet">
+    <style>
+        /*搜索框*/
+        .suggest{
+
+            position: absolute;
+            z-index:999;
+            width:auto;
+
+            height: auto;
+            max-height: 60%;
+            background-color: #ffffff;
+            /*opacity: 0.9;*/
+            border: 1px solid #999999;
+            overflow :auto;
+        }
+        .suggest ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .suggest ul li{
+
+            padding: 3px;
+            font-size: 14px;
+            line-height: 25px;
+            cursor: pointer;
+            border: 0.5px solid #e1edf7;
+        }
+        .suggest ul li:hover{
+            background-color: #eef9eb;
+        }
+        .suggest ul li span{
+            color: #494949;
+        }
+    </style>
 </head>
-<body>
-<script>
-    window.onload = function () {
-        var movieindex=0;
-    }
-
-</script>
-
 <body>
 <nav class="navbar navbar-default" role="navigation" style="background-color: #222;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
@@ -50,8 +77,15 @@
                 })' style=" text-decoration:none;float: right;color: white;font-size: 13pt;margin-top: 12px;margin-right: 10px"><span style="color: white" class="glyphicon glyphicon-user"></span> ${sessionScope.user.username}</a>
     </c:if>
 </nav>
+<%--智能提示框--%>
+<div class="suggest" id="search-suggest" style="display: none; top:43px;left: 155px;" >
+    <ul id="search-result">
+    </ul>
+</div>
 <div class="fm-discovery" id="wholediv" style="background-image: url('${sessionScope.TopDefaultMovie[0].backpost}')">
+    <!-- 左侧电影信息卡片-->
     <div class="x-kankan">
+        <!-- 左侧电影信息卡片-->
         <div id="x-kankan-detail" class="x-kankan-detail">
             <p class="x-kankan-title">
                 <a name="movienametag" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
@@ -77,36 +111,43 @@
             <p name="movietype" class="muted">Type:${sessionScope.TopDefaultMovie[0].typelist}</p>
         </div>
     </div>
+    <!-- 右侧按钮-->
     <div class="x-usermovie-controls x-kankan-buttons">
+        <!-- 右侧按钮-->
         <div class="btn-group fm-discovery-actions">
-            <a href="" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="watched" data-class="btn-success" data-original-title="已经评过">
-                <span class="glyphicon glyphicon-check"></span>
+            <!-- 搜索影片资源跳转详情页-->
+            <a name="moviedesc" data-placement="top" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
+            if (data=="success") {
+                location.href = "/MovieDescription"
+            } else {
+            }
+        })'class="btn-default revision-btn-left "value="${sessionScope.TopDefaultMovie[0].movieid}" title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="watched" data-class="btn-success" data-original-title="搜索资源">
+                <span class="glyphicon glyphicon-search"></span>
             </a>
-            <a id="liked" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="liked" data-class="btn-danger" data-original-title="喜欢">
-                <span class="glyphicon glyphicon-heart"></span>
-            </a>
-            <a id="unliked" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="disliked" data-class="btn-gray" data-original-title="不喜欢">
-                <span class="glyphicon glyphicon-trash"></span>
+            <!-- 搜索播放同播放按钮-->
+            <a name="moviehref" target="_blank" href="http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[0].moviename}" data-placement="top" class="btn-default revision-btn-left " title="" data-toggle="tooltip" data-movie="the-other-guys" data-cat="liked" data-class="btn-danger" data-original-title="观看电影">
+                <span class="glyphicon glyphicon-film"></span>
             </a>
         </div>
+        <!-- 右侧按钮-->
         <div class="btn-group x-kankan-navigator">
+            <!-- 上一部电影-->
             <a class="revision-btn-history" id="pre">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
+            <!-- 下一部电影-->
             <a  class="btn-default revision-btn-next" id="next">
                 <span>换一个看看&nbsp;</span><span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         </div>
     </div>
+    <!-- 播放按钮-->
     <div class="xx-play-button">
-        <a href="http://so.iqiyi.com/so/q_Toy%20Story" target="_blank" class="q" data-title="全网资源搜索" style="display: none;">
+        <a name="moviehref" href="http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[0].moviename}" target="_blank" class="q" data-title="全网资源搜索" style="display: none;">
             <img src="/assets/img/Homeimg/kankan_play.7b61b6e9285d.png" alt="播放按钮">
         </a>
     </div>
 </div>
-
-
-
 
 <!--页面按钮hover提示 -->
 <script>
@@ -125,11 +166,7 @@
     });
 </script>
 
-
-
-
-<script>window._bd_share_config={"common":{"bdSnsKey":{"tsina":"2366108406"},"bdText":"电影《二流警探》高清资源，@电影FM网","bdMini":"2","bdMiniList":false,"bdPic":"http://7xksqe.com1.z0.glb.clouddn.com/media/backdrops/aw/awMESdeGymmNYTMhWvjJE5AP61a.jpg-discovery720","bdStyle":"0","bdSize":"24"},"slide":{"type":"slide","bdImg":"6","bdPos":"right","bdTop":"101"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
+<!--播放前进后退按钮事件 -->
 <script>
     //播放按钮
     window.setTimeout(function(){
@@ -158,6 +195,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[4].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[4].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[4].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[4].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[4].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[4].moviename}");
@@ -172,6 +211,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[0].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[0].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[0].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[0].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[0].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[0].moviename}");
@@ -185,6 +226,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[1].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[1].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[1].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[1].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[1].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[1].moviename}");
@@ -198,6 +241,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[2].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[2].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[2].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[2].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[2].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[2].moviename}");
@@ -211,6 +256,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[3].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[3].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[3].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[3].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[3].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[3].moviename}");
@@ -230,6 +277,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[1].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[1].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[1].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[1].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[1].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[1].moviename}");
@@ -244,6 +293,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[2].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[2].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[2].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[2].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[2].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[2].moviename}");
@@ -257,6 +308,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[3].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[3].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[3].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[3].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[3].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[3].moviename}");
@@ -270,6 +323,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[4].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[4].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[4].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[4].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[4].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[4].moviename}");
@@ -283,6 +338,8 @@
         {
             var url="${sessionScope.TopDefaultMovie[0].backpost}";
             $("#wholediv").css('background-image',"url("+url+")" );
+            $("a[name=\"moviehref\"]").attr("href","http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[0].moviename}");
+            $("a[name=\"moviedesc\"]").attr("value","${sessionScope.TopDefaultMovie[0].movieid}");
             $("a[name='movienametag']").attr("value","${sessionScope.TopDefaultMovie[0].movieid}");
             $("a[name='movienametag']").attr("data-original-title","点击查看${sessionScope.TopDefaultMovie[0].moviename}的详细资料");
             $("a[name='movienametag']").text("${sessionScope.TopDefaultMovie[0].moviename}");
@@ -295,64 +352,95 @@
 
     });
 </script>
+
+<%--搜索栏--%>
 <script>
-    $("#liked").click(function () {
-        var userid="${sessionScope.user.userid}";
-        if(userid!=""){
-            $.post("/likedmovie", {"movieid": $("a[name='movienametag']").attr("value"),"boollike":1,"userid":"${sessionScope.user.userid}"},function (data) {
-                if(data=="success") {
-                        alert("收藏成功");
 
+    $("#inp-query").bind("keyup",function () {
+        var width = document.getElementById("inp-query").offsetWidth+"px";
+        $("#search-suggest").show().css({
+            width:width
+        });
+
+        //在搜索框输入数据，提示相关搜索信息
+        var searchText=$("#inp-query").val();
+
+        $("#search-result").children().remove();
+        $.post("/search",{"search_text":searchText},function (data) {
+            if (data.status == 200) {
+                if(data.data.length!=0) {
+                    $.each(data.data, function (i, item) {
+                        var headHtml = $("#movie-tmpl").html();
+                        var formatDate = item.showyear;
+                        headHtml = headHtml.replace(/{id}/g, item.movieid);
+                        headHtml = headHtml.replace(/{cover}/g, item.picture);
+                        headHtml = headHtml.replace(/{moviename}/g, item.moviename);
+                        headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
+                        headHtml = headHtml.replace(/{director}/g, item.director);
+                        headHtml = headHtml.replace(/{averating}/s, item.averating);
+                        $("#search-result").append(headHtml);
+                    })
                 }
                 else
-                    alert("按钮事件失效")
-            })
-        }
-        else
-        {
-            alert("登录之后才能收藏");
-            window.location.href="/page/login";
-        }
-    })
-    $("#unliked").click(function () {
-        var userid="${sessionScope.user.userid}";
-        if(userid!=""){
-            $.post("/likedmovie", {"movieid": $("a[name='movienametag']").attr("value"),"boollike":0,"userid":"${sessionScope.user.userid}"},function (data) {
-                if(data=="success") {
-                        alert("收藏成功");
-
+                {
+//                $("#search-result").html("查无此片");
+                    alert("差不到此电影哦~")
                 }
-                else
-                    alert("按钮事件失效")
-            })
-        }
-        else
-        {
-            alert("登录之后才能取消收藏");
-            window.location.href="/page/login";
-        }
-    })
+            }
+            else {
+//            alert("加载更多图片资源错误");
+            }
+
+        })
+    });
+
+
 </script>
-<%--<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?10701d9b4e040e37e58bee7e1ec1d252";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>--%>
 
+<%--智能提示框模板--%>
+<script type="text/tmpl"  id="movie-tmpl">
+ <li id="searchResult">
+   <div>
+      <a value="{id}" style="text-decoration:none" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
+            if (data=="success") {
+                location.href = "/MovieDescription"
+            } else {
+            }
+        })'>
+         <div style="float:left">
+            <img src="{cover}" style="width:80px;height:120px">
+         </div>
+         <div  style="padding:12px">
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;电影名称：{moviename}</span>
+            <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;上映时间:{showyear}</span>
+            <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;导演：{director}</span>
+             <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;评分：{averating}</span>
+         </div>
+       </a>
+   </div>
+ </li>
 
+</script>
 
-<!-- 分享栏-->
-<div class="bdshare-slide-button-box bdshare-slide-style-r6" style="top: 101px; width: 0px; z-index: 99999; right: 0px;" data-bd-bind="1521336898773">
-    <a href="#" onclick="return false;" class="bdshare-slide-button" style="left: -24px;"></a>
-    <div class="bdshare-slide-list-box" style="width: 0px; display: none;">
-        <div class="bdshare-slide-top">分享到</div><div class="bdshare-slide-list">
-        <ul class="bdshare-slide-list-ul" style="width: 226px;"></ul></div>
-        <div class="bdshare-slide-bottom" style="width: 226px;">
-            <a href="#" onclick="return false;" class="slide-more" data-cmd="more">更多...</a>
-        </div></div></div></body>
+<!-- string cst时间转date-->
+<script>
+    function dateFormat(date, format) {
+        date = new Date(date);
+        var o = {
+            'M+' : date.getMonth() + 1, //month
+            'd+' : date.getDate(), //day
+        };
+        if (/(y+)/.test(format))
+            format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+
+        for (var k in o)
+            if (new RegExp('(' + k + ')').test(format))
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
+        return format;
+    }
+</script>
 </body>
 </html>

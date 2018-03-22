@@ -1,3 +1,4 @@
+
 .x-kankan-detail{
     position: fixed;
     left: 50%;
@@ -106,34 +107,7 @@
     color:#fff;
     background-color:#000
 }
-.btn-gray {
-    background-color: #4C4C4C;
-    display:block;
-    text-align:center;
-    color:#eee;
-    float:left;
-}
-.btn-danger {
-    background-color:#f50f43;
-    display:block;
-    text-align:center;
-    color:#eee;
-    float:left;
-}
-.btn-warning {
-    background-color:#fe781e;
-    display:block;
-    text-align:center;
-    color:#eee;
-    float:left;
-}
-.btn-success {
-    background-color:#41bb19;
-    display:block;
-    text-align:center;
-    color:#eee;
-    float:left;
-}
+
 .revision-btn-left {
     width:50px;
     height:66px;
@@ -174,35 +148,7 @@
     padding-bottom:60%;
 }
 .navbar .navbar-brand.fmlogo{color: #489ce1;}
-.subnav{
-    background-color: #eee;
-    position: fixed;
-    left: 0;
-    top: 46px;
-    width: 100%;
-    z-index: 1020;
-    text-align: center;
-    height: 36px;
-    border-bottom: 1px solid #e7e7e7;
-}
 
-.subnav .nav-pills{float: none; display: inline-block; text-align:left;}
-.subnav .nav-pills>li.active>a{
-    background-color: transparent;
-    color: #000;
-    border-bottom: 2px solid #489ce1;
-    border-radius: 0;
-    font-weight: bold;
-}
-.subnav .nav-pills>li>a:hover, .subnav .nav .open>a{
-    background-color: transparent;
-    color: #000;
-    border-bottom: 2px solid #489ce1;
-    border-radius: 0;
-}
-.subnav .nav-pills>li>a{
-    color: #aaa;
-}
 @media(max-width: 768px) {
     .x-kankan-detail {
         width: 100%;
@@ -260,6 +206,7 @@
 
 
 }
+
 
 
 

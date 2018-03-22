@@ -1151,13 +1151,13 @@
       <ColNames>movcatid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="277" parent="236" name="userId">
+    <column id="277" parent="236" name="userid">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="278" parent="236" name="movieIds">
+    <column id="278" parent="236" name="movieids">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
@@ -1187,7 +1187,7 @@
     </column>
     <column id="283" parent="237" name="star">
       <Position>5</Position>
-      <DataType>double(11)|0</DataType>
+      <DataType>double(11,1)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="284" parent="237" name="reviewtime">

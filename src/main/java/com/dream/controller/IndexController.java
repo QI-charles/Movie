@@ -1,6 +1,7 @@
 package com.dream.controller;
 import com.dream.common.JsonUtils;
 import com.dream.mapper.BrowseMapper;
+import com.dream.mapper.RectabMapper;
 import com.dream.po.User;
 import com.dream.common.E3Result;
 import com.dream.po.Category;
@@ -43,16 +44,45 @@ public class IndexController {
     private ReviewService reviewService;
     @Autowired
     private BrowseService browseService;
+    @Autowired
+    private RectabService rectabService;
     @RequestMapping("/")
     public String showHomepage( HttpServletRequest request){
         User user=(User) request.getSession().getAttribute("user");
         if(user!=null)
         {
+            List<Movie> movies = new ArrayList<Movie>();
+            Rectab rectab = rectabService.getRectabByUserId(user.getUserid());
+            if (null != rectab.getMovieids()) {
+                String movieids =rectab.getMovieids();
+                String[] strmovieids = movieids.split(",");
+                int i = 0;
+                for (String strmovieid: strmovieids) {
+                    if(i==5)
+                        break;
+                    Integer movieid = Integer.parseInt(strmovieid);
+                    Movie movie = movieService.getMovieByMovieid(movieid);
+                    movies.add(movie);
+                    i++;
+                }
+            }
+            if(movies.size()<5)
+            {
+                E3Result TopDefaultMovie = movieService.SelectTopDefaultMovie(5-movies.size());
+                List<Movie> temp = (List<Movie>)TopDefaultMovie.getData();
+                movies.addAll(temp);
 
+            }
+            request.getSession().setAttribute("TopDefaultMovie",movies);
+            Map moviemap = new HashMap();
+            for(int i = 0 ; i < movies.size() ; i++) {
+                moviemap.put(movies.get(i).getMovieid().toString(), i);
+            }
+            request.getSession().setAttribute("TopDefaultMovieMap",JsonUtils.objectToJson(moviemap));
         }
         else
         {
-            E3Result TopDefaultMovie = movieService.SelectTopDefaultMovie();
+            E3Result TopDefaultMovie = movieService.SelectTopDefaultMovie(5);
             List<Movie> list = (List<Movie>)TopDefaultMovie.getData();
             request.getSession().setAttribute("TopDefaultMovie",list);
             Map moviemap = new HashMap();
@@ -215,7 +245,6 @@ public class IndexController {
         // 拿到userid
         User user=(User) request.getSession().getAttribute("user");
         Integer userid = user.getUserid();
-
         List<Review> reviews = reviewService.getReviewListByUserId(userid);
         // 创建喜欢电影list
         List<Movie> movies = new ArrayList<Movie>();
@@ -240,13 +269,45 @@ public class IndexController {
         request.getSession().setAttribute("reviews", reviews);
 
         // TODO：根据推荐表取值
-        request.getSession().setAttribute("rectabs", movies);
+        List<Movie> rectabmovie = new ArrayList<Movie>();
+        Rectab rectab = rectabService.getRectabByUserId(userid);
+        if (null != rectab.getMovieids()) {
+            String movieids =rectab.getMovieids();
+            String[] strmovieids = movieids.split(",");
+            for (String strmovieid: strmovieids) {
+                Integer movieid = Integer.parseInt(strmovieid);
+                Movie movie = movieService.getMovieByMovieid(movieid);
+                rectabmovie.add(movie);
+            }
+        }
+        request.getSession().setAttribute("rectabs", rectabmovie);
         return "success";
     }
 
     @RequestMapping("/profile")
     public String showProfie() {
         return "profile";
+    }
+
+    //搜索电影
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @ResponseBody
+    public E3Result selectMoviesByName(HttpServletRequest request){
+        String moviename = request.getParameter("search_text");
+        if(moviename == null || moviename ==""){
+            System.out.print("不能为空");
+            return null;
+        }
+        else{
+            System.out.print("搜索内容"+moviename);
+            List<Movie> list = movieService.selectMoviesByName(moviename);
+
+            E3Result e3Result = E3Result.ok(list);
+            return e3Result;
+        }
+
+
+
     }
 }
 

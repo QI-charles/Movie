@@ -16,20 +16,48 @@
     app-argument=zhihu://people/uu-ll-98" />
     <link data-react-helmet="true" rel="prefetch" href="/assets/img/user_cover_image.jpg" />
     <link rel="shortcut icon" type="image/x-icon" href="https://static.zhihu.com/static/favicon.ico" />
-    <link rel="dns-prefetch" href="//static.zhimg.com" />
-    <link rel="dns-prefetch" href="//pic1.zhimg.com" />
-    <link rel="dns-prefetch" href="//pic2.zhimg.com" />
-    <link rel="dns-prefetch" href="//pic3.zhimg.com" />
-    <link rel="dns-prefetch" href="//pic4.zhimg.com" />
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <!-- 星星评分CSS-->
     <script src="/assets/js/star-rating.min.js" type="text/javascript"></script>
     <link href="/assets/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
-
     <link href="/assets/css/douban.main.css" rel="stylesheet" />
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <style>
+      /*搜索框*/
+      .suggest{
 
+        position: absolute;
+        z-index:999;
+        width:auto;
+
+        height: auto;
+        max-height: 60%;
+        background-color: #ffffff;
+        /*opacity: 0.9;*/
+        border: 1px solid #999999;
+        overflow :auto;
+      }
+      .suggest ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .suggest ul li{
+
+        padding: 3px;
+        font-size: 14px;
+        line-height: 25px;
+        cursor: pointer;
+        border: 0.5px solid #e1edf7;
+      }
+      .suggest ul li:hover{
+        background-color: #eef9eb;
+      }
+      .suggest ul li span{
+        color: #494949;
+      }
+    </style>
     <style>
       .component-poster-detail .nav-tabs > li {
         width: 50% !important;
@@ -128,12 +156,10 @@
                             <div class="ProfileHeader-info" data-reactid="95">
                               <div class="ProfileHeader-infoItem" data-reactid="96">
                                 <div class="ProfileHeader-iconWrapper" data-reactid="97">
-
                                 </div>
                                 <div class="ProfileHeader-divider" data-reactid="102"></div>
                                 <div class="ProfileHeader-divider" data-reactid="104"></div>
                                 <div class="ProfileHeader-iconWrapper" data-reactid="105">
-
                                 </div>
                               </div>
                             </div>
@@ -149,13 +175,14 @@
                             <%--<!-- react-text: 114 -->查看详细资料--%>
                             <!-- /react-text --></button>
                           <div class="ProfileButtonGroup ProfileHeader-buttons" data-reactid="115" style="bottom: 30px;">
-                            <button class="Button Button--blue" type="button" data-reactid="116">
+                            <a href="#" class="Button Button--blue" data-toggle="modal" data-target="#userEditDialog" onclick="editUser(${sessionScope.user.userid})">
                               <!-- react-text: 117 -->编辑
                               <!-- /react-text -->
                               <!-- react-text: 118 -->个人
                               <!-- /react-text -->
                               <!-- react-text: 119 -->资料
-                              <!-- /react-text --></button></div>
+                              <!-- /react-text -->
+                            </a></div>
                         </div>
                       </div>
                     </div>
@@ -313,7 +340,12 @@
 
                     <c:if test="${sessionScope.rectabs != null}">
                     <c:forEach var="item"   items="${sessionScope.rectabs}">
-                        <a class="Profile-lightItem" href="/people/uu-ll-98/following/topics" data-reactid="330"><span class="Profile-lightItemName" data-reactid="331">${item.moviename}</span><span class="Profile-lightItemValue" data-reactid="332">${item.averating}分</span></a>
+                        <a class="Profile-lightItem" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
+            if (data=="success") {
+                location.href = "/MovieDescription"
+            } else {
+            }
+        })' value="${item.movieid}" ><span class="Profile-lightItemName" data-reactid="331">${item.moviename}</span><span class="Profile-lightItemValue" data-reactid="332">${item.averating}分</span></a>
                     </c:forEach>
                     </c:if>
                   </div>
@@ -328,12 +360,184 @@
         <!-- react-empty: 350 -->
         <!-- react-empty: 351 --></div>
     </div>
-   
+    <!-- 用户编辑资料框 -->
+    <div class="modal fade" id="userEditDialog" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" id="edit_user_form">
+
+              <div class="form-group">
+                <label for="edit_password" class="col-sm-2 control-label">用户密码</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="edit_password" placeholder="" name="password">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onclick="UPDATE.updateUser()">保存修改</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     </div>
     <script src="https://static.zhihu.com/heifetz/vendor.d063778094ddaa35854a.js"></script>
     <script src="https://static.zhihu.com/heifetz/main.raven.7f65994fced9bab43ea4.js" async=""></script>
     <script src="https://static.zhihu.com/heifetz/main.app.fef597c154271aa91044.js"></script>
     <script></script>
+
+
+
+    <%--搜索栏--%>
+    <script>
+
+        $("#inp-query").bind("keyup",function () {
+            var width = document.getElementById("inp-query").offsetWidth+"px";
+            $("#search-suggest").show().css({
+                width:width
+            });
+
+            //在搜索框输入数据，提示相关搜索信息
+            var searchText=$("#inp-query").val();
+
+            $("#search-result").children().remove();
+            $.post("/search",{"search_text":searchText},function (data) {
+                if (data.status == 200) {
+                    if(data.data.length!=0) {
+                        $.each(data.data, function (i, item) {
+                            var headHtml = $("#movie-tmpl").html();
+                            var formatDate = item.showyear;
+                            headHtml = headHtml.replace(/{id}/g, item.movieid);
+                            headHtml = headHtml.replace(/{cover}/g, item.picture);
+                            headHtml = headHtml.replace(/{moviename}/g, item.moviename);
+                            headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
+                            headHtml = headHtml.replace(/{director}/g, item.director);
+                            headHtml = headHtml.replace(/{averating}/s, item.averating);
+                            $("#search-result").append(headHtml);
+                        })
+                    }
+                    else
+                    {
+//                $("#search-result").html("查无此片");
+                        alert("差不到此电影哦~")
+                    }
+                }
+                else {
+//            alert("加载更多图片资源错误");
+                }
+
+            })
+        });
+
+
+    </script>
+
+    <%--智能提示框模板--%>
+    <script type="text/tmpl"  id="movie-tmpl">
+ <li id="searchResult">
+   <div>
+      <a value="{id}" style="text-decoration:none" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
+            if (data=="success") {
+                location.href = "/MovieDescription"
+            } else {
+            }
+        })'>
+         <div style="float:left">
+            <img src="{cover}" style="width:80px;height:120px">
+         </div>
+         <div  style="padding:12px">
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;电影名称：{moviename}</span>
+            <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;上映时间:{showyear}</span>
+            <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;导演：{director}</span>
+             <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;评分：{averating}</span>
+         </div>
+       </a>
+   </div>
+ </li>
+
+</script>
+
+    <!-- string cst时间转date-->
+    <script>
+        function dateFormat(date, format) {
+            date = new Date(date);
+            var o = {
+                'M+' : date.getMonth() + 1, //month
+                'd+' : date.getDate(), //day
+            };
+            if (/(y+)/.test(format))
+                format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+
+            for (var k in o)
+                if (new RegExp('(' + k + ')').test(format))
+                    format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
+            return format;
+        }
+    </script>
+    <%--智能提示框--%>
+    <div class="suggest" id="search-suggest" style="display: none; top:43px;left: 155px;" >
+      <ul id="search-result">
+      </ul>
+    </div>
   </body>
+  <script type="text/javascript">
+
+      function editUser(id) {
+          $.ajax({
+              type:"get",
+              url:"/user/edit.action",
+              data:{"id":id},
+              success:function(data) {   // Movie的JSON字符串传过来就行
+                  $("#edit_userid").val(data.userid);
+                  $("#edit_username").val(data.username);
+                  $("#edit_password").val(data.password);
+                  $("#edit_registertime").val(data.registertime);
+                  $("#edit_lastlogintime").val(data.lastlogintime);
+                  $("#edit_email").val(data.email);
+              }
+          });
+      }
+
+      var UPDATE = {
+          checkInput:function() {
+
+              if(!$("#edit_password").val()) {
+                  alert("你还未输入密码！");
+                  return false;
+              }
+              if($("#edit_password").val().length<6 || $("#edit_password").val().length>12) {
+                  alert("密码必须在6-12之间！");
+                  return false;
+              }
+
+              return true;
+          },
+          updateUs:function() {
+              $.post("/user/update.action",{"userid": "${sessionScope.user.userid}", "password": $("#edit_password").val()},function(data){
+                  alert("用户密码更新成功！");
+                  window.location.reload();
+              });
+          },
+          updateUser:function() {
+              if (this.checkInput()) {
+                  this.updateUs();
+              }
+          }
+      };
+
+  </script>
 
 </html>

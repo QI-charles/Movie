@@ -9,6 +9,7 @@ import com.dream.po.UserExample;
 import com.dream.service.RegisterService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -76,6 +77,33 @@ public class RegisterServiceImpl implements RegisterService {
     public void selectFavorite(Browse browse){
         browseMapper.insert(browse);
     }
+    @Override
+    public E3Result checkDataBoth(@PathVariable String paramName, @PathVariable String paramEmail, @PathVariable Integer type) {
+        // 根据不同的type生成不同的查询条件
+        UserExample exampleName = new UserExample();
+        UserExample exampleEmail = new UserExample();
+        UserExample.Criteria criteriaName = exampleName.createCriteria();
+        UserExample.Criteria criteriaEmail = exampleEmail.createCriteria();
+        // 1：用户名 2：手机号 3：邮箱 4:用户名and邮箱
+        if (type == 4 ) {
+            criteriaName.andUsernameEqualTo(paramName);
+            criteriaEmail.andEmailEqualTo(paramEmail);
 
+        }
+
+        else{
+            return E3Result.build(400, "数据类型错误");
+        }
+        // 执行查询
+        List<User> listName = userMapper.selectByExample(exampleName);
+        List<User> listEmail = userMapper.selectByExample(exampleEmail);
+        // 判断结果中是否包含数据
+        if (listName != null && listName.size() > 0 || listEmail != null && listEmail.size() > 0) {
+            // 如果有数据返回false
+            return E3Result.ok(false);
+        }
+        // 如果没有数据返回true
+        return E3Result.ok(true);
+    }
 
 }

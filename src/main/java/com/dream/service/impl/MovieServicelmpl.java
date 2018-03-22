@@ -22,8 +22,8 @@ public class MovieServicelmpl implements MovieService {
     private BrowseMapper browseMapper;
 
     @Override
-    public E3Result SelectTopDefaultMovie() {
-        List<Movie> list = moivemapper.SelectTopDefaultMovie();;
+    public E3Result SelectTopDefaultMovie(int limit) {
+        List<Movie> list = moivemapper.SelectTopDefaultMovie(limit);;
         if (list == null || list.size() == 0) {
             return E3Result.build(400, "获取电影信息错误");
         }
@@ -64,14 +64,11 @@ public class MovieServicelmpl implements MovieService {
         }
         return E3Result.ok(movieList);
     }
-
-
     @Override
     public int booluserunlikedmovie(int userid,String movieid)
     {
        return  browseMapper.booluserunlikedmovie(userid,movieid);
     }
-
     @Override
     public void InsertUserFavouriteMoive(Selectquery selectquery)
     {
@@ -81,6 +78,11 @@ public class MovieServicelmpl implements MovieService {
     public Movie getMovieByMovieid(Integer id) {
         Movie movie = moivemapper.selectByPrimaryKey(id);
         return movie;
+    }
+    @Override
+    public List<Movie> selectMoviesByName(String moviename){
+        List<Movie> list = moivemapper.selectByNameLike(moviename);
+        return list;
     }
 
 }

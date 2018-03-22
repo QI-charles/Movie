@@ -401,14 +401,39 @@
         },
         inputcheck:function(){
             var flag = true;
+            var reg=/^\w+[@]\w+((.com)|(.net)|(.cn)|(.org)|(.gmail))$$/;
+
             //不能为空检查
             if ($("#regName").val() == "") {
                 alert("用户名不能为空！");
                 flag = false;
                 $('#identifier').modal('hide');
             }
+            if($("#regName").val().length>10 || $("#regName").val().length<4){
+                alert("请输入4-10位长度用户名！");
+                flag = false;
+                $('#identifier').modal('hide');
+            }
+
+            if ($("#email").val() == "") {
+                alert("邮箱不能为空！");
+                flag = false;
+                $('#identifier').modal('hide');
+            }
+            if(!reg.test($("#email").val())){
+                alert("邮箱格式错误！");
+                flag = false;
+                $('#identifier').modal('hide');
+            }
+
+
             if ($("#pwd").val() == "") {
                 alert("密码不能为空！");
+                flag = false;
+                $('#identifier').modal('hide');
+            }
+            if($("#pwd").val().length>16 || $("#pwd").val().length<8){
+                alert("密码长度应为8-16个字符");
                 flag = false;
                 $('#identifier').modal('hide');
             }
@@ -421,17 +446,16 @@
             return flag;
         },
         beforeSubmit:function() {
-            //检查用户是否已经被占用
+            //检查用户和邮箱是否已经被占用
             $.ajax({
-                url : REGISTER.param.surl + "/customer/check/"+escape($("#regName").val())+"/1?r=" + Math.random(),
+                url : REGISTER.param.surl + "/customer/checkboth/"+escape($("#regName").val())+"/"+escape($("#email").val())+"/4?=" + Math.random(),
                 success : function(data) {
                     if (data.data) {
-
                         REGISTER.doSubmit();
-
                     } else {
-                        alert("用户名已被注册");
+                        alert("用户名或者邮箱已被注册");
                         $('#identifier').modal('hide');
+
                     }
                 }
             });
@@ -451,7 +475,6 @@
             });
         },
         login:function() {
-            alert('deng！');
             location.href = "/page/login";
             return false;
         },

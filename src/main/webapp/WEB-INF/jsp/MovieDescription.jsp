@@ -69,6 +69,41 @@
                 $("#liked").toggleClass('likedactive');
         }
     </script>
+    <style>
+        /*搜索框*/
+        .suggest{
+
+            position: absolute;
+            z-index:999;
+            width:auto;
+
+            height: auto;
+            max-height: 60%;
+            background-color: #ffffff;
+            /*opacity: 0.9;*/
+            border: 1px solid #999999;
+            overflow :auto;
+        }
+        .suggest ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .suggest ul li{
+
+            padding: 3px;
+            font-size: 14px;
+            line-height: 25px;
+            cursor: pointer;
+            border: 0.5px solid #e1edf7;
+        }
+        .suggest ul li:hover{
+            background-color: #eef9eb;
+        }
+        .suggest ul li span{
+            color: #494949;
+        }
+    </style>
 </head>
 
 <body>
@@ -494,7 +529,11 @@
         &nbsp;
     </div>
 </div>
-
+<%--智能提示框--%>
+<div class="suggest" id="search-suggest" style="display: none; top:43px;left: 155px;" >
+    <ul id="search-result">
+    </ul>
+</div>
 <style>
     .footer {
         background-color: black;
@@ -570,6 +609,96 @@
             s_x += '0';
         }
         return s_x;
+    }
+</script>
+
+<%--搜索栏--%>
+<script>
+
+    $("#inp-query").bind("keyup",function () {
+        var width = document.getElementById("inp-query").offsetWidth+"px";
+        $("#search-suggest").show().css({
+            width:width
+        });
+
+        //在搜索框输入数据，提示相关搜索信息
+        var searchText=$("#inp-query").val();
+
+        $("#search-result").children().remove();
+        $.post("/search",{"search_text":searchText},function (data) {
+            if (data.status == 200) {
+                if(data.data.length!=0) {
+                    $.each(data.data, function (i, item) {
+                        var headHtml = $("#movie-tmpl").html();
+                        var formatDate = item.showyear;
+                        headHtml = headHtml.replace(/{id}/g, item.movieid);
+                        headHtml = headHtml.replace(/{cover}/g, item.picture);
+                        headHtml = headHtml.replace(/{moviename}/g, item.moviename);
+                        headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
+                        headHtml = headHtml.replace(/{director}/g, item.director);
+                        headHtml = headHtml.replace(/{averating}/s, item.averating);
+                        $("#search-result").append(headHtml);
+                    })
+                }
+                else
+                {
+//                $("#search-result").html("查无此片");
+                    alert("差不到此电影哦~")
+                }
+            }
+            else {
+//            alert("加载更多图片资源错误");
+            }
+
+        })
+    });
+
+
+</script>
+
+<%--智能提示框模板--%>
+<script type="text/tmpl"  id="movie-tmpl">
+ <li id="searchResult">
+   <div>
+      <a value="{id}" style="text-decoration:none" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
+            if (data=="success") {
+                location.href = "/MovieDescription"
+            } else {
+            }
+        })'>
+         <div style="float:left">
+            <img src="{cover}" style="width:80px;height:120px">
+         </div>
+         <div  style="padding:12px">
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;电影名称：{moviename}</span>
+            <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;上映时间:{showyear}</span>
+            <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;导演：{director}</span>
+             <br>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;评分：{averating}</span>
+         </div>
+       </a>
+   </div>
+ </li>
+
+</script>
+
+<!-- string cst时间转date-->
+<script>
+    function dateFormat(date, format) {
+        date = new Date(date);
+        var o = {
+            'M+' : date.getMonth() + 1, //month
+            'd+' : date.getDate(), //day
+        };
+        if (/(y+)/.test(format))
+            format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+
+        for (var k in o)
+            if (new RegExp('(' + k + ')').test(format))
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
+        return format;
     }
 </script>
 </html>

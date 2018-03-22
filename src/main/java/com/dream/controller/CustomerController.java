@@ -3,6 +3,7 @@ import com.dream.po.User;
 import com.dream.po.Browse;
 import com.dream.common.E3Result;
 import com.dream.service.LoginService;
+import com.dream.service.UserService;
 import com.dream.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class CustomerController {
-
+    @Autowired
+    private UserService userService;
     @Autowired
     private RegisterService registerService;
 
@@ -112,4 +114,24 @@ public class CustomerController {
         return "Home";
     }
 
+
+    @RequestMapping("/customer/checkboth/{paramName}/{paramEmail}/{type}")
+    @ResponseBody
+    public E3Result checkDataBoth(@PathVariable String paramName,@PathVariable String paramEmail, @PathVariable Integer type) {
+        E3Result e3Result = registerService.checkDataBoth(paramName,paramEmail,type);
+        return e3Result;
+    }
+
+
+    // 更新用户密码
+    @RequestMapping("/user/update")
+    @ResponseBody
+    public String updateUser(HttpServletRequest request) {
+        String useridstr = request.getParameter("userid");
+        String password = request.getParameter("password");
+        Integer userid = Integer.parseInt(useridstr);
+        // 修改密码
+        userService.updateUser(userid, password);
+        return "OK";
+    }
 }
