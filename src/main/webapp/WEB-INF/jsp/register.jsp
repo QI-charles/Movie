@@ -25,7 +25,7 @@
         .checkedN{border-color: green}
         .errorC{ border-color: red}
 
-        .mail{box-shadow: 0 0 15px #141414;width: 210px;border: solid 1px silver;z-index: 10;position:absolute;top:70px;left:470px;display: none;}
+        .mail{box-shadow: 0 0 15px #141414;width: 210px;border: solid 1px silver;z-index: 10;position:absolute;top:90px;left:300px;display: none;}
         .mail .item{width:210px;position:relative;right:40px;margin-left:0px;background-color: #fff;color: #515151;cursor: pointer;height: 22px;line-height: 22px;letter-spacing: 1px;font-size: 13px;padding-left: 5px;}/*letter-spacing字符间距*/
         .mail .item:hover{background-color: #ccc; color: #fff;}
         .img{
@@ -36,8 +36,9 @@
         .imgSelected{
             border:2px solid #0F0;
         }
-
-
+        #tab h6{
+            height: 20px;
+        }
 
     </style>
 </head>
@@ -52,6 +53,7 @@
             <span  style="color: white" class="glyphicon glyphicon-user"></span>
             <input type="text" name="username"  id="regName" value="111111" placeholder="用 户 名" required="required" />
             <span style="color: red"  class="usernameerror"></span>
+
         </div>
 
 
@@ -67,6 +69,7 @@
             <span style="color: white" class="glyphicon glyphicon-asterisk"></span>
             <input type="password" name="password" id="pwd" value="11111111" placeholder="密　码" required="required">
             <span   style="color: red" class="pwderror"></span>
+
         </div>
 
             <%--确认密码--%>
@@ -74,13 +77,9 @@
             <span style="color: white" class="glyphicon glyphicon-asterisk"></span>
             <input type="password" id="pwdRepeat" value="11111111" placeholder="确 认 密 码" required="required">
             <span   style="color: red" class="pwdRerror"></span>
+
         </div>
 
-            <!-- 按钮触发模态框 -->
-        <%--<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: 150px;font-size: 8px ">请选择您喜欢的电影</button>--%>
-          <%--  </br>
-            </br>
-            </br>--%>
         <button  class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal #identifier" type="button" style="background-color: #00b4ef" onclick="REGISTER.reg()">注册</button>
             <%--邮箱提示信息--%>
 
@@ -92,6 +91,11 @@
                 <li data-mail="@gmail.com" class="item item5" type="none">@gmail.com</li>
          </ul>
     </form>
+
+
+
+
+
     <%--//错误提示信息--%>
     <div id="mz_Float">
         <div id="tip"style="color: red" class="bRadius2"></div>
@@ -113,50 +117,50 @@
                     <table id="tab" border="2px">
                         <tr>
                             <td>
-                                <h6>${sessionScope.movie[0].moviename}</h6>
-                                <img  alt="0" name="movieid"  class="img" movieId="${sessionScope.movie[0].movieid}" src="${sessionScope.movie[0].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[0].moviename}</h6>
+                                <img  alt="0" name="movieid"  class="img" movieId="${sessionScope.TopRegDefaultMovie[0].movieid}" src="${sessionScope.TopRegDefaultMovie[0].picture}">
 
                             </td>
                             <td>
-                                <h6>${sessionScope.movie[1].moviename}</h6>
-                                <img alt="1"  name="movieid" class="img" movieId="${sessionScope.movie[1].movieid}" src="${sessionScope.movie[1].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[1].moviename}</h6>
+                                <img alt="1"  name="movieid" class="img" movieId="${sessionScope.TopRegDefaultMovie[1].movieid}" src="${sessionScope.TopRegDefaultMovie[1].picture}">
                             </td>
                             <td>
-                                <h6>${sessionScope.movie[2].moviename}</h6>
-                                <img alt="2" name="movieid"  class="img" movieid="${sessionScope.movie[2].movieid}" src="${sessionScope.movie[2].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[2].moviename}</h6>
+                                <img alt="2" name="movieid"  class="img" movieid="${sessionScope.TopRegDefaultMovie[2].movieid}" src="${sessionScope.TopRegDefaultMovie[2].picture}">
                             <td>
-                                <h6>${sessionScope.movie[3].moviename}</h6>
-                                <img  alt="3" name="movieid" class="img" movieId="${sessionScope.movie[3].movieid}" src="${sessionScope.movie[3].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[3].moviename}</h6>
+                                <img  alt="3" name="movieid" class="img" movieId="${sessionScope.TopRegDefaultMovie[3].movieid}" src="${sessionScope.TopRegDefaultMovie[3].picture}">
 
                             </td>
                             <td>
-                                <h6>${sessionScope.movie[4].moviename}</h6>
-                                <img  alt="4" name="movieid" class="img" movieId="${sessionScope.movie[4].movieid}" src="${sessionScope.movie[4].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[4].moviename}</h6>
+                                <img  alt="4" name="movieid" class="img" movieId="${sessionScope.TopRegDefaultMovie[4].movieid}" src="${sessionScope.TopRegDefaultMovie[4].picture}">
 
                             </td>
 
                         </tr>
                         <tr>
                             <td>
-                                <h6>${sessionScope.movie[5].moviename}</h6>
-                                <img  alt="5" name="movieid" class="img" movieId="${sessionScope.movie[5].movieid}" src="${sessionScope.movie[5].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[5].moviename}</h6>
+                                <img  alt="5" name="movieid" class="img" movieId="${sessionScope.TopRegDefaultMovie[5].movieid}" src="${sessionScope.TopRegDefaultMovie[5].picture}">
 
                             </td>
                             <td>
-                                <h6>${sessionScope.movie[6].moviename}</h6>
-                                <img alt="6" name="movieid" class="img" movieId="${sessionScope.movie[6].movieid}" src="${sessionScope.movie[6].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[6].moviename}</h6>
+                                <img alt="6" name="movieid" class="img" movieId="${sessionScope.TopRegDefaultMovie[6].movieid}" src="${sessionScope.TopRegDefaultMovie[6].picture}">
                             </td>
                             <td>
-                                <h6>${sessionScope.movie[7].moviename}</h6>
-                                <img  alt="7" name="movieid" class="img" movieId="${sessionScope.movie[7].movieid}" src="${sessionScope.movie[7].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[7].moviename}</h6>
+                                <img  alt="7" name="movieid" class="img" movieId="${sessionScope.TopRegDefaultMovie[7].movieid}" src="${sessionScope.TopRegDefaultMovie[7].picture}">
                             <td>
-                                <h6>${sessionScope.movie[8].moviename}</h6>
-                                <img  alt="8" class="img"  name="movieid" movieId="${sessionScope.movie[8].movieid}" src="${sessionScope.movie[8].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[8].moviename}</h6>
+                                <img  alt="8" class="img"  name="movieid" movieId="${sessionScope.TopRegDefaultMovie[8].movieid}" src="${sessionScope.TopRegDefaultMovie[8].picture}">
 
                             </td>
                             <td>
-                                <h6>${sessionScope.movie[9].moviename}</h6>
-                                <img  alt="9" class="img"  name="movieid" movieId="${sessionScope.movie[9].movieid}" src="${sessionScope.movie[9].picture}">
+                                <h6>${sessionScope.TopRegDefaultMovie[9].moviename}</h6>
+                                <img  alt="9" class="img"  name="movieid" movieId="${sessionScope.TopRegDefaultMovie[9].movieid}" src="${sessionScope.TopRegDefaultMovie[9].picture}">
 
                             </td>
                         </tr>
@@ -174,6 +178,8 @@
     </div>
 
 </div>
+
+
 <%--选择喜欢的电影--%>
 <script type="text/javascript">
 
@@ -214,7 +220,7 @@
         $("#regName").removeClass("errorC");
         $("#regName").removeClass("checkedN");
         $(".usernameerror").show();
-        $(".usernameerror").html("");
+        $(".usernameerror").text("  ");
 
 
     });
@@ -223,34 +229,35 @@
         $("#email").removeClass("errorC");
         $("#email").removeClass("checkedN");
         $(".emailerror").show();
-        $(".emailerror").text("");
+        $(".emailerror").text("  ");
     });
     //密码获得焦点
     $("#pwd").focus(function () {
         $("#pwd").removeClass("errorC");
         $("#pwd").removeClass("checkedN");
         $(".pwderror").show();
-        $(".pwderror").text("");
+        $(".pwderror").text("  ");
     });
     //确认密码获得焦点
     $("#pwdRepeat").focus(function () {
         $("#pwdRepeat").removeClass("errorC");
         $("#pwdRepeat").removeClass("checkedN");
-        $(".pwdRerror").hide();
+        $(".pwdRerror").show();
+        $(".pwdRerror").text("  ");
     });
 
     //用户名失去焦点
     $("#regName").blur(function () {
         if ($("#regName").val() == "") {
             $("#regName").addClass("errorC");
-            $(".usernameerror").html("<span style = 'position: relative ;left: -45px;'>◀不能为空</span>");
+            $(".usernameerror").html("<span>▲用户名不能为空</span>");
             $(".usernameerror").show();
 
 
         }
         else if($("#regName").val().length>10 || $("#regName").val().length<4){
             $(".usernameerror").show();
-            $(".usernameerror").html("<span style = 'position: relative ;left: 5px;'>◀请输入4-10位长度用户名</span>").show();
+            $(".usernameerror").html("<span>▲请输入4-10位长度用户名</span>").show();
             $("#regName").addClass("errorC");
         }
         else{
@@ -265,8 +272,9 @@
                 if (data.data) {
                 } else {
                     $(".usernameerror").show();
-                    $(".usernameerror").html("<span style = 'position: relative ;left: 10px;'>◀用户已被注册，请重新输入</span>");
+                    $(".usernameerror").html("<span>▲用户已被注册，请重新输入</span>");
                     $("#regName").addClass("errorC");
+//                    style = 'position: relative ;top:-20px;left: 200px;'
                 }
             }
         });
@@ -282,7 +290,7 @@
         if ($("#pwd").val() == "") {
             $("#pwd").addClass("errorC");
             $(".pwderror").show();
-            $(".pwderror").html("◀密码不能为空");
+            $(".pwderror").html("▲密码不能为空");
         }
         else if ($("#pwd").val().length>16 || $("#pwd").val().length<8){
             $("#pwd").addClass("errorC");
@@ -305,7 +313,7 @@
         if ($("#pwd").val() != $("#pwdRepeat").val() || $("#pwdRepeat").val() =="") {
             $("#pwdRepeat").addClass("errorC");
             $(".pwdRerror").show();
-            $(".pwdRerror").html("◀密码不一致");
+            $(".pwdRerror").html("▲密码不一致");
         }
         else{
             $("#pwdRepeat").addClass("checkedN");
@@ -366,13 +374,13 @@
         if ($("#email").val() == "") {
             $("#email").addClass("errorC");
             $(".emailerror").show();
-            $(".emailerror").html("◀邮箱不能为空");
+            $(".emailerror").html("▲邮箱不能为空");
 
         }
         else if(!reg.test($("#email").val())){
             $("#email").addClass("errorC");
             $(".emailerror").show();
-            $(".emailerror").html("◀邮箱格式错误");
+            $(".emailerror").html("▲邮箱格式错误");
         }
 
         else {
@@ -388,8 +396,9 @@
                 if (data.data) {
                 } else {
                     $(".emailerror").show();
-                    $(".emailerror").html("<span style = 'position: relative ;left: 40px;'>◀邮箱已被注册，请重新输入</span>");
-                    $("#regName").addClass("errorC");
+                    $(".emailerror").html("<span>▲邮箱已被注册，请重新输入</span>");
+                    $("#email").addClass("errorC");
+//                    style = 'position: relative ;left: 290px;'
                 }
             }
         });

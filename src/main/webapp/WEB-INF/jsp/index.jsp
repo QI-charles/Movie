@@ -335,12 +335,12 @@
                                 <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
                             </li>
                             <li>
-                                <span>3381推荐</span>
-                                <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
+                                <span>1159推荐</span>
+                                <div class="title"><a  target="_blank" href="https://www.douban.com/doulist/31478/">很轻的电影和很重的人生</a></div>
                             </li>
                             <li>
                                 <span>3381推荐</span>
-                                <div class="title"><a   target="_blank" href="https://www.douban.com/doulist/30327/">100部爱情电影 经典的回味</a></div>
+                                <div class="title"><a   target="_blank" href="https://www.douban.com/doulist/200218/">得此两百部，足以度余生</a></div>
                             </li>
 
                         </ul>
@@ -358,8 +358,8 @@
                             </ol>
                             <!-- 轮播（Carousel）项目 -->
                             <div class="carousel-inner">
-                                <c:if test="${sessionScope.movie != null}">
-                                    <c:forEach var="item"   items="${sessionScope.movie}" varStatus="i">
+                                <c:if test="${sessionScope.TopDefaultMovie != null}">
+                                    <c:forEach var="item"   items="${sessionScope.TopDefaultMovie}" varStatus="i">
                                         <c:if test="${i.count==1&&i.count<6}">
                                             <div class="item active">
                                                 <img src="${item.backpost}" alt="${item.movieid}" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("alt")}, function (data) {
@@ -382,43 +382,28 @@
                                         </c:if>
                                     </c:forEach>
                                 </c:if>
-                               <%-- <div class="item active">
-                                    <img src="http://image.tmdb.org/t/p/w185/9cJETuLMc6R0bTWRA5i7ctY9bxk.jpg" alt="First slide" style="width: 100%;height: 385px">
-                                </div>
-                                <div class="item">
-                                    <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Second slide" style="width: 100%;height: 385px">
-                                </div>
-                                <div class="item">
-                                    <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Third slide" style="width: 100%;height: 385px">
-                                </div>
-                                <div class="item">
-                                    <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Forth slide" style="width: 100%;height: 385px">
-                                </div>
-                                <div class="item">
-                                    <img src="http://image.tmdb.org/t/p/w185/y8y6Fv0k068OnHBZtu949A1t6pj.jpg" alt="Fifth slide" style="width: 100%;height: 385px">
-                                </div>--%>
                             </div>
 
                         </div>
 
                         <div class="clash-card giant">
-                            <div class="clash-card__unit-name">${sessionScope.movie[0].moviename}</div>
-                                            <div class="clash-card__unit-description">${sessionScope.movie[0].description}</div>
+                            <div class="clash-card__unit-name">${sessionScope.TopDefaultMovie[0].moviename}</div>
+                                            <div class="clash-card__unit-description">${sessionScope.TopDefaultMovie[0].description}</div>
                                             <div class="clash-card__unit-stats clash-card__unit-stats--giant clearfix">
                                                 <div class="one-third">
                                                    <%--<div class="stat">2<sup>M</sup></div>--%>
                                                         <div class="stat">上映日期</div>
-                                                        <div class="stat-value"><fmt:formatDate value="${sessionScope.movie[0].showyear}" pattern="yyyy-MM-dd"/></div>
+                                                        <div class="stat-value"><fmt:formatDate value="${sessionScope.TopDefaultMovie[0].showyear}" pattern="yyyy-MM-dd"/></div>
                                                 </div>
 
                                                 <div class="one-third">
                                                     <div class="stat">多少人看</div>
-                                                    <div class="stat-value">${sessionScope.movie[0].numrating}</div>
+                                                    <div class="stat-value">${sessionScope.TopDefaultMovie[0].numrating}</div>
                                                 </div>
 
                                                 <div class="one-third no-border">
                                                     <div class="stat">电影总评</div>
-                                                    <div class="stat-value">${sessionScope.movie[0].averating}</div>
+                                                    <div class="stat-value">${sessionScope.TopDefaultMovie[0].averating}</div>
                                                 </div>
 
                                             </div>
@@ -638,57 +623,57 @@ function changeTwoDecimal_f(x)
         var getIndex= $hoder.index($items);
         if(getIndex==0)
         {
-            var formatDate = "${sessionScope.movie[0].showyear}";
+            var formatDate = "${sessionScope.TopDefaultMovie[0].showyear}";
             var headHtml = $("#recommodmocard").html();
-            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[0].moviename}");
-            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[0].description}");
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.TopDefaultMovie[0].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.TopDefaultMovie[0].description}");
             headHtml = headHtml.replace(/{showyear}/g,dateFormat(formatDate,'yyyy-MM-dd'));
-            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[0].numrating}");
-            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[0].averating}"));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.TopDefaultMovie[0].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.TopDefaultMovie[0].averating}"));
             $("div[class='clash-card giant']").append(headHtml);
         }
         if(getIndex==1)
         {
-            var formatDate = "${sessionScope.movie[1].showyear}";
+            var formatDate = "${sessionScope.TopDefaultMovie[1].showyear}";
             var headHtml = $("#recommodmocard").html();
-            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[1].moviename}");
-            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[1].description}");
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.TopDefaultMovie[1].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.TopDefaultMovie[1].description}");
             headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
-            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[1].numrating}");
-            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[1].averating}"));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.TopDefaultMovie[1].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.TopDefaultMovie[1].averating}"));
             $("div[class='clash-card giant']").append(headHtml);
         }
         if(getIndex==2)
         {
-            var formatDate = "${sessionScope.movie[2].showyear}";
+            var formatDate = "${sessionScope.TopDefaultMovie[2].showyear}";
             var headHtml = $("#recommodmocard").html();
-            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[2].moviename}");
-            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[2].description}");
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.TopDefaultMovie[2].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.TopDefaultMovie[2].description}");
             headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
-            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[2].numrating}");
-            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[2].averating}"));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.TopDefaultMovie[2].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.TopDefaultMovie[2].averating}"));
             $("div[class='clash-card giant']").append(headHtml);
         }
         if(getIndex==3)
         {
-            var formatDate = "${sessionScope.movie[3].showyear}";
+            var formatDate = "${sessionScope.TopDefaultMovie[3].showyear}";
             var headHtml = $("#recommodmocard").html();
-            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[3].moviename}");
-            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[3].description}");
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.TopDefaultMovie[3].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.TopDefaultMovie[3].description}");
             headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
-            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[3].numrating}");
-            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[3].averating}"));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.TopDefaultMovie[3].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.TopDefaultMovie[3].averating}"));
             $("div[class='clash-card giant']").append(headHtml);
         }
         if(getIndex==4)
         {
-            var formatDate = "${sessionScope.movie[4].showyear}";
+            var formatDate = "${sessionScope.TopDefaultMovie[4].showyear}";
             var headHtml = $("#recommodmocard").html();
-            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.movie[4].moviename}");
-            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.movie[4].description}");
+            headHtml = headHtml.replace(/{moviename}/g, "${sessionScope.TopDefaultMovie[4].moviename}");
+            headHtml = headHtml.replace(/{moviedescription}/g, "${sessionScope.TopDefaultMovie[4].description}");
             headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
-            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.movie[4].numrating}");
-            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.movie[4].averating}"));
+            headHtml = headHtml.replace(/{numrating}/g, "${sessionScope.TopDefaultMovie[4].numrating}");
+            headHtml = headHtml.replace(/{averating}/g, changeTwoDecimal_f("${sessionScope.TopDefaultMovie[4].averating}"));
             $("div[class='clash-card giant']").append(headHtml);
         }
     });

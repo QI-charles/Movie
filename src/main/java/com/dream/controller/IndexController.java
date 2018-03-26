@@ -53,7 +53,7 @@ public class IndexController {
         {
             List<Movie> movies = new ArrayList<Movie>();
             Rectab rectab = rectabService.getRectabByUserId(user.getUserid());
-            if (null != rectab.getMovieids()) {
+            if (rectab!=null && null != rectab.getMovieids()) {
                 String movieids =rectab.getMovieids();
                 String[] strmovieids = movieids.split(",");
                 int i = 0;

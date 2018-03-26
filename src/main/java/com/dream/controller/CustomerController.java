@@ -1,8 +1,11 @@
 package com.dream.controller;
+import com.dream.po.Movie;
+import com.dream.po.Selectquery;
 import com.dream.po.User;
 import com.dream.po.Browse;
 import com.dream.common.E3Result;
 import com.dream.service.LoginService;
+import com.dream.service.TopDefaultMoviesService;
 import com.dream.service.UserService;
 import com.dream.service.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by ZXL on 2018/3/1.
@@ -28,10 +32,15 @@ public class CustomerController {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private TopDefaultMoviesService topDefaultMoviesService;
 
 
     @RequestMapping("/page/register")
-    public String reg() {
+    public String reg(HttpServletRequest request) {
+
+        List<Movie> list = topDefaultMoviesService.SelectRegDefaultMovie();
+        request.getSession().setAttribute("TopRegDefaultMovie",list);
 
         return "register";
     }
@@ -82,7 +91,6 @@ public class CustomerController {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date time = format.parse(str);
 */
-
         Browse browse = new Browse();
         //存用户名
         browse.setUserid(userId);
