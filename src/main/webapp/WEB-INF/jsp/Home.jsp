@@ -17,43 +17,10 @@
     <script src="/assets/js/bootstrap.min.js"></script>
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/Homediscovery.css" rel="stylesheet">
-    <style>
-        /*搜索框*/
-        .suggest{
-
-            position: absolute;
-            z-index:999;
-            width:auto;
-
-            height: auto;
-            max-height: 60%;
-            background-color: #ffffff;
-            /*opacity: 0.9;*/
-            border: 1px solid #999999;
-            overflow :auto;
-        }
-        .suggest ul{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        .suggest ul li{
-
-            padding: 3px;
-            font-size: 14px;
-            line-height: 25px;
-            cursor: pointer;
-            border: 0.5px solid #e1edf7;
-        }
-        .suggest ul li:hover{
-            background-color: #eef9eb;
-        }
-        .suggest ul li span{
-            color: #494949;
-        }
-    </style>
+    <link href="/assets/css/SuggestList.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<%--导航栏--%>
 <nav class="navbar navbar-default" role="navigation" style="background-color: #222;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
 
@@ -77,12 +44,15 @@
                 })' style=" text-decoration:none;float: right;color: white;font-size: 13pt;margin-top: 12px;margin-right: 10px"><span style="color: white" class="glyphicon glyphicon-user"></span> ${sessionScope.user.username}</a>
     </c:if>
 </nav>
+
 <%--智能提示框--%>
 <div class="suggest" id="search-suggest" style="display: none; top:43px;left: 155px;" >
     <ul id="search-result">
     </ul>
 </div>
+
 <div class="fm-discovery" id="wholediv" style="background-image: url('${sessionScope.TopDefaultMovie[0].backpost}')">
+
     <!-- 左侧电影信息卡片-->
     <div class="x-kankan">
         <!-- 左侧电影信息卡片-->
@@ -111,6 +81,7 @@
             <p name="movietype" class="muted">Type:${sessionScope.TopDefaultMovie[0].typelist}</p>
         </div>
     </div>
+
     <!-- 右侧按钮-->
     <div class="x-usermovie-controls x-kankan-buttons">
         <!-- 右侧按钮-->
@@ -141,12 +112,14 @@
             </a>
         </div>
     </div>
+
     <!-- 播放按钮-->
     <div class="xx-play-button">
         <a name="moviehref" href="http://so.iqiyi.com/so/q_${sessionScope.TopDefaultMovie[0].moviename}" target="_blank" class="q" data-title="全网资源搜索" style="display: none;">
             <img src="/assets/img/Homeimg/kankan_play.7b61b6e9285d.png" alt="播放按钮">
         </a>
     </div>
+
 </div>
 
 <!--页面按钮hover提示 -->

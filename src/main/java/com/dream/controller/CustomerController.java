@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.net.URLDecoder;
 
 /**
  * Created by ZXL on 2018/3/1.
@@ -38,10 +39,8 @@ public class CustomerController {
 
     @RequestMapping("/page/register")
     public String reg(HttpServletRequest request) {
-
         List<Movie> list = topDefaultMoviesService.SelectRegDefaultMovie();
         request.getSession().setAttribute("TopRegDefaultMovie",list);
-
         return "register";
     }
 
@@ -53,16 +52,22 @@ public class CustomerController {
 
     @RequestMapping("/customer/check/{param}/{type}")
     @ResponseBody
-    public E3Result checkData(@PathVariable String param, @PathVariable Integer type) {
-        E3Result e3Result = registerService.checkData(param, type);
-        return e3Result;
+    public E3Result checkData(@PathVariable String param, @PathVariable Integer type)   {
+        try {
+            String str = URLDecoder.decode(param, "UTF-8");
+            E3Result e3Result = registerService.checkData(str, type);
+            return e3Result;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return  null;
+        }
     }
-
     @RequestMapping(value = "/customer/register", method = RequestMethod.POST)
     @ResponseBody
     public E3Result register(User user,HttpServletRequest request) {
         //修改3.18 返回用户id
         Integer userId = 0;
+        System.out.print(user.getUsername());
         E3Result e3Result = registerService.register(user);
         if (e3Result.getStatus() == 200) {
             userId = (Integer) e3Result.getData();

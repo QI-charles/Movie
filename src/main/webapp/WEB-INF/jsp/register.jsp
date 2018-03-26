@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html>
 <head>
 
@@ -6,7 +7,8 @@
     <title>register</title>
     <!-- CSS -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/css/login2.css">
+    <link rel="stylesheet" href="/assets/css/regandlogcommon.css">
+    <link rel="stylesheet" href="/assets/css/register.css">
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
@@ -14,33 +16,6 @@
     <!--[if lt IE 9]>
     <![endif]-->
 
-    <style type="text/css">
-
-        #mz_Float{position: absolute;z-index: 1000;top: -376px;left:750px;width: 200px;display: block;}
-        #tip{
-            text-align:left
-        }
-        .bRadius2 {border-radius: 2px;outline: left um none;}
-
-        .checkedN{border-color: green}
-        .errorC{ border-color: red}
-
-        .mail{box-shadow: 0 0 15px #141414;width: 210px;border: solid 1px silver;z-index: 10;position:absolute;top:90px;left:300px;display: none;}
-        .mail .item{width:210px;position:relative;right:40px;margin-left:0px;background-color: #fff;color: #515151;cursor: pointer;height: 22px;line-height: 22px;letter-spacing: 1px;font-size: 13px;padding-left: 5px;}/*letter-spacing字符间距*/
-        .mail .item:hover{background-color: #ccc; color: #fff;}
-        .img{
-            width: 153px;
-            height: 200px;
-            border-radius: 10px;
-        }
-        .imgSelected{
-            border:2px solid #0F0;
-        }
-        #tab h6{
-            height: 20px;
-        }
-
-    </style>
 </head>
 
 <body>
@@ -267,7 +242,10 @@
         }
         //判断用户名是否被占用
         var surl = "";
-        $.ajax({url:surl + "/customer/check/"+escape($("#regName").val())+"/1?r=" + Math.random(),
+
+        var username = encodeURI(encodeURI($("#regName").val()));
+        console.log(username);
+        $.ajax({url:surl + "/customer/check/"+username+"/1?r=" + Math.random(),
             success : function(data) {
                 if (data.data) {
                 } else {
@@ -455,9 +433,10 @@
             return flag;
         },
         beforeSubmit:function() {
+            var username = encodeURI(encodeURI($("#regName").val()));
             //检查用户和邮箱是否已经被占用
             $.ajax({
-                url : REGISTER.param.surl + "/customer/checkboth/"+escape($("#regName").val())+"/"+escape($("#email").val())+"/4?=" + Math.random(),
+                url : REGISTER.param.surl + "/customer/checkboth/"+username+"/"+escape($("#email").val())+"/4?=" + Math.random(),
                 success : function(data) {
                     if (data.data) {
                         REGISTER.doSubmit();

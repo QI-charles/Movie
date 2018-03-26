@@ -12,10 +12,11 @@
     <title>
         梦的6次方
     </title>
-    <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <!-- 电影推荐模块CSS-->
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/SuggestList.css" rel="stylesheet" type="text/css">
     <link href="/assets/css/wholeframe.css" rel="stylesheet" type="text/css">
     <!-- 左右模块位置排序和推荐CSS-->
     <link href="https://img3.doubanio.com/f/movie/8864d3756094f5272d3c93e30ee2e324665855b0/css/movie/base/init.css" rel="stylesheet">
@@ -89,40 +90,6 @@
        }
 
     </style>
-    <style>
-        .suggest{
-
-            position: absolute;
-            z-index:999;
-            width:auto;
-
-            height: auto;
-            max-height: 60%;
-            background-color: #ffffff;
-            /*opacity: 0.9;*/
-            border: 1px solid #999999;
-            overflow :auto;
-        }
-        .suggest ul{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        .suggest ul li{
-
-            padding: 3px;
-            font-size: 14px;
-            line-height: 25px;
-            cursor: pointer;
-            border: 0.5px solid #e1edf7;
-        }
-        .suggest ul li:hover{
-            background-color: #eef9eb;
-        }
-        .suggest ul li span{
-            color: #494949;
-        }
-    </style>
 </head>
 
 <body>
@@ -186,50 +153,7 @@
                                     </div>
                                 </div>
 
-                                <!-- 电影类型标签选择事件-->
 
-                                <script>
-                                    $("input[name='tag']").click(function () {
-                                        //设置选中标签ACTIVATE之前的remove
-                                        $("#tags-list label").attr("class","");
-                                        var label= $(this).parent();
-                                        label.attr("class","activate");
-                                        //清空电影数据
-                                        $("#list").children().remove();
-                                        //如果type为0请求全部刷新页面
-                                            //请求数据对应的电影类型
-                                            $.post("/typesortmovie", {
-                                                molimit:$("#list").children("a").length,
-                                                type: $(this).attr("value"),
-                                                sort: $("input[name='sort']:checked").val()
-                                            }, function (data) {
-                                                if (data.status == 200) {
-                                                    if (data.data.length != 0) {
-                                                        //返回movielist,用sc模板append
-                                                        $.each(data.data, function (i, item) {
-                                                            var headHtml = $("#subject-tmpl").html();
-                                                            if (item.picture == "http://image.tmdb.org/t/p/w185"||item.picture==null)
-                                                                headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
-                                                            else
-                                                                headHtml = headHtml.replace(/{cover}/g, item.picture);
-                                                            headHtml = headHtml.replace(/{id}/g, item.movieid);
-                                                            headHtml = headHtml.replace(/{rate}/g, changeTwoDecimal_f(item.averating));
-                                                            headHtml = headHtml.replace(/{cover_x}/g, "1500");
-                                                            headHtml = headHtml.replace(/{cover_y}/g, "2200");
-                                                            headHtml = headHtml.replace(/{title}/g, item.moviename);
-                                                            $("#list").append(headHtml);
-                                                        })
-                                                    }
-                                                    else {
-                                                        alert("没有该类型影片数据")
-                                                    }
-                                                }
-                                                else {
-                                                    alert("请求电影信息错误");
-                                                }
-                                            })
-                                    })
-                                </script>
 
                                 <!-- 电影时序等选择radio-->
 
@@ -246,40 +170,7 @@
                                         </label>
                                     </div>
 
-                                    <!-- 电影时序等选择radio事件-->
-                                    <script>
-                                        $("input[name='sort']").click(function () {
-                                            $("#list").children().remove()
-                                                //请求数据对应的电影类型
-                                                $.post("/typesortmovie", {
-                                                    molimit:$("#list").children("a").length,
-                                                    sort: $(this).attr("value"),
-                                                    type: $("label[class='activate']").attr("value")
-                                                }, function (data) {
-                                                    if (data.status == 200) {
-                                                        if (data.data.length != 0) {
-                                                            //返回movielist,用sc模板append
-                                                            $.each(data.data, function (i, item) {
-                                                                var headHtml = $("#subject-tmpl").html();
-                                                                if (item.picture == "http://image.tmdb.org/t/p/w185"||item.picture==null)
-                                                                    headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
-                                                                else
-                                                                    headHtml = headHtml.replace(/{cover}/g, item.picture);
-                                                                headHtml = headHtml.replace(/{id}/g, item.movieid);
-                                                                headHtml = headHtml.replace(/{rate}/g,changeTwoDecimal_f(item.averating));
-                                                                headHtml = headHtml.replace(/{cover_x}/g, "1500");
-                                                                headHtml = headHtml.replace(/{cover_y}/g, "2200");
-                                                                headHtml = headHtml.replace(/{title}/g, item.moviename);
-                                                                $("#list").append(headHtml);
-                                                            })
-                                                        }
-                                                        else {
-                                                            alert("排序失败");
-                                                        }
-                                                    }
-                                                })
-                                            })
-                                    </script>
+
                                 </div>
                             </form>
                         </div>
@@ -677,6 +568,86 @@ function changeTwoDecimal_f(x)
             $("div[class='clash-card giant']").append(headHtml);
         }
     });
+</script>
+
+<!-- 电影类型标签选择事件-->
+
+<script>
+    $("input[name='tag']").click(function () {
+        //设置选中标签ACTIVATE之前的remove
+        $("#tags-list label").attr("class","");
+        var label= $(this).parent();
+        label.attr("class","activate");
+        //清空电影数据
+        $("#list").children().remove();
+        //如果type为0请求全部刷新页面
+        //请求数据对应的电影类型
+        $.post("/typesortmovie", {
+            molimit:$("#list").children("a").length,
+            type: $(this).attr("value"),
+            sort: $("input[name='sort']:checked").val()
+        }, function (data) {
+            if (data.status == 200) {
+                if (data.data.length != 0) {
+                    //返回movielist,用sc模板append
+                    $.each(data.data, function (i, item) {
+                        var headHtml = $("#subject-tmpl").html();
+                        if (item.picture == "http://image.tmdb.org/t/p/w185"||item.picture==null)
+                            headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
+                        else
+                            headHtml = headHtml.replace(/{cover}/g, item.picture);
+                        headHtml = headHtml.replace(/{id}/g, item.movieid);
+                        headHtml = headHtml.replace(/{rate}/g, changeTwoDecimal_f(item.averating));
+                        headHtml = headHtml.replace(/{cover_x}/g, "1500");
+                        headHtml = headHtml.replace(/{cover_y}/g, "2200");
+                        headHtml = headHtml.replace(/{title}/g, item.moviename);
+                        $("#list").append(headHtml);
+                    })
+                }
+                else {
+                    alert("没有该类型影片数据")
+                }
+            }
+            else {
+                alert("请求电影信息错误");
+            }
+        })
+    })
+</script>
+
+<!-- 电影时序等选择radio事件-->
+<script>
+    $("input[name='sort']").click(function () {
+        $("#list").children().remove()
+        //请求数据对应的电影类型
+        $.post("/typesortmovie", {
+            molimit:$("#list").children("a").length,
+            sort: $(this).attr("value"),
+            type: $("label[class='activate']").attr("value")
+        }, function (data) {
+            if (data.status == 200) {
+                if (data.data.length != 0) {
+                    //返回movielist,用sc模板append
+                    $.each(data.data, function (i, item) {
+                        var headHtml = $("#subject-tmpl").html();
+                        if (item.picture == "http://image.tmdb.org/t/p/w185"||item.picture==null)
+                            headHtml = headHtml.replace(/{cover}/g, "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2512283982.jpg");
+                        else
+                            headHtml = headHtml.replace(/{cover}/g, item.picture);
+                        headHtml = headHtml.replace(/{id}/g, item.movieid);
+                        headHtml = headHtml.replace(/{rate}/g,changeTwoDecimal_f(item.averating));
+                        headHtml = headHtml.replace(/{cover_x}/g, "1500");
+                        headHtml = headHtml.replace(/{cover_y}/g, "2200");
+                        headHtml = headHtml.replace(/{title}/g, item.moviename);
+                        $("#list").append(headHtml);
+                    })
+                }
+                else {
+                    alert("排序失败");
+                }
+            }
+        })
+    })
 </script>
 
 </body>

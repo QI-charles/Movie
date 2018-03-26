@@ -271,7 +271,7 @@ public class IndexController {
         // TODO：根据推荐表取值
         List<Movie> rectabmovie = new ArrayList<Movie>();
         Rectab rectab = rectabService.getRectabByUserId(userid);
-        if (null != rectab.getMovieids()) {
+        if (rectab!=null &&null != rectab.getMovieids()) {
             String movieids =rectab.getMovieids();
             String[] strmovieids = movieids.split(",");
             for (String strmovieid: strmovieids) {

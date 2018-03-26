@@ -7,57 +7,27 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>梦的6次方</title>
-    <!-- JS-->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/star-rating.min.js" type="text/javascript"></script>
+
     <!-- 星星评分CSS-->
     <link href="/assets/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
     <!-- 整体DIV CSS-->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/wholeframe.css" rel="stylesheet" type="text/css">
-    <!-- 鼠标悬浮在<A>时背景和导航栏同步-->
-    <style type="text/css">
-        a.dream:hover {
-            background-color: black;
-        }
-        #liked:hover {
-            border-color: #CCC;
-        }
-        a:hover.likedactive
-        {
-            background-color: pink;
-            color: white;
-            outline: 0 none !important;
-        }
-        a.likedactive
-        {
-            background-color: pink;
-            color: white;
-            outline: 0 none !important;
-        }
-
-
-        #play:hover {
-            background-color: white;
-            outline: 0 none !important;
-            color: #00b4ef;
-        }
-
-        #submitevalutionstar:hover {
-            outline: 0 none !important;
-            background-color: white;
-            color: #00b4ef;
-        }
-    </style>
+    <link href="/assets/css/MovieDescription.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/SuggestList.css" rel="stylesheet" type="text/css">
+    <!-- JS-->
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/star-rating.min.js" type="text/javascript"></script>
+    <!-- 页面一开始加载star类和切换喜欢按钮样式-->
     <script type="text/javascript">
-        window.onload = function () {
+        function  load() {
             $("#allstar").rating({
-                        showClear: false,
-                        size: 'xs',
-                        showCaption: false,
-                        readonly: true,
-                    }
+                    showClear: false,
+                    size: 'xs',
+                    showCaption: false,
+                    readonly: true,
+                }
             );
             $("#Evaluation").rating({
                 min: 0,
@@ -69,67 +39,11 @@
                 $("#liked").toggleClass('likedactive');
         }
     </script>
-    <style>
-        /*搜索框*/
-        .suggest{
-
-            position: absolute;
-            z-index:999;
-            width:auto;
-
-            height: auto;
-            max-height: 60%;
-            background-color: #ffffff;
-            /*opacity: 0.9;*/
-            border: 1px solid #999999;
-            overflow :auto;
-        }
-        .suggest ul{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        .suggest ul li{
-
-            padding: 3px;
-            font-size: 14px;
-            line-height: 25px;
-            cursor: pointer;
-            border: 0.5px solid #e1edf7;
-        }
-        .suggest ul li:hover{
-            background-color: #eef9eb;
-        }
-        .suggest ul li span{
-            color: #494949;
-        }
-    </style>
 </head>
 
-<body>
-<script>
-    function  likedclick() {
-        var color=$("#liked").css("background-color");
-        var boollike;
-        if(color=="rgb(230, 230, 230)")
-            boollike=1;
-        else
-            boollike=0;
-        $.post("/likedmovie", {"movieid": "${sessionScope.moviedescription.movieid}","boollike":boollike,"userid":"${sessionScope.user.userid}"},function (data) {
-         if(data=="success") {
-             if (boollike == 1)
-                 alert("收藏成功");
-             else
-                 alert("取消收藏");
-         }
-         else
-             alert("按钮事件失效")
-        })
+<body onload="load()">
 
-        $("#liked").toggleClass('likedactive');
-    }
-</script>
-<!-- 导航栏BT模板-->
+<!-- 导航栏-->
 <nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
     <a class="navbar-brand" href="/" style="color: white">电影推荐网站</a>
 
@@ -161,40 +75,51 @@
            style="float: right;color: white;font-size: 13pt;margin-top: 10px;margin-right: 10px"><span
                 style="color: white" class="glyphicon glyphicon-user"></span> ${sessionScope.user.username}</a>
     </c:if>
-
 </nav>
 <br>
 <br>
-<!--电影信息栏 自定义-->
+
 <div class="component-poster-detail">
     <!--bt-->
     <div class="container">
+
+        <!--电影海报上面 电影名称和导演 -->
         <div class="row">
             <!--电影名称导演 -->
             <div class="col-md-9 col-sm-8">
                 <h1>${sessionScope.moviedescription.moviename}</h1>
                 <h2>Directed by ${sessionScope.moviedescription.director}</h2>
             </div>
-        </div> <!-- /row -->
+        </div>
+
         <div class="row">
             <!--电影海报和其他信息/喜欢播放提交按钮 -->
             <div class="col-sm-4">
                 <div class="row">
+
+                    <!--最左侧电影图片和星星评分控件 -->
                     <div class="col-md-7 col-sm-12">
                         <div class="movie-poster">
+
+                            <!--电影图片 -->
                             <a><img src="${sessionScope.moviedescription.picture}" alt="" style="width: 100%"></a>
+
+                            <!--评分控件，如果用户登录且未评分显示 -->
                             <c:if test="${sessionScope.user != null&&sessionScope.userstar==null}">
                                 <div id="evalutiondiv">
                                     <input id="Evaluation">
                                 </div>
                             </c:if>
+
                         </div>
                     </div>
+
+                    <!--左侧电影信息 -->
                     <div class="col-md-5 col-sm-12 film-stats" style="">
-                        <div><b style="font-size: 11pt">编剧:</b> <span
-                                style="font-size: 9pt">${sessionScope.moviedescription.screenwriter}</span></div>
-                        <div><b style="font-size: 11pt">制片国家/地区:</b><span
-                                style="font-size: 9pt"> ${sessionScope.moviedescription.nation}</span></div>
+
+                        <!--电影信息div -->
+                        <div><b style="font-size: 11pt">语言:</b><span
+                                style="font-size: 9pt"> 英语</span></div>
                         <div><b style="font-size: 11pt">类别:</b><span
                                 style="font-size: 9pt"> ${sessionScope.moviedescription.typelist}</span></div>
                         <div><b style="font-size: 11pt">上映日期:</b><span style="font-size: 9pt">
@@ -206,6 +131,8 @@
                         <div><b style="font-size: 11pt">总评分:</b> <span
                                 style="font-size: 9pt">${sessionScope.moviedescription.averating}分</span></div>
                         <div><input id="allstar" value="${sessionScope.moviedescription.averating}"></div>
+
+                        <!--用户评分，如果用户登录且评分过则显示评分信息 -->
                         <c:if test="${sessionScope.user != null&&sessionScope.userstar!=null}">
                             <div><b style="font-size: 11pt">你的评分:</b> <span
                                     style="font-size: 9pt">${sessionScope.userstar.star}分</span></div>
@@ -215,16 +142,22 @@
                                     </span></div>
                         </c:if>
                         <br>
+
+                        <!--喜欢按钮，如果用户登录则显示 -->
                         <c:if test="${sessionScope.user != null}">
                         <a  class="btn btn-default btn-md" id="liked" onclick="likedclick()" ><span
                                 class="glyphicon glyphicon-heart"></span><span class="fm-opt-label"> 喜欢</span></a>
                         </c:if>
                         <br><br>
+
+                        <!--播放按钮 -->
                         <a class="btn btn-default btn-md"
                            href="http://so.iqiyi.com/so/q_${sessionScope.moviedescription.moviename}" id="play"
                            target="_Blank"><span class="glyphicon glyphicon-play-circle"></span><span
                                 class="fm-opt-label"> 播放</span></a><br>
                         <br>
+
+                        <!--提交按钮，如果用户登录且未评分显示 -->
                         <c:if test="${sessionScope.user != null&&sessionScope.userstar==null}">
                             <button id="submitevalutionstar" class="btn btn-default btn-md"
                                     onclick='$.post("/getstar",{userid:${sessionScope.user.userid},movieid:${sessionScope.moviedescription.movieid},time:getNowFormatDate(),star:$("#Evaluation").val()},function (data) {
@@ -236,8 +169,10 @@
                     </div>
                 </div>
             </div>
+
+            <!--右侧电影信息等栏目 -->
             <div class="col-sm-8">
-                <!-- 分享链接栏 -->
+
                 <!-- 分享链接栏 -->
                 <div id="atstbx2" style="float: right;margin-top: -7%"
                      class="at-share-tbx-element addthis-smartlayers addthis-animated at4-show">
@@ -246,27 +181,17 @@
                             <img style="line-height: 32px; height: 32px; width: 32px;"
                                  src="https://www.vmovier.com/Public/Home/images/baidu-weibo-v2.png?20160109"/>
                         </a>
-                        <%--  <a id="wxshareBtn" class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
-                              <img style="line-height: 32px; height: 32px; width: 32px;"
-                                   src="https://www.vmovier.com/Public/Home/images/baidu-wechat-v2.png?20160109"/>
-                          </a>--%>
                         <a id="qzoneshareBtn" href="javascript:void(0)" target="_blank" class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
                             <img style="line-height: 32px; height: 32px; width: 32px;"
                                  src="https://www.vmovier.com/Public/Home/images/baidu-qzone-v2.png?20160109"/>
                         </a>
-                        <%-- <a id="twbshareBtn" class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
-                             <img style="line-height: 32px; height: 32px; width: 32px;"
-                                  src="https://www.vmovier.com/Public/Home/images/baibu-tengxun-v2.png?20160109"/>
-                         </a>--%>
                         <a id="qqshareBtn" target="_blank" class="at-icon-wrapper at-share-btn at-svc-bitly" style=" border-radius: 0%;">
                             <img style="line-height: 32px; height: 32px; width: 32px;"
                                  src="https://www.vmovier.com/Public/Home/images/baibu-qq-v2.png?20160109"/>
                         </a>
                     </div>
                 </div>
-                <!-- Go to www.addthis.com/dashboard to customize your tools -->
-                <script type="text/javascript"
-                        src="//s7.addthis.com/js/300/addthis_widget.js#pubid=kinointernational"></script>
+
                 <!-- Nav tabs 信息切换栏-->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active" style="text-align: center"><a href="#film-info"
@@ -284,55 +209,6 @@
                                                                                    data-toggle="tab"
                                                                                    aria-expanded="false">电影资源</a></li>
                 </ul>
-                <!-- 设置每一个<a>宽度占总div的百分比和电影资源DIV -->
-                <style>
-                    .component-poster-detail .nav-tabs > li {
-                        width: 33.33% !important;
-                    }
-
-                    .qBox legend {
-                        margin: 0 4px;
-                        padding: 4px;
-                        font-weight: bold;
-                        white-space: nowrap;
-                        border: none;
-                        background: none;
-                        border-radius: 25px;
-                        line-height: 1;
-                        vertical-align: text-top;
-                        font-size: 12px;
-                    }
-
-                    .qBox legend .keyword {
-                        display: inline-block;
-                        max-width: 30em;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        vertical-align: top;
-                    }
-
-                    .qBox a {
-                        color: #333;
-                        display: block;
-                        float: left;
-                        min-width: 100px;
-                        line-height: 30px;
-                        text-align: center;
-                        padding: 4px 8px;
-                        margin: 4px;
-                        font-size: 12px;
-                        border: 1px solid;
-                        /* background: rgba(0,0,0,0.04); */
-                        opacity: 1;
-                        transition-duration: 0.3s;
-                    }
-
-                    .qBox a:hover {
-                        font-size: 16px;
-                        color: #4b8ccb;
-                        background-color: whitesmoke;
-                    }
-                </style>
 
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -349,6 +225,7 @@
                         <div><strong>故事简介</strong></div>
                         <p><span style="font-weight: 400;"> ${sessionScope.moviedescription.description}</span></p>
                     </div>
+
                     <!--推荐电影table -->
                     <div role="tabpanel" class="tab-pane fade" id="reviews">
 
@@ -370,6 +247,7 @@
                         </div>
 
                     </div>
+
                     <!--电影资源-->
                     <div role="tabpanel" class="tab-pane fade" id="resource">
                         <br>
@@ -430,39 +308,17 @@
                     </div>
 
                 </div>
+
             </div>
         </div>
         <!-- /row -->
     </div> <!-- /container -->
 </div>
 <br>
-<script>
-    $('#reviewsId').click(function (event) {
-        event.preventDefault();
-        $("#movietable").children().remove();
-        $.post("/getSimiMovies", {"id": "${sessionScope.moviedescription.movieid}"},function (data) {
-                if (data.status == 200) {
-                    if(data.data.length!=0) {
-                        $.each(data.data, function (i, item) {
-                            var headHtml = $("#recommodmovies").html();
-                            headHtml = headHtml.replace(/{id}/g, item.movieid);
-                            headHtml = headHtml.replace(/{averating}/g,changeTwoDecimal_f(item.averating));
-                            headHtml = headHtml.replace(/{director}/g, item.director);
-                            headHtml = headHtml.replace(/{typelist}/g, item.typelist);
-                            headHtml = headHtml.replace(/{moviename}/g, item.moviename);
-                            $("#movietable").append(headHtml);
-                        })
-                    }else
-                    {alert("没有相似影片")}
-                }
-                else {
-                    alert("加载更多图片资源错误");
-                }
-            })
-    })
-</script>
+
 <br>
 <br>
+
 <!--底部 -->
 <div class="footer">
     <a href="/" target="_blank">客户端</a>
@@ -472,23 +328,67 @@
         &nbsp;
     </div>
 </div>
+
 <%--智能提示框--%>
 <div class="suggest" id="search-suggest" style="display: none; top:43px;left: 155px;" >
     <ul id="search-result">
     </ul>
 </div>
-<style>
-    .footer {
-        background-color: black;
-        color: #CCC;
-        font-size: 12px;
-        text-align: center;
-        padding: 35px 0;
-        margin-top: 10%;
 
+<br>
+</body>
+<!-- 点击相似电影<li>-->
+<script>
+    $('#reviewsId').click(function (event) {
+        event.preventDefault();
+        $("#movietable").children().remove();
+        $.post("/getSimiMovies", {"id": "${sessionScope.moviedescription.movieid}"},function (data) {
+            if (data.status == 200) {
+                if(data.data.length!=0) {
+                    $.each(data.data, function (i, item) {
+                        var headHtml = $("#recommodmovies").html();
+                        headHtml = headHtml.replace(/{id}/g, item.movieid);
+                        headHtml = headHtml.replace(/{averating}/g,changeTwoDecimal_f(item.averating));
+                        headHtml = headHtml.replace(/{director}/g, item.director);
+                        headHtml = headHtml.replace(/{typelist}/g, item.typelist);
+                        headHtml = headHtml.replace(/{moviename}/g, item.moviename);
+                        $("#movietable").append(headHtml);
+                    })
+                }else
+                {alert("没有相似影片")}
+            }
+            else {
+                alert("加载更多图片资源错误");
+            }
+        })
+    })
+</script>
+
+<!-- 喜欢按钮事件-->
+<script>
+    function  likedclick() {
+        var color=$("#liked").css("background-color");
+        var boollike;
+        if(color=="rgb(230, 230, 230)")
+            boollike=1;
+        else
+            boollike=0;
+        $.post("/likedmovie", {"movieid": "${sessionScope.moviedescription.movieid}","boollike":boollike,"userid":"${sessionScope.user.userid}"},function (data) {
+            if(data=="success") {
+                if (boollike == 1)
+                    alert("收藏成功");
+                else
+                    alert("取消收藏");
+            }
+            else
+                alert("按钮事件失效")
+        })
+
+        $("#liked").toggleClass('likedactive');
     }
-</style>
+</script>
 
+<!-- 获取用户评论的当前时间 post用-->
 <script>
     function getNowFormatDate() {
         var date = new Date();
@@ -503,15 +403,14 @@
             strDate = "0" + strDate;
         }
         var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-                + " " + date.getHours() + seperator2 + date.getMinutes()
-                + seperator2 + date.getSeconds();
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
         return currentdate;
     }
 
 </script>
-<br>
-</body>
 
+<!-- 相似电影table模板-->
 <script type="text/tmpl" id="recommodmovies">
     <tr>
     <td>
@@ -530,7 +429,6 @@
 </script>
 
 <!-- 强制保留一位小数点-->
-
 <script>
     function changeTwoDecimal_f(x)
     {
@@ -644,6 +542,8 @@
         return format;
     }
 </script>
+
+<!-- 分享连接栏-->
 <script>
 
 
@@ -680,4 +580,12 @@
     }
     weiboShare();
 </script>
+
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript"
+        src="//s7.addthis.com/js/300/addthis_widget.js#pubid=kinointernational"></script>
+
+
 </html>
