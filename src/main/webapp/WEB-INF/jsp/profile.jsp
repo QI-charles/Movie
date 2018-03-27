@@ -7,63 +7,20 @@
   <head>
     <meta charset="utf-8" />
     <title data-react-helmet="true">梦的6次方</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
-    <meta name="renderer" content="webkit" />
-    <meta name="force-rendering" content="webkit" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="google-site-verification" content="FTeR0c8arOPKh8c5DYh_9uu98_zJbaWw53J-Sch9MTg" />
-    <meta data-react-helmet="true" name="apple-itunes-app" content="app-id=432274380,
-    app-argument=zhihu://people/uu-ll-98" />
     <link data-react-helmet="true" rel="prefetch" href="/assets/img/user_cover_image.jpg" />
-    <link rel="shortcut icon" type="image/x-icon" href="https://static.zhihu.com/static/favicon.ico" />
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    <!-- 星星评分CSS-->
     <script src="/assets/js/star-rating.min.js" type="text/javascript"></script>
     <link href="/assets/css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
     <link href="/assets/css/douban.main.css" rel="stylesheet" />
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
-    <style>
-      /*搜索框*/
-      .suggest{
-
-        position: absolute;
-        z-index:999;
-        width:auto;
-
-        height: auto;
-        max-height: 60%;
-        background-color: #ffffff;
-        /*opacity: 0.9;*/
-        border: 1px solid #999999;
-        overflow :auto;
-      }
-      .suggest ul{
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      .suggest ul li{
-
-        padding: 3px;
-        font-size: 14px;
-        line-height: 25px;
-        cursor: pointer;
-        border: 0.5px solid #e1edf7;
-      }
-      .suggest ul li:hover{
-        background-color: #eef9eb;
-      }
-      .suggest ul li span{
-        color: #494949;
-      }
-    </style>
+    <link href="/assets/css/SuggestList.css" rel="stylesheet" type="text/css">
     <style>
       .component-poster-detail .nav-tabs > li {
         width: 50% !important;
       }
     </style>
-
+    <%--star rating 类--%>
     <script type="text/javascript">
         window.onload=function(){
             $("input[name='allstar']").rating({
@@ -78,10 +35,7 @@
   
   <body class="Entry-body">
     <div id="root">
-      <div data-zop-userToken="{&quot;urlToken&quot;:&quot;uu-ll-98&quot;}" data-reactroot="" data-reactid="1" data-react-checksum="-1191953014">
-        <!-- react-empty: 2 -->
-        <div class="LoadingBar" data-reactid="3"></div>
-        <!-- react-empty: 4 -->
+
         <div data-reactid="5">
           <!-- 导航栏-->
           <nav class="navbar navbar-default" role="navigation" style="background-color: black;margin-bottom: 0%">
@@ -103,54 +57,50 @@
             </c:if>
           </nav>
         </div>
-        <!-- react-empty: 47 -->
+
         <main role="main" class="App-main" data-reactid="48">
           <div data-reactid="49">
-            <!-- react-empty: 50 -->
-            <div itemprop="people" itemtype="http://schema.org/Person" itemscope="" data-reactid="51">
-              <meta itemprop="url" content="https://www.zhihu.com/people/uu-ll-98" data-reactid="52" />
-              <meta itemprop="gender" content="Male" data-reactid="53" />
-              <meta itemprop="image" content="https://pic3.zhimg.com/49d24e6c727b38ebd140ec0572ad84ca_is.jpg" data-reactid="54" />
-              <meta itemprop="zhihu:voteupCount" content="20" data-reactid="55" />
-              <meta itemprop="zhihu:thankedCount" content="0" data-reactid="56" />
-              <meta itemprop="zhihu:followerCount" content="0" data-reactid="57" />
-              <meta itemprop="zhihu:answerCount" content="7" data-reactid="58" />
-              <meta itemprop="zhihu:articlesCount" content="0" data-reactid="59" />
-              <!-- react-empty: 60 -->
+
               <div id="ProfileHeader" class="ProfileHeader" data-reactid="61">
                 <div class="Card" data-reactid="62">
                   <div class="ProfileHeader-userCover" data-reactid="63">
                     <div class="UserCoverEditor" data-reactid="64">
+                      <!-- 背景图片 -->
                       <div data-reactid="65">
                         <div class="UserCover" data-reactid="71">
+                          <!-- 背景图片 -->
                           <div class="VagueImage UserCover-image" data-src="/assets/img/user_cover_image.jpg" data-reactid="72">
                             <img src="/assets/img/user_cover_image.jpg">
                             <div class="VagueImage-mask" data-reactid="73"></div>
                           </div>
                         </div>
                       </div>
-                      <input type="file" accept="image/png,image/jpeg" style="display:none;" data-reactid="74" /></div>
+
+                    </div>
                   </div>
+
                   <div class="ProfileHeader-wrapper" data-reactid="75">
+
+                    <!-- 背景图片一下的用户信息部分-->
                     <div class="ProfileHeader-main" data-reactid="76" style="margin-bottom: 0px;">
+
+                      <!-- 用户头像 -->
                       <div class="UserAvatarEditor ProfileHeader-avatar" style="top:-57px;margin-left: 20px;" data-reactid="77">
                         <div class="UserAvatar" data-reactid="78">
-                          <img class="Avatar Avatar--large UserAvatar-inner" width="160" height="160" src="/assets/img/user_avatar.jpg" srcset="/assets/img/user_avatar.jpg 2x" data-reactid="79" /></div>
-                        <div class="Mask UserAvatarEditor-mask Mask-hidden" data-reactid="80">
-                          <div class="Mask-mask Mask-mask--black UserAvatarEditor-maskInner" data-reactid="81"></div>
-                          <div class="Mask-content" data-reactid="82">
-                            <svg class="Zi Zi--Camera UserAvatarEditor-cameraIcon" fill="currentColor" viewBox="0 0 24 24" width="36" height="36" data-reactid="83">
-                              <path d="M20.094 6S22 6 22 8v10.017S22 20 19 20H4.036S2 20 2 18V7.967S2 6 4 6h3s1-2 2-2h6c1 0 2 2 2 2h3.094zM12 16a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7zm0 1.5a5 5 0 1 0-.001-10.001A5 5 0 0 0 12 17.5zm7.5-8a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill-rule="evenodd" data-reactid="84"></path>
-                            </svg>
-                            <div class="UserAvatarEditor-maskInnerText" data-reactid="85">修改我的头像</div></div>
+                          <img class="Avatar Avatar--large UserAvatar-inner" width="160" height="160" src="/assets/img/user_avatar.jpg" srcset="/assets/img/user_avatar.jpg 2x" data-reactid="79" />
                         </div>
-                        <input type="file" accept="image/png,image/jpeg" style="display:none;" data-reactid="86" /></div>
+                      </div>
+
                       <div class="ProfileHeader-content" data-reactid="87">
+
+                        <!-- 用户名称 -->
                         <div class="ProfileHeader-contentHead" data-reactid="88">
                           <h1 class="ProfileHeader-title" data-reactid="89">
                             <span class="ProfileHeader-name" data-reactid="90">${sessionScope.user.username}</span>
-                            <!-- react-empty: 92 --></h1>
+                          </h1>
                         </div>
+
+                        <!-- 头像下的留白空间 -->
                         <div style="overflow:hidden;transition:height 300ms ease-out;" class="ProfileHeader-contentBody" data-reactid="93">
                           <div data-reactid="94">
                             <div class="ProfileHeader-info" data-reactid="95">
@@ -165,15 +115,10 @@
                             </div>
                           </div>
                         </div>
+
+                        <!--编辑个人资料按钮 -->
                         <div class="ProfileHeader-contentFooter" data-reactid="109">
-                          <button class="Button ProfileHeader-expandButton Button--plain" type="button" data-reactid="110">
-                            <%--<svg viewBox="0 0 10 6" class="Icon ProfileHeader-arrowIcon Icon--arrow" style="height:16px;width:10px;" width="10" height="16" aria-hidden="true" data-reactid="111">--%>
-                              <%--<title data-reactid="112"></title>--%>
-                              <%--<g data-reactid="113">--%>
-                                <%--<path d="M8.716.217L5.002 4 1.285.218C.99-.072.514-.072.22.218c-.294.29-.294.76 0 1.052l4.25 4.512c.292.29.77.29 1.063 0L9.78 1.27c.293-.29.293-.76 0-1.052-.295-.29-.77-.29-1.063 0z" /></g>--%>
-                            <%--</svg>--%>
-                            <%--<!-- react-text: 114 -->查看详细资料--%>
-                            <!-- /react-text --></button>
+
                           <div class="ProfileButtonGroup ProfileHeader-buttons" data-reactid="115" style="bottom: 30px;">
                             <a href="#" class="Button Button--blue" data-toggle="modal" data-target="#userEditDialog" onclick="editUser(${sessionScope.user.userid})">
                               <!-- react-text: 117 -->编辑
@@ -184,26 +129,22 @@
                               <!-- /react-text -->
                             </a></div>
                         </div>
+
                       </div>
                     </div>
+
                   </div>
+
                 </div>
               </div>
+
               <div class="Profile-main" data-reactid="120">
                 <div class="Profile-mainColumn" data-reactid="121">
                   <div class="Card ProfileMain" id="ProfileMain" data-reactid="122">
-                    <div class="ProfileMain-header" data-reactid="123">
-                      <%--<ul role="tablist" class="Tabs ProfileMain-tabs" data-reactid="124" style="margin-bottom: 0px;">--%>
-                        <%--<li role="tab" class="Tabs-item Tabs-item--noMeta" aria-controls="Profile-activities" data-reactid="125">--%>
-                          <%--<a class="Tabs-link is-active" href="/people/uu-ll-98/activities" data-reactid="126">喜欢的电影</a></li>--%>
-                        <%--<li role="tab" class="Tabs-item" aria-controls="Profile-answers" data-reactid="127">--%>
-                          <%--<a class="Tabs-link" href="/people/uu-ll-98/answers" data-reactid="128">--%>
-                            <%--<!-- react-text: 129 -->已评价的电影--%>
-                            <%--<!-- /react-text -->--%>
-                            <%--<span class="Tabs-meta" data-reactid="130">7</span></a>--%>
-                        <%--</li>--%>
-                      <%--</ul>--%>
 
+                    <div class="ProfileMain-header" data-reactid="123">
+
+                        <!-- 滑动标签<li> -->
                         <ul class="nav nav-tabs" role="tablist">
                           <li role="presentation" class="active" style="text-align: center"><a href="#film-info"
                                                                                                aria-controls="film info"
@@ -217,6 +158,7 @@
                                                                                          aria-expanded="false">已评价</a></li>
                         </ul>
 
+                        <!-- 喜欢的电影<li> -->
                         <div class="tab-content">
                           <div class="tab-pane fade active in" id="film-info" data-zop-feedlistfather="1" data-reactid="158">
                             <div class="List-header" data-reactid="159">
@@ -279,6 +221,7 @@
 
                           </div>
 
+                          <!-- 评价过的电影<li> -->
                           <div class="tab-pane fade" id="reviews" data-zop-feedlistfather="1" data-reactid="158">
                             <div class="List-header" data-reactid="159">
                               <h4 class="List-headerText" data-reactid="160"><span data-reactid="161">
@@ -286,8 +229,9 @@
                           </span></h4>
                               <div class="List-headerOptions" data-reactid="164"></div>
                             </div>
-                            <div class="" data-reactid="165">
 
+                            <div class="" data-reactid="165">
+                              <!-- 评价过的电影 -->
                               <c:if test="${sessionScope.reviews != null}">
                               <c:forEach var="item"   items="${sessionScope.reviews}">
 
@@ -312,7 +256,6 @@
                                           <span property="v:dtreviewed" content="2018-03-19" class="main-meta">
                                               <fmt:formatDate type="date" value="${item.reviewtime}" pattern="yyyy-MM-dd"/>
                                           </span>
-                                          <p class="pl">你的评价！！！！</p>
                                         </div>
                                       </td>
                                     </tr>
@@ -329,15 +272,16 @@
 
                   </div>
               </div>
+                <!-- 右侧模块 -->
                 <div class="Profile-sideColumn" data-za-module="RightSideBar" data-reactid="294">
                   <div class="Card" data-reactid="295">
                     <div class="Card-header Profile-sideColumnTitle" data-reactid="296">
                       <div class="Card-headerText" data-reactid="297">推荐电影</div></div>
                   </div>
-                  <!-- react-empty: 318 -->
-
+                  <!-- 右侧电影推荐列表 -->
                   <div class="Profile-lightList" data-reactid="329">
 
+                    <!-- 右侧电影推荐列表 -->
                     <c:if test="${sessionScope.rectabs != null}">
                     <c:forEach var="item"   items="${sessionScope.rectabs}">
                         <a class="Profile-lightItem" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
@@ -348,18 +292,17 @@
         })' value="${item.movieid}" ><span class="Profile-lightItemName" data-reactid="331">${item.moviename}</span><span class="Profile-lightItemValue" data-reactid="332">${item.averating}分</span></a>
                     </c:forEach>
                     </c:if>
+
                   </div>
 
                 </div>
-            </div>
+
             </div>
           </div>
         </main>
-        <!-- react-empty: 348 -->
-        <!-- react-empty: 349 -->
-        <!-- react-empty: 350 -->
-        <!-- react-empty: 351 --></div>
+
     </div>
+
     <!-- 用户编辑资料框 -->
     <div class="modal fade" id="userEditDialog" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel">
@@ -373,7 +316,6 @@
           </div>
           <div class="modal-body">
             <form class="form-horizontal" id="edit_user_form">
-
               <div class="form-group">
                 <label for="edit_password" class="col-sm-2 control-label">用户密码</label>
                 <div class="col-sm-10">
@@ -390,60 +332,60 @@
       </div>
     </div>
 
+    <%--智能提示框--%>
+    <div class="suggest" id="search-suggest" style="display: none; top:43px;left: 155px;" >
+      <ul id="search-result">
+      </ul>
     </div>
-    <script src="https://static.zhihu.com/heifetz/vendor.d063778094ddaa35854a.js"></script>
-    <script src="https://static.zhihu.com/heifetz/main.raven.7f65994fced9bab43ea4.js" async=""></script>
-    <script src="https://static.zhihu.com/heifetz/main.app.fef597c154271aa91044.js"></script>
-    <script></script>
 
+  </body>
 
+  <%--搜索栏--%>
+  <script>
 
-    <%--搜索栏--%>
-    <script>
+      $("#inp-query").bind("keyup",function () {
+          var width = document.getElementById("inp-query").offsetWidth+"px";
+          $("#search-suggest").show().css({
+              width:width
+          });
 
-        $("#inp-query").bind("keyup",function () {
-            var width = document.getElementById("inp-query").offsetWidth+"px";
-            $("#search-suggest").show().css({
-                width:width
-            });
+          //在搜索框输入数据，提示相关搜索信息
+          var searchText=$("#inp-query").val();
 
-            //在搜索框输入数据，提示相关搜索信息
-            var searchText=$("#inp-query").val();
-
-            $("#search-result").children().remove();
-            $.post("/search",{"search_text":searchText},function (data) {
-                if (data.status == 200) {
-                    if(data.data.length!=0) {
-                        $.each(data.data, function (i, item) {
-                            var headHtml = $("#movie-tmpl").html();
-                            var formatDate = item.showyear;
-                            headHtml = headHtml.replace(/{id}/g, item.movieid);
-                            headHtml = headHtml.replace(/{cover}/g, item.picture);
-                            headHtml = headHtml.replace(/{moviename}/g, item.moviename);
-                            headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
-                            headHtml = headHtml.replace(/{director}/g, item.director);
-                            headHtml = headHtml.replace(/{averating}/s, item.averating);
-                            $("#search-result").append(headHtml);
-                        })
-                    }
-                    else
-                    {
+          $("#search-result").children().remove();
+          $.post("/search",{"search_text":searchText},function (data) {
+              if (data.status == 200) {
+                  if(data.data.length!=0) {
+                      $.each(data.data, function (i, item) {
+                          var headHtml = $("#movie-tmpl").html();
+                          var formatDate = item.showyear;
+                          headHtml = headHtml.replace(/{id}/g, item.movieid);
+                          headHtml = headHtml.replace(/{cover}/g, item.picture);
+                          headHtml = headHtml.replace(/{moviename}/g, item.moviename);
+                          headHtml = headHtml.replace(/{showyear}/g, dateFormat(formatDate,'yyyy-MM-dd'));
+                          headHtml = headHtml.replace(/{director}/g, item.director);
+                          headHtml = headHtml.replace(/{averating}/s, item.averating);
+                          $("#search-result").append(headHtml);
+                      })
+                  }
+                  else
+                  {
 //                $("#search-result").html("查无此片");
-                        alert("差不到此电影哦~")
-                    }
-                }
-                else {
+                      alert("差不到此电影哦~")
+                  }
+              }
+              else {
 //            alert("加载更多图片资源错误");
-                }
+              }
 
-            })
-        });
+          })
+      });
 
 
-    </script>
+  </script>
 
-    <%--智能提示框模板--%>
-    <script type="text/tmpl"  id="movie-tmpl">
+  <%--智能提示框模板--%>
+  <script type="text/tmpl"  id="movie-tmpl">
  <li id="searchResult">
    <div>
       <a value="{id}" style="text-decoration:none" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
@@ -470,47 +412,26 @@
 
 </script>
 
-    <!-- string cst时间转date-->
-    <script>
-        function dateFormat(date, format) {
-            date = new Date(date);
-            var o = {
-                'M+' : date.getMonth() + 1, //month
-                'd+' : date.getDate(), //day
-            };
-            if (/(y+)/.test(format))
-                format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+  <!-- string cst时间转date-->
+  <script>
+      function dateFormat(date, format) {
+          date = new Date(date);
+          var o = {
+              'M+' : date.getMonth() + 1, //month
+              'd+' : date.getDate(), //day
+          };
+          if (/(y+)/.test(format))
+              format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
 
-            for (var k in o)
-                if (new RegExp('(' + k + ')').test(format))
-                    format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
-            return format;
-        }
-    </script>
-    <%--智能提示框--%>
-    <div class="suggest" id="search-suggest" style="display: none; top:43px;left: 155px;" >
-      <ul id="search-result">
-      </ul>
-    </div>
-  </body>
-  <script type="text/javascript">
-
-      function editUser(id) {
-          $.ajax({
-              type:"get",
-              url:"/user/edit.action",
-              data:{"id":id},
-              success:function(data) {   // Movie的JSON字符串传过来就行
-                  $("#edit_userid").val(data.userid);
-                  $("#edit_username").val(data.username);
-                  $("#edit_password").val(data.password);
-                  $("#edit_registertime").val(data.registertime);
-                  $("#edit_lastlogintime").val(data.lastlogintime);
-                  $("#edit_email").val(data.email);
-              }
-          });
+          for (var k in o)
+              if (new RegExp('(' + k + ')').test(format))
+                  format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ('00' + o[k]).substr(('' + o[k]).length));
+          return format;
       }
+  </script>
 
+  <script type="text/javascript">
+      <%--更改密码--%>
       var UPDATE = {
           checkInput:function() {
 
@@ -537,7 +458,8 @@
               }
           }
       };
-
   </script>
+
+
 
 </html>

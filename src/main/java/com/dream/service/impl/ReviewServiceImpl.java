@@ -1,4 +1,4 @@
-package com.dream.service;
+package com.dream.service.impl;
 
 import com.dream.mapper.ReviewMapper;
 import com.dream.po.Review;

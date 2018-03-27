@@ -22,6 +22,9 @@ public class BrowseServiceImpl implements BrowseService {
         BrowseExample.Criteria criteria = example.createCriteria();
         criteria.andUseridEqualTo(userid);
         List<Browse> browseList = browseMapper.selectByExample(example);
-        return browseList.get(0);
+        if(browseList.size()!=0)
+         return browseList.get(0);
+        else
+            return  null;
     }
 }

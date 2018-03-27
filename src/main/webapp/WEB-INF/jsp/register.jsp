@@ -174,9 +174,13 @@
        }
        if(ids!="") {
            $.post("/customer/register/movieSubmit", {'ids': ids}, function (data) {
-               alert("提交成功");
-               $('#myModal').modal('hide');
-               location.href = "/page/login";
+               if(data=="ok") {
+                   alert("提交成功");
+                   $('#myModal').modal('hide');
+                   location.href = "/page/login";
+               }
+               else
+                   alert("请至少选择一部电影");
            })
        }
        else

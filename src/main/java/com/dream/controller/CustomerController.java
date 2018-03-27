@@ -36,23 +36,25 @@ public class CustomerController {
     @Autowired
     private TopDefaultMoviesService topDefaultMoviesService;
 
-
+    //进入注册页面
     @RequestMapping("/page/register")
     public String reg(HttpServletRequest request) {
+        //选择topmovies给用户选择她喜欢的电影
         List<Movie> list = topDefaultMoviesService.SelectRegDefaultMovie();
         request.getSession().setAttribute("TopRegDefaultMovie",list);
         return "register";
     }
-
+    //进入登录页面
     @RequestMapping("/page/login")
     public String log() {
-
         return "login";
     }
 
+    //检查用户名/邮箱是否符合规范(在没有点击注册按钮前检查)
     @RequestMapping("/customer/check/{param}/{type}")
     @ResponseBody
     public E3Result checkData(@PathVariable String param, @PathVariable Integer type)   {
+        //后端decode解码(如果前端输入的是中文)
         try {
             String str = URLDecoder.decode(param, "UTF-8");
             E3Result e3Result = registerService.checkData(str, type);
@@ -62,12 +64,13 @@ public class CustomerController {
             return  null;
         }
     }
+
+    //对用户进行注册(在全部检查完成后)
     @RequestMapping(value = "/customer/register", method = RequestMethod.POST)
     @ResponseBody
     public E3Result register(User user,HttpServletRequest request) {
-        //修改3.18 返回用户id
+        //修改3.18 返回用户id,用于用户选择喜欢的电影后把相应信息存broswer表
         Integer userId = 0;
-        System.out.print(user.getUsername());
         E3Result e3Result = registerService.register(user);
         if (e3Result.getStatus() == 200) {
             userId = (Integer) e3Result.getData();
@@ -80,32 +83,29 @@ public class CustomerController {
     @RequestMapping(value = "/customer/register/movieSubmit",method = RequestMethod.POST)
     @ResponseBody
     public String  selectedMovie(String ids ,HttpServletRequest request){
-        System.out.print(request.getParameter("ids"));
-
+        //没有选择电影则不插入数据
         if(ids== "" || ids==null){
             System.out.print("为空");
+            return  "fail";
         }
         else {
-            System.out.print(ids);
-        }
-
-        //获取的用户id
-        Integer userId = (Integer) request.getSession().getAttribute("userId");
+            //获取的用户id
+            Integer userId = (Integer) request.getSession().getAttribute("userId");
        /* //获取点击的时间戳
         String str = request.getParameter("time");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date time = format.parse(str);
 */
-        Browse browse = new Browse();
-        //存用户名
-        browse.setUserid(userId);
-        browse.setmovieids(ids);
-
-        registerService.selectFavorite(browse);
-
-        return "ok";
+            Browse browse = new Browse();
+            //存用户名
+            browse.setUserid(userId);
+            browse.setmovieids(ids);
+            registerService.selectFavorite(browse);
+            return "ok";
+        }
     }
 
+    // 判断登录账号是否存在
     @RequestMapping(value = "/customer/login", method = RequestMethod.POST)
     @ResponseBody
     public E3Result login(String username, String password, Model model, HttpServletRequest request) {
@@ -123,16 +123,24 @@ public class CustomerController {
     //用户退出
     @RequestMapping("/page/logout")
     public String pagelogout( HttpServletRequest request){
+        //注销seesion
         request.getSession().removeAttribute("user");
         return "Home";
     }
 
-
+    //点击注册按钮后先对用户名和邮箱进行检查
     @RequestMapping("/customer/checkboth/{paramName}/{paramEmail}/{type}")
     @ResponseBody
     public E3Result checkDataBoth(@PathVariable String paramName,@PathVariable String paramEmail, @PathVariable Integer type) {
-        E3Result e3Result = registerService.checkDataBoth(paramName,paramEmail,type);
-        return e3Result;
+        //后端进行decode如果前端传中文值
+        try {
+            String str = URLDecoder.decode(paramName, "UTF-8");
+            E3Result e3Result = registerService.checkDataBoth(str,paramEmail,type);
+            return e3Result;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return  null;
+        }
     }
 
 
