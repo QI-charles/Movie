@@ -19,6 +19,8 @@ public interface SimilartabMapper {
 
     List<Similartab> select5ByExample(SimilartabExample example);
 
+    List<String> select5ByExampleStr(SimilartabExample example);
+
     int updateByExampleSelective(@Param("record") Similartab record, @Param("example") SimilartabExample example);
 
     int updateByExample(@Param("record") Similartab record, @Param("example") SimilartabExample example);

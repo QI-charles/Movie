@@ -19,4 +19,6 @@ public interface RectabMapper {
     int updateByExampleSelective(@Param("record") Rectab record, @Param("example") RectabExample example);
 
     int updateByExample(@Param("record") Rectab record, @Param("example") RectabExample example);
+
+    void update(Rectab rectab);
 }

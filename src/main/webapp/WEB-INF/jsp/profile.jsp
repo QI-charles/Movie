@@ -282,8 +282,8 @@
                   <div class="Profile-lightList" data-reactid="329">
 
                     <!-- 右侧电影推荐列表 -->
-                    <c:if test="${sessionScope.rectabs != null}">
-                    <c:forEach var="item"   items="${sessionScope.rectabs}">
+                    <c:if test="${sessionScope.TopDefaultMovie != null}">
+                    <c:forEach var="item"   items="${sessionScope.TopDefaultMovie}">
                         <a class="Profile-lightItem" onclick='javascript:$.post("/Customer/Description",{id:$(this).attr("value")}, function (data) {
             if (data=="success") {
                 location.href = "/MovieDescription"

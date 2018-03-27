@@ -24,4 +24,14 @@ public class RectabServiceImpl implements RectabService {
         else
             return null;
     }
+
+    @Override
+    public int insert(Rectab rectab) {
+        return rectabMapper.insert(rectab);
+    }
+
+    @Override
+    public void update(Rectab rectab) {
+        rectabMapper.update(rectab);
+    }
 }

@@ -64,7 +64,8 @@ public class IndexController {
                         break;
                     Integer movieid = Integer.parseInt(strmovieid);
                     Movie movie = movieService.getMovieByMovieid(movieid);
-                    movies.add(movie);
+                    if(movie !=null)
+                      movies.add(movie);
                     i++;
                 }
             }
@@ -76,7 +77,7 @@ public class IndexController {
                 movies.addAll(temp);
 
             }
-            //将电影信息放在map中转Json再进入session给前端
+            //将电影信息放在map中转Json再进入session给前端 map中存放movieid
             request.getSession().setAttribute("TopDefaultMovie",movies);
             Map moviemap = new HashMap();
             for(int i = 0 ; i < movies.size() ; i++) {
@@ -197,6 +198,22 @@ public class IndexController {
         int userid = Integer.parseInt(request.getParameter("userid"));
         int movieid = Integer.parseInt(request.getParameter("movieid"));
         Double star = Double.parseDouble(request.getParameter("star"));
+        if(star>=3.5) {
+            // 查询本地推荐表
+            String movieds = movieService.Select5SimilarMovies(movieid);
+            // 判断数据库是否有该userid
+            Rectab rectab = rectabService.getRectabByUserId(userid);
+            Rectab rec = new Rectab();
+            rec.setUserid(userid);
+            rec.setMovieids(movieds);
+            // 没有则插入数据库
+            if (null == rectab) {
+                rectabService.insert(rec);
+            } else {
+                rectabService.update(rec);
+            }
+
+        }
         String str = request.getParameter("time");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date time = format.parse(str);
@@ -273,19 +290,6 @@ public class IndexController {
         request.getSession().setAttribute("movies", movies);
         request.getSession().setAttribute("reviews", reviews);
 
-        // TODO：根据推荐表取值
-        List<Movie> rectabmovie = new ArrayList<Movie>();
-        Rectab rectab = rectabService.getRectabByUserId(userid);
-        if (rectab!=null &&null != rectab.getMovieids()) {
-            String movieids =rectab.getMovieids();
-            String[] strmovieids = movieids.split(",");
-            for (String strmovieid: strmovieids) {
-                Integer movieid = Integer.parseInt(strmovieid);
-                Movie movie = movieService.getMovieByMovieid(movieid);
-                rectabmovie.add(movie);
-            }
-        }
-        request.getSession().setAttribute("rectabs", rectabmovie);
         return "success";
     }
    //个人中心按钮

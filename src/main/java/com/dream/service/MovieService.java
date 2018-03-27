@@ -18,4 +18,6 @@ public interface MovieService {
     Movie getMovieByMovieid(Integer id);
     //电影名称搜索电影排序时用
     List<Movie> selectMoviesByName(String moviename);
+    //用户评价将相似电影写入recab
+    String Select5SimilarMovies(int id);
 }

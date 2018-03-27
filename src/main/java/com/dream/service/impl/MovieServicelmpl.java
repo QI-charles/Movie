@@ -8,7 +8,7 @@ import com.dream.po.*;
 import com.dream.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,5 +84,14 @@ public class MovieServicelmpl implements MovieService {
         List<Movie> list = moivemapper.selectByNameLike(moviename);
         return list;
     }
-
+    @Override
+    public String Select5SimilarMovies(int id) {
+        SimilartabExample similartabExample = new SimilartabExample();
+        SimilartabExample.Criteria criteria = similartabExample.createCriteria();
+        criteria.andItemid1EqualTo(id);
+        similartabExample.setOrderByClause("similar");
+        List<String> movieStr = similartabMapper.select5ByExampleStr(similartabExample);
+        String movieRet = StringUtils.join(movieStr, ",");
+        return movieRet;
+    }
 }
